@@ -34,11 +34,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;width:100%;overflow:hidden;font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif;font-size:var(--font-size);background:#1a1a1a;-webkit-user-select:none;user-select:none;display:flex;align-items:center;justify-content:center;}
 #phone-container{display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
-#phone{position:relative;width:100%;height:100%;max-width:100vw;max-height:100vh;background:var(--wallpaper);display:flex;flex-direction:column;overflow:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);transform:scale(var(--phone-scale));transform-origin:center center;transition:transform 0.3s ease;}
-#phone.preset-phone{width:390px;height:844px;}
-#phone.preset-tablet{width:768px;height:1024px;}
-#phone.preset-desktop{width:1200px;height:800px;}
-#phone.fullscreen-mode{width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;transform:none!important;}
+#phone{position:relative;width:100%;height:100%;max-width:100vw;max-height:100vh;background:var(--wallpaper);display:flex;flex-direction:column;overflow:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);transform-origin:center center;transition:transform 0.3s ease;}
 #statusbar{height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:transparent;}
 .sb-time{font-size:calc(var(--font-size)*1);font-weight:600;color:var(--m-text);}
 .sb-icons{display:flex;align-items:center;gap:6px;font-size:calc(var(--font-size)*0.8);color:var(--m-text2);}
@@ -58,7 +54,6 @@ html,body{height:100%;width:100%;overflow:hidden;font-family:-apple-system,'Ping
 .app-icon-img i{font-size:24px;}
 .app-icon-label{font-size:calc(var(--font-size)*0.73);color:var(--m-text);font-weight:400;text-align:center;}
 
-/* Desktop Widget */
 .home-widget{margin:20px 28px;padding:16px;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-radius:16px;border:1px solid rgba(0,0,0,0.05);min-height:120px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;}
 .home-widget:hover{background:rgba(255,255,255,0.95);}
 .home-widget.has-image{padding:0;overflow:hidden;}
@@ -238,7 +233,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .diary-date{font-size:calc(var(--font-size)*0.8);color:#a09080;margin-bottom:8px;}
 .diary-content{font-size:var(--font-size);color:#5a5040;line-height:1.7;font-family:Georgia,serif;}
 
-/* KK - char phone desktop */
 .char-desktop{background:var(--wallpaper);border-radius:16px;overflow:hidden;border:1px solid var(--m-border);min-height:300px;}
 .char-desktop-header{padding:12px 16px 8px;display:flex;justify-content:space-between;align-items:center;}
 .char-desktop-time{font-size:24px;font-weight:200;color:var(--m-text);}
@@ -251,7 +245,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .char-app-label{font-size:11px;color:var(--m-text2);}
 .char-desktop-gen-btn{margin:0 16px 16px;width:calc(100% - 32px);padding:10px;background:var(--m-text);color:white;border:none;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;}
 
-/* char phone apps */
 .char-app-screen{background:var(--m-bg);border-radius:16px;overflow:hidden;border:1px solid var(--m-border);}
 .char-app-topbar{height:44px;display:flex;align-items:center;padding:0 12px;background:rgba(255,255,255,0.9);border-bottom:0.5px solid var(--m-border);gap:8px;}
 .char-app-back{background:none;border:none;color:var(--m-text2);font-size:20px;cursor:pointer;}
@@ -259,31 +252,27 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .char-app-title{font-size:14px;font-weight:600;color:var(--m-text);display:flex;align-items:center;gap:6px;}
 .char-app-title i{font-size:16px;}
 
-/* kk chat list */
 .kk-chat-item{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:0.5px solid var(--m-border);cursor:pointer;}
 .kk-chat-item:last-child{border-bottom:none;}
 .kk-chat-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,#e0e0e0,#d0d0d0);flex-shrink:0;color:var(--m-text2);}
 .kk-chat-avatar i{font-size:18px;}
 .kk-chat-name{font-size:14px;color:var(--m-text);font-weight:500;}
 .kk-chat-msg{font-size:12px;color:var(--m-text3);margin-top:2px;}
-/* kk memo */
 .kk-memo{padding:16px;font-size:14px;color:#5a5040;line-height:1.7;font-family:Georgia,serif;background:#fffef8;min-height:200px;}
-/* kk health */
 .kk-health-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:16px;}
 .kk-health-item{background:white;border-radius:10px;padding:12px;text-align:center;border:0.5px solid var(--m-border);}
 .kk-health-value{font-size:calc(var(--font-size)*1.33);font-weight:600;color:var(--m-text);}
 .kk-health-label{font-size:calc(var(--font-size)*0.73);color:var(--m-text3);margin-top:4px;}
 
-/* msg ctx */
 .msg-ctx-menu{position:fixed;z-index:200;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border-radius:12px;border:0.5px solid var(--m-border);box-shadow:0 8px 32px rgba(0,0,0,0.12);overflow:hidden;min-width:120px;display:none;}
 .msg-ctx-item{padding:12px 16px;font-size:var(--font-size);color:var(--m-text);cursor:pointer;border-bottom:0.5px solid var(--m-border);}
 .msg-ctx-item:last-child{border-bottom:none;}
 .msg-ctx-item:active{background:rgba(0,0,0,0.03);}
-.avatar-opt{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--font-size)*1.47);cursor:pointer;background:var(--m-bg);border:2px solid transparent;transition:border-color 0.15s;color:var(--m-text2);}
+.avatar-opt{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--font-size)*1.47);cursor:pointer;background:var(--m-bg);border:2px solid transparent;transition:border-color 0.15s;color:var(--m-text2);overflow:hidden;}
 .avatar-opt.selected{border-color:var(--m-text);}
 .avatar-opt i{font-size:22px;}
+.avatar-opt img{width:100%;height:100%;object-fit:cover;}
 
-/* FORUM */
 #screen-forum{background:var(--m-bg);}
 .forum-post{background:rgba(255,255,255,0.9);margin:0 12px 12px;border-radius:12px;padding:14px;border:0.5px solid rgba(0,0,0,0.04);}
 .forum-post-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -305,7 +294,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .forum-worldview-banner{background:rgba(255,255,255,0.7);margin:8px 12px;border-radius:10px;padding:10px 14px;font-size:12px;color:var(--m-text3);border:0.5px solid var(--m-border);display:flex;align-items:center;gap:6px;}
 .forum-worldview-banner i{font-size:14px;}
 
-/* FANFIC */
 #screen-fanfic{background:var(--m-bg);}
 .fanfic-result{background:#fffef8;margin:0 12px 12px;border-radius:12px;padding:16px;border:0.5px solid rgba(200,180,150,0.3);}
 .fanfic-title{font-size:14px;font-weight:600;color:#5a4030;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
@@ -320,10 +308,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .style-tag{padding:6px 12px;border-radius:20px;font-size:12px;border:1px solid var(--m-border2);cursor:pointer;background:white;color:var(--m-text2);transition:all 0.15s;}
 .style-tag.selected{background:var(--m-text);color:white;border-color:var(--m-text);}
 
-/* offline preset */
 .offline-preset-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#fff;border-radius:8px;margin-bottom:6px;border:0.5px solid var(--m-border);}
 
-/* Wallpaper upload button */
 .wallpaper-upload-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--m-bg2);border:1px dashed var(--m-border2);border-radius:10px;cursor:pointer;color:var(--m-text2);font-size:14px;transition:all 0.2s;}
 .wallpaper-upload-btn:hover{background:var(--m-bg3);border-color:var(--m-text3);}
 .wallpaper-upload-btn i{font-size:18px;}
@@ -332,19 +318,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .wallpaper-preview-remove{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,0.5);color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .wallpaper-preview-remove i{font-size:12px;}
 
-/* Display settings styles */
-.display-preset-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
-.display-preset-item{padding:12px;border-radius:10px;border:2px solid var(--m-border);cursor:pointer;text-align:center;transition:all 0.2s;background:white;}
-.display-preset-item.selected{border-color:var(--m-text);background:rgba(0,0,0,0.02);}
-.display-preset-item i{font-size:24px;color:var(--m-text2);margin-bottom:6px;display:block;}
-.display-preset-item span{font-size:12px;color:var(--m-text);font-weight:500;}
-.display-preset-item small{font-size:10px;color:var(--m-text3);display:block;margin-top:2px;}
-.display-tip-box{background:rgba(0,0,0,0.03);border-radius:10px;padding:12px;margin:16px 0;font-size:12px;color:var(--m-text3);line-height:1.6;}
-.display-tip-box i{margin-right:6px;color:var(--m-text2);}
-.display-tip-box ul{margin:8px 0 0 16px;padding:0;}
-.display-tip-box li{margin:4px 0;}
+.avatar-upload-wrapper{position:relative;display:inline-block;}
+.avatar-upload-btn{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#e0e0e0,#d0d0d0);display:flex;align-items:center;justify-content:center;cursor:pointer;border:3px solid white;overflow:hidden;color:var(--m-text2);}
+.avatar-upload-btn i{font-size:32px;}
+.avatar-upload-btn img{width:100%;height:100%;object-fit:cover;}
+.avatar-upload-badge{position:absolute;bottom:0;right:0;width:24px;height:24px;border-radius:50%;background:var(--m-text);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid white;}
 
-/* Screen adapt */
+.model-list-container{max-height:200px;overflow-y:auto;border:0.5px solid var(--m-border);border-radius:10px;margin-top:8px;}
+.model-item{padding:10px 12px;border-bottom:0.5px solid var(--m-border);cursor:pointer;font-size:13px;color:var(--m-text);}
+.model-item:last-child{border-bottom:none;}
+.model-item:hover{background:rgba(0,0,0,0.02);}
+.model-item.selected{background:rgba(0,0,0,0.05);font-weight:500;}
+
 @media(max-width:390px){
   .home-time{font-size:60px;}
   .home-apps{gap:16px 18px;padding:0 20px;}
@@ -422,20 +407,36 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
         <div class="topbar">
           <button class="topbar-btn" onclick="goHome()" style="background:none"><i class="fa-solid fa-chevron-left"></i></button>
           <span class="topbar-title">消息</span>
-          <button class="topbar-btn" onclick="showNewChatMenu()"><i class="fa-solid fa-plus"></i></button>
+          <button class="topbar-btn" onclick="startNewChatFlow()"><i class="fa-solid fa-plus"></i></button>
         </div>
         <div class="scroll-area" id="contacts-list"></div>
         <div class="nav-bar">
-          <div class="nav-item active" onclick="switchTab('contacts')" id="nav-contacts"><i class="fa-regular fa-comment"></i>联系人</div>
+          <div class="nav-item active" onclick="switchTab('contacts')" id="nav-contacts"><i class="fa-regular fa-comment"></i>消息</div>
+          <div class="nav-item" onclick="switchTab('roles')" id="nav-roles"><i class="fa-solid fa-masks-theater"></i>角色</div>
           <div class="nav-item" onclick="switchTab('moments')" id="nav-moments"><i class="fa-regular fa-compass"></i>朋友圈</div>
           <div class="nav-item" onclick="switchTab('mine')" id="nav-mine"><i class="fa-regular fa-user"></i>我的</div>
+        </div>
+      </div>
+      <!-- ROLES TAB -->
+      <div id="tab-roles" style="display:none;flex-direction:column;height:100%">
+        <div class="topbar">
+          <span class="topbar-title">角色</span>
+          <button class="topbar-btn" onclick="showAddRole()"><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div class="scroll-area" id="roles-list"></div>
+        <div class="nav-bar">
+          <div class="nav-item" onclick="switchTab('contacts')" id="nav-contacts4"><i class="fa-regular fa-comment"></i>消息</div>
+          <div class="nav-item active" onclick="switchTab('roles')" id="nav-roles4"><i class="fa-solid fa-masks-theater"></i>角色</div>
+          <div class="nav-item" onclick="switchTab('moments')" id="nav-moments4"><i class="fa-regular fa-compass"></i>朋友圈</div>
+          <div class="nav-item" onclick="switchTab('mine')" id="nav-mine4"><i class="fa-regular fa-user"></i>我的</div>
         </div>
       </div>
       <div id="tab-moments" style="display:none;flex-direction:column;height:100%">
         <div class="topbar"><span class="topbar-title">朋友圈</span><button class="topbar-btn" onclick="showNewMoment()"><i class="fa-solid fa-plus"></i></button></div>
         <div class="scroll-area" id="moments-list"><div class="section-divider"></div></div>
         <div class="nav-bar">
-          <div class="nav-item" onclick="switchTab('contacts')" id="nav-contacts2"><i class="fa-regular fa-comment"></i>联系人</div>
+          <div class="nav-item" onclick="switchTab('contacts')" id="nav-contacts2"><i class="fa-regular fa-comment"></i>消息</div>
+          <div class="nav-item" onclick="switchTab('roles')" id="nav-roles2"><i class="fa-solid fa-masks-theater"></i>角色</div>
           <div class="nav-item active" onclick="switchTab('moments')" id="nav-moments2"><i class="fa-regular fa-compass"></i>朋友圈</div>
           <div class="nav-item" onclick="switchTab('mine')" id="nav-mine2"><i class="fa-regular fa-user"></i>我的</div>
         </div>
@@ -450,11 +451,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
           <div class="section-divider"></div>
           <div class="list-card">
             <div class="list-item" onclick="openEditProfile()"><div class="list-item-icon"><i class="fa-regular fa-user"></i></div><div class="list-item-content"><div class="list-item-title">编辑资料</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
-            <div class="list-item" onclick="openMyRoles()"><div class="list-item-icon"><i class="fa-solid fa-masks-theater"></i></div><div class="list-item-content"><div class="list-item-title">用户面具</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
+            <div class="list-item" onclick="openMyMasks()"><div class="list-item-icon"><i class="fa-solid fa-masks-theater"></i></div><div class="list-item-content"><div class="list-item-title">用户面具</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
           </div>
         </div>
         <div class="nav-bar">
-          <div class="nav-item" onclick="switchTab('contacts')" id="nav-contacts3"><i class="fa-regular fa-comment"></i>联系人</div>
+          <div class="nav-item" onclick="switchTab('contacts')" id="nav-contacts3"><i class="fa-regular fa-comment"></i>消息</div>
+          <div class="nav-item" onclick="switchTab('roles')" id="nav-roles3"><i class="fa-solid fa-masks-theater"></i>角色</div>
           <div class="nav-item" onclick="switchTab('moments')" id="nav-moments3"><i class="fa-regular fa-compass"></i>朋友圈</div>
           <div class="nav-item active" onclick="switchTab('mine')" id="nav-mine3"><i class="fa-regular fa-user"></i>我的</div>
         </div>
@@ -589,7 +591,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
           <div class="list-item" onclick="openScreen('screen-api')"><div class="list-item-icon"><i class="fa-solid fa-plug"></i></div><div class="list-item-content"><div class="list-item-title">API 配置</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
           <div class="list-item" onclick="openScreen('screen-memory')"><div class="list-item-icon"><i class="fa-solid fa-brain"></i></div><div class="list-item-content"><div class="list-item-title">记忆</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
           <div class="list-item" onclick="openScreen('screen-appearance')"><div class="list-item-icon"><i class="fa-solid fa-palette"></i></div><div class="list-item-content"><div class="list-item-title">外观</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
-          <div class="list-item" onclick="openScreen('screen-display')"><div class="list-item-icon"><i class="fa-solid fa-display"></i></div><div class="list-item-content"><div class="list-item-title">界面设置</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
         </div>
       </div>
     </div>
@@ -605,7 +606,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
         <div class="form-group"><div class="form-label">服务商</div><select class="api-select" id="api-provider" onchange="updateProviderDefault()"><option>OpenAI</option><option selected>Anthropic (Claude)</option><option>DeepSeek</option><option>OpenRouter</option></select></div>
         <div class="form-group"><div class="form-label">API 基础地址</div><input class="form-input" id="api-base" value="https://api.anthropic.com/v1"></div>
         <div class="form-group"><div class="form-label">API Key</div><input class="form-input" id="api-key" type="password" placeholder="sk-…"></div>
-        <div class="form-group"><div class="form-label">模型</div><input class="form-input" id="api-model" value="claude-sonnet-4-6"></div>
+        <div class="form-group">
+          <div class="form-label">模型</div>
+          <div style="display:flex;gap:8px">
+            <input class="form-input" id="api-model" value="claude-sonnet-4-6" style="flex:1">
+            <button class="secondary-btn" style="width:auto;padding:10px 16px" onclick="fetchModels()"><i class="fa-solid fa-rotate"></i> 拉取</button>
+          </div>
+          <div id="model-list-container" style="display:none"></div>
+        </div>
         <button class="primary-btn" onclick="saveAPI()">保存设置</button>
         <button class="secondary-btn" style="margin-top:8px" onclick="testAPI()">测试连接</button>
         <div style="margin-top:24px;border-top:0.5px solid var(--m-border);padding-top:16px">
@@ -700,91 +708,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       </div>
     </div>
 
-    <!-- DISPLAY SETTINGS -->
-    <div class="screen" id="screen-display">
-      <div class="topbar">
-        <button class="topbar-back" onclick="goBack('screen-settings')"><i class="fa-solid fa-chevron-left"></i> 设置</button>
-        <span class="topbar-title">界面设置</span>
-        <button class="sheet-btn" onclick="saveDisplaySettings()">保存</button>
-      </div>
-      <div class="scroll-area" style="padding:16px">
-        <!-- Fullscreen Toggle -->
-        <div class="form-group">
-          <div class="form-label">全屏模式</div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:white;border-radius:10px;border:0.5px solid var(--m-border)">
-            <div>
-              <div style="font-size:14px;color:var(--m-text)">开启全屏</div>
-              <div style="font-size:11px;color:var(--m-text3);margin-top:2px">铺满整个屏幕</div>
-            </div>
-            <div class="toggle" id="fullscreen-toggle" onclick="toggleFullscreenMode()"></div>
-          </div>
-        </div>
-
-        <!-- Screen Preset -->
-        <div class="form-group">
-          <div class="form-label">屏幕适配预设</div>
-          <div class="display-preset-grid">
-            <div class="display-preset-item selected" data-preset="auto" onclick="selectDisplayPreset('auto')">
-              <i class="fa-solid fa-wand-magic-sparkles"></i>
-              <span>自动</span>
-              <small>智能适配</small>
-            </div>
-            <div class="display-preset-item" data-preset="phone" onclick="selectDisplayPreset('phone')">
-              <i class="fa-solid fa-mobile-screen"></i>
-              <span>手机</span>
-              <small>390×844</small>
-            </div>
-            <div class="display-preset-item" data-preset="tablet" onclick="selectDisplayPreset('tablet')">
-              <i class="fa-solid fa-tablet-screen-button"></i>
-              <span>平板</span>
-              <small>768×1024</small>
-            </div>
-            <div class="display-preset-item" data-preset="desktop" onclick="selectDisplayPreset('desktop')">
-              <i class="fa-solid fa-desktop"></i>
-              <span>桌面</span>
-              <small>1200×800</small>
-            </div>
-          </div>
-        </div>
-
-        <!-- Scale Slider -->
-        <div class="form-group">
-          <div class="form-label">缩放比例</div>
-          <div class="range-wrap">
-            <span style="font-size:12px;color:var(--m-text3)">50%</span>
-            <input type="range" min="50" max="150" step="5" value="100" oninput="previewScale(this.value)" id="scale-slider">
-            <span style="font-size:12px;color:var(--m-text3)">150%</span>
-            <span class="range-val" id="scale-val">100%</span>
-          </div>
-        </div>
-
-        <!-- Browser Fullscreen Button -->
-        <div class="form-group">
-          <button class="primary-btn" onclick="enterBrowserFullscreen()">
-            <i class="fa-solid fa-expand" style="margin-right:8px"></i>进入浏览器全屏
-          </button>
-        </div>
-
-        <!-- Tips -->
-        <div class="display-tip-box">
-          <i class="fa-solid fa-lightbulb"></i><strong>隐藏地址栏提示</strong>
-          <ul>
-            <li><strong>iOS Safari：</strong>向上滑动页面可自动隐藏地址栏，或添加到主屏幕使用</li>
-            <li><strong>Android Chrome：</strong>点击菜单 → "添加到主屏幕"，以应用模式打开</li>
-            <li><strong>桌面浏览器：</strong>按 F11 或点击上方"进入浏览器全屏"按钮</li>
-            <li><strong>PWA模式：</strong>将此页面添加到主屏幕，可获得最佳全屏体验</li>
-          </ul>
-        </div>
-
-        <!-- Exit Fullscreen Button (shown when in fullscreen) -->
-        <div class="form-group" id="exit-fullscreen-group" style="display:none">
-          <button class="secondary-btn" onclick="exitBrowserFullscreen()">
-            <i class="fa-solid fa-compress" style="margin-right:8px"></i>退出浏览器全屏
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- WORLDBOOK -->
     <div class="screen" id="screen-worldbook">
       <div class="topbar">
@@ -851,8 +774,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       <div class="kk-health-grid" id="kk-health-content"></div>
     </div>
 
-    <!-- MY ROLES -->
-    <div class="screen" id="screen-my-roles">
+    <!-- MY MASKS -->
+    <div class="screen" id="screen-my-masks">
       <div class="topbar">
         <button class="topbar-back" onclick="goBack('screen-chat')"><i class="fa-solid fa-chevron-left"></i> 返回</button>
         <span class="topbar-title">用户面具</span>
@@ -960,9 +883,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       </div>
     </div>
 
-  </div><!-- /main -->
-</div><!-- /phone -->
-</div><!-- /phone-container -->
+  </div>
+</div>
+</div>
 
 <!-- OVERLAYS -->
 <div class="overlay center" id="overlay-new-chat-step1">
@@ -987,25 +910,27 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<div class="overlay" id="overlay-new-contact">
+<!-- Add Role Overlay -->
+<div class="overlay" id="overlay-add-role">
   <div class="sheet" style="max-height:90vh">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-new-contact')">取消</button>
-      <div class="sheet-title">新建联系人</div>
-      <button class="sheet-btn" onclick="saveNewContact()">保存</button>
+      <button class="sheet-btn" onclick="closeOverlay('overlay-add-role')">取消</button>
+      <div class="sheet-title">新建角色</div>
+      <button class="sheet-btn" onclick="saveNewRole()">保存</button>
     </div>
     <div class="sheet-content">
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px" id="nc-emoji-picker">
-        <div class="avatar-opt selected" onclick="selectNcEmoji(this,'robot')"><i class="fa-solid fa-robot"></i></div>
-        <div class="avatar-opt" onclick="selectNcEmoji(this,'cat')"><i class="fa-solid fa-cat"></i></div>
-        <div class="avatar-opt" onclick="selectNcEmoji(this,'dog')"><i class="fa-solid fa-dog"></i></div>
-        <div class="avatar-opt" onclick="selectNcEmoji(this,'ghost')"><i class="fa-solid fa-ghost"></i></div>
-        <div class="avatar-opt" onclick="selectNcEmoji(this,'hat-wizard')"><i class="fa-solid fa-hat-wizard"></i></div>
-        <div class="avatar-opt" onclick="selectNcEmoji(this,'user-astronaut')"><i class="fa-solid fa-user-astronaut"></i></div>
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <div class="avatar-upload-wrapper">
+          <div class="avatar-upload-btn" id="role-avatar-preview" onclick="document.getElementById('role-avatar-input').click()">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
+        </div>
+        <input type="file" id="role-avatar-input" accept="image/*" style="display:none" onchange="previewRoleAvatar(this)">
       </div>
-      <div class="form-group"><div class="form-label">姓名</div><input class="form-input" id="nc-name" placeholder="角色名称"></div>
-      <div class="form-group"><div class="form-label">角色设定</div><textarea class="form-textarea" id="nc-persona" style="min-height:120px" placeholder="性格、背景…"></textarea></div>
+      <div class="form-group"><div class="form-label">角色名称</div><input class="form-input" id="role-name" placeholder="角色名称"></div>
+      <div class="form-group"><div class="form-label">角色设定</div><textarea class="form-textarea" id="role-persona" style="min-height:120px" placeholder="性格、背景…"></textarea></div>
     </div>
   </div>
 </div>
@@ -1019,6 +944,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       <button class="sheet-btn" onclick="saveMask()">保存</button>
     </div>
     <div class="sheet-content">
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <div class="avatar-upload-wrapper">
+          <div class="avatar-upload-btn" id="mask-avatar-preview" onclick="document.getElementById('mask-avatar-input').click()">
+            <i class="fa-regular fa-face-smile"></i>
+          </div>
+          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
+        </div>
+        <input type="file" id="mask-avatar-input" accept="image/*" style="display:none" onchange="previewMaskAvatar(this)">
+      </div>
       <div class="form-group"><div class="form-label">名称</div><input class="form-input" id="mask-name" placeholder="例：学生小明"></div>
       <div class="form-group"><div class="form-label">人设</div><textarea class="form-textarea" id="mask-persona" placeholder="身份背景…"></textarea></div>
     </div>
@@ -1081,7 +1015,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- Offline Settings + Preset -->
 <div class="overlay" id="overlay-offline-settings">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -1120,7 +1053,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- Add Offline Preset -->
 <div class="overlay" id="overlay-add-offline-preset">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -1155,7 +1087,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
-<!-- New Forum Post -->
 <div class="overlay" id="overlay-new-post">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -1193,7 +1124,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 const STORAGE_KEY = 'ai_roleplay_phone_data';
 
 const defaultState = {
-  contacts:[{id:1,name:'AI助手',icon:'robot',avatarImg:null,persona:'你是一个智能AI助手，友善、专业、乐于助人。回复要有活人感，语气自然，可以适当使用网络流行语和表情。',mountedWBIds:[],messages:[],maskId:null,lastSummaryIdx:0,innerThought:'',kkData:null}],
+  contacts:[],
   masks:[],
   worldbook:[],
   coreMemories:[],
@@ -1210,7 +1141,6 @@ const defaultState = {
   api:{provider:'Anthropic (Claude)',base:'https://api.anthropic.com/v1',key:'',model:'claude-sonnet-4-6'},
   apiPresets:[],
   appearance:{fontSize:15,theme:'',homeWallpaper:null},
-  displaySettings:{fullscreen:false,preset:'auto',scale:100},
   offlineSettings:{wordCount:1000,style:'immersive'},
   offlinePresets:[],
   quoteText:'',
@@ -1222,7 +1152,9 @@ const defaultState = {
   fanficSelectedCharId:null,
   fanficSelectedMaskId:null,
   fanficSelectedStyle:'现代都市',
-  widgetImage:null
+  widgetImage:null,
+  pendingRoleAvatar:null,
+  pendingMaskAvatar:null
 };
 
 let state = loadState();
@@ -1232,7 +1164,7 @@ function loadState() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      return {...defaultState, ...parsed, displaySettings: {...defaultState.displaySettings, ...(parsed.displaySettings || {})}};
+      return {...defaultState, ...parsed};
     }
   } catch (e) {
     console.error('Failed to load state:', e);
@@ -1277,161 +1209,43 @@ function updateClock(){
 }
 updateClock();setInterval(updateClock,10000);
 
-// Apply saved settings on load
 function applySettings() {
-  // Apply theme
   if (state.appearance.theme) {
     document.getElementById('phone').className = state.appearance.theme;
   }
-  // Apply font size
   if (state.appearance.fontSize) {
     document.documentElement.style.setProperty('--font-size', state.appearance.fontSize + 'px');
   }
-  // Apply home wallpaper
   if (state.appearance.homeWallpaper) {
     document.getElementById('screen-home').style.background = `url(${state.appearance.homeWallpaper}) center/cover`;
   }
-  // Apply display settings
-  applyDisplaySettings();
-  // Apply widget image
   if (state.widgetImage) {
     const widget = document.getElementById('home-widget');
     widget.classList.add('has-image');
     widget.innerHTML = `<img src="${state.widgetImage}" alt="widget">`;
   }
-  // Apply API settings
   if (state.api.provider) document.getElementById('api-provider').value = state.api.provider;
   if (state.api.base) document.getElementById('api-base').value = state.api.base;
   if (state.api.key) document.getElementById('api-key').value = state.api.key;
   if (state.api.model) document.getElementById('api-model').value = state.api.model;
-}
-
-// Display Settings Functions
-function applyDisplaySettings() {
-  const phone = document.getElementById('phone');
-  const ds = state.displaySettings;
   
-  // Remove all preset classes
-  phone.classList.remove('preset-phone', 'preset-tablet', 'preset-desktop', 'fullscreen-mode');
-  
-  // Apply fullscreen mode
-  if (ds.fullscreen) {
-    phone.classList.add('fullscreen-mode');
-    document.documentElement.style.setProperty('--phone-scale', '1');
-  } else {
-    // Apply preset
-    if (ds.preset === 'phone') {
-      phone.classList.add('preset-phone');
-    } else if (ds.preset === 'tablet') {
-      phone.classList.add('preset-tablet');
-    } else if (ds.preset === 'desktop') {
-      phone.classList.add('preset-desktop');
+  // Update profile display
+  if (state.profileData) {
+    document.getElementById('mine-name-display').textContent = state.profileData.nickname || '用户';
+    document.getElementById('mine-sig-display').textContent = state.profileData.sig || '点击编辑个人信息';
+    const mineAvatar = document.getElementById('mine-avatar-display');
+    if (state.profileData.avatarImg) {
+      mineAvatar.innerHTML = `<img src="${state.profileData.avatarImg}">`;
+    } else {
+      mineAvatar.innerHTML = `<i class="${getIconClass(state.profileData.icon)}"></i>`;
     }
-    // Apply scale
-    const scale = (ds.scale || 100) / 100;
-    document.documentElement.style.setProperty('--phone-scale', scale);
   }
 }
-
-function initDisplaySettings() {
-  const ds = state.displaySettings;
-  
-  // Set fullscreen toggle
-  const toggle = document.getElementById('fullscreen-toggle');
-  if (ds.fullscreen) {
-    toggle.classList.add('on');
-  } else {
-    toggle.classList.remove('on');
-  }
-  
-  // Set preset selection
-  document.querySelectorAll('.display-preset-item').forEach(item => {
-    item.classList.toggle('selected', item.dataset.preset === ds.preset);
-  });
-  
-  // Set scale slider
-  document.getElementById('scale-slider').value = ds.scale || 100;
-  document.getElementById('scale-val').textContent = (ds.scale || 100) + '%';
-  
-  // Update exit fullscreen button visibility
-  updateFullscreenButtonVisibility();
-}
-
-function toggleFullscreenMode() {
-  const toggle = document.getElementById('fullscreen-toggle');
-  toggle.classList.toggle('on');
-  state.displaySettings.fullscreen = toggle.classList.contains('on');
-  applyDisplaySettings();
-}
-
-function selectDisplayPreset(preset) {
-  state.displaySettings.preset = preset;
-  document.querySelectorAll('.display-preset-item').forEach(item => {
-    item.classList.toggle('selected', item.dataset.preset === preset);
-  });
-  // Turn off fullscreen when selecting a preset
-  if (preset !== 'auto') {
-    state.displaySettings.fullscreen = false;
-    document.getElementById('fullscreen-toggle').classList.remove('on');
-  }
-  applyDisplaySettings();
-}
-
-function previewScale(value) {
-  document.getElementById('scale-val').textContent = value + '%';
-  state.displaySettings.scale = parseInt(value);
-  if (!state.displaySettings.fullscreen) {
-    document.documentElement.style.setProperty('--phone-scale', value / 100);
-  }
-}
-
-function saveDisplaySettings() {
-  autoSave();
-  showAlert('界面设置已保存');
-}
-
-function enterBrowserFullscreen() {
-  const elem = document.documentElement;
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) {
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) {
-    elem.msRequestFullscreen();
-  }
-  showAlert('已进入浏览器全屏');
-  setTimeout(updateFullscreenButtonVisibility, 500);
-}
-
-function exitBrowserFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  }
-  showAlert('已退出浏览器全屏');
-  setTimeout(updateFullscreenButtonVisibility, 500);
-}
-
-function updateFullscreenButtonVisibility() {
-  const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-  const exitGroup = document.getElementById('exit-fullscreen-group');
-  if (exitGroup) {
-    exitGroup.style.display = isFullscreen ? 'block' : 'none';
-  }
-}
-
-// Listen for fullscreen changes
-document.addEventListener('fullscreenchange', updateFullscreenButtonVisibility);
-document.addEventListener('webkitfullscreenchange', updateFullscreenButtonVisibility);
-document.addEventListener('msfullscreenchange', updateFullscreenButtonVisibility);
 
 let screenStack=['screen-home'];
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id)?.classList.add('active');}
 function openApp(app){
-  if(app==='chat'){screenStack=['screen-home','screen-chat'];showScreen('screen-chat');renderContacts();}
+  if(app==='chat'){screenStack=['screen-home','screen-chat'];showScreen('screen-chat');renderContacts();renderRolesList();}
   else if(app==='settings'){screenStack=['screen-home','screen-settings'];showScreen('screen-settings');}
   else if(app==='worldbook'){screenStack=['screen-home','screen-worldbook'];showScreen('screen-worldbook');renderWBList();}
   else if(app==='diary'){screenStack=['screen-home','screen-diary'];showScreen('screen-diary');renderDiaryCharSelect();renderDiaries();}
@@ -1439,16 +1253,23 @@ function openApp(app){
   else if(app==='forum'){screenStack=['screen-home','screen-forum-setup'];showScreen('screen-forum-setup');initForumSetup();}
   else if(app==='fanfic'){screenStack=['screen-home','screen-fanfic-setup'];showScreen('screen-fanfic-setup');initFanficSetup();}
 }
-function openScreen(id){screenStack.push(id);showScreen(id);if(id==='screen-core-mem')renderMemList('core');if(id==='screen-general-mem')renderMemList('general');if(id==='screen-my-roles')renderMasksList();if(id==='screen-api')renderApiPresets();if(id==='screen-display')initDisplaySettings();}
+function openScreen(id){screenStack.push(id);showScreen(id);if(id==='screen-core-mem')renderMemList('core');if(id==='screen-general-mem')renderMemList('general');if(id==='screen-my-masks')renderMasksList();if(id==='screen-api')renderApiPresets();}
 function goBack(to){if(to){showScreen(to);screenStack=screenStack.slice(0,screenStack.lastIndexOf(to)+1);}else{screenStack.pop();showScreen(screenStack[screenStack.length-1]||'screen-home');}}
 function goHome(){screenStack=['screen-home'];showScreen('screen-home');}
-function switchTab(tab){['contacts','moments','mine'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=(t===tab)?'flex':'none';});document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.id.includes(tab)));if(tab==='moments')renderMoments();}
+function switchTab(tab){
+  ['contacts','roles','moments','mine'].forEach(t=>{
+    const el=document.getElementById('tab-'+t);
+    if(el)el.style.display=(t===tab)?'flex':'none';
+  });
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.id.includes(tab)));
+  if(tab==='moments')renderMoments();
+  if(tab==='roles')renderRolesList();
+}
 function openOverlay(id){document.getElementById(id).classList.add('active');}
 function closeOverlay(id){document.getElementById(id).classList.remove('active');}
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
 function showAlert(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2500);}
 
-// Widget Image Upload
 function uploadWidgetImage() {
   document.getElementById('widget-image-input').click();
 }
@@ -1468,9 +1289,91 @@ function applyWidgetImage(input) {
   input.value = '';
 }
 
+// Roles management
+function renderRolesList() {
+  const list = document.getElementById('roles-list');
+  if (!state.contacts.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="fa-solid fa-masks-theater"></i></div><div class="empty-state-text">暂无角色<br>点击右上角 + 添加</div></div>';
+    return;
+  }
+  list.innerHTML = state.contacts.map(c => {
+    const avatarContent = c.avatarImg ? `<img src="${c.avatarImg}">` : `<i class="${getIconClass(c.icon)}"></i>`;
+    return `<div class="contact-item">
+      <div class="contact-avatar">${avatarContent}</div>
+      <div class="contact-info" onclick="viewRoleDetail(${c.id})">
+        <div class="contact-name">${c.name}</div>
+        <div class="contact-preview">${c.persona?.substring(0, 30) || '暂无设定'}${c.persona?.length > 30 ? '…' : ''}</div>
+      </div>
+      <button onclick="event.stopPropagation();deleteRole(${c.id})" style="background:none;border:none;color:var(--m-text3);cursor:pointer;padding:8px"><i class="fa-solid fa-trash"></i></button>
+    </div>`;
+  }).join('');
+}
+
+function showAddRole() {
+  state.pendingRoleAvatar = null;
+  document.getElementById('role-name').value = '';
+  document.getElementById('role-persona').value = '';
+  document.getElementById('role-avatar-preview').innerHTML = '<i class="fa-solid fa-robot"></i>';
+  openOverlay('overlay-add-role');
+}
+
+function previewRoleAvatar(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.pendingRoleAvatar = e.target.result;
+    document.getElementById('role-avatar-preview').innerHTML = `<img src="${e.target.result}">`;
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function saveNewRole() {
+  const name = document.getElementById('role-name').value.trim();
+  if (!name) { showAlert('请输入角色名称'); return; }
+  
+  state.contacts.push({
+    id: Date.now(),
+    name,
+    icon: 'robot',
+    avatarImg: state.pendingRoleAvatar || null,
+    persona: document.getElementById('role-persona').value.trim(),
+    mountedWBIds: [],
+    messages: [],
+    maskId: null,
+    lastSummaryIdx: 0,
+    innerThought: '',
+    kkData: null
+  });
+  
+  closeOverlay('overlay-add-role');
+  renderRolesList();
+  renderContacts();
+  showAlert('角色已添加');
+  autoSave();
+}
+
+function deleteRole(id) {
+  const c = state.contacts.find(x => x.id === id);
+  if (!c) return;
+  if (confirm(`确认删除角色 ${c.name}？`)) {
+    state.contacts = state.contacts.filter(x => x.id !== id);
+    renderRolesList();
+    renderContacts();
+    showAlert('已删除');
+    autoSave();
+  }
+}
+
+function viewRoleDetail(id) {
+  state.currentContactId = id;
+  openContactSettings();
+}
+
 function renderContacts(){
   const list=document.getElementById('contacts-list');
-  if(!state.contacts.length){list.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-comment-dots"></i></div><div class="empty-state-text">暂无聊天</div></div>';return;}
+  if(!state.contacts.length){list.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-comment-dots"></i></div><div class="empty-state-text">暂无聊天<br>请先在"角色"页面添加角色</div></div>';return;}
   list.innerHTML=state.contacts.map(c=>{
     const last=c.messages[c.messages.length-1];
     const preview=last?(last.role==='user'?'你: ':'')+(last.image?'[图片]':last.content.substring(0,30)):'点击开始聊天';
@@ -1616,7 +1519,6 @@ async function summarizeChat(){
   }catch(e){showAlert('总结失败');}
 }
 
-// Offline mode
 function openOfflineMode(){const c=getCurrentContact();if(!c)return;document.getElementById('oc-avatar').innerHTML=c.avatarImg?`<img src="${c.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<i class="${getIconClass(c.icon)}"></i>`;document.getElementById('oc-name').textContent=c.name;screenStack.push('screen-offline');showScreen('screen-offline');renderOfflineMessages();}
 function renderOfflineMessages(){
   const c=getCurrentContact();if(!c)return;
@@ -1693,7 +1595,7 @@ function openContactSettings(){
   document.getElementById('cs-wb-count').textContent=(c.mountedWBIds||[]).length?`已挂载 ${c.mountedWBIds.length} 个`:'未挂载';
   screenStack.push('screen-contact-settings');showScreen('screen-contact-settings');
 }
-function deleteContact(){const c=getCurrentContact();if(!c)return;if(confirm(`确认删除 ${c.name}？`)){state.contacts=state.contacts.filter(x=>x.id!==c.id);state.currentContactId=null;showAlert('已删除');screenStack=['screen-home','screen-chat'];showScreen('screen-chat');renderContacts();autoSave();}}
+function deleteContact(){const c=getCurrentContact();if(!c)return;if(confirm(`确认删除 ${c.name}？`)){state.contacts=state.contacts.filter(x=>x.id!==c.id);state.currentContactId=null;showAlert('已删除');screenStack=['screen-home','screen-chat'];showScreen('screen-chat');renderContacts();renderRolesList();autoSave();}}
 function openEditPersona(){const c=getCurrentContact();if(!c)return;document.getElementById('edit-persona-name').value=c.name;document.getElementById('edit-persona-content').value=c.persona||'';screenStack.push('screen-edit-persona');showScreen('screen-edit-persona');}
 function savePersona(){const c=getCurrentContact();if(!c)return;c.name=document.getElementById('edit-persona-name').value.trim()||c.name;c.persona=document.getElementById('edit-persona-content').value.trim();showAlert('已保存');goBack('screen-contact-settings');document.getElementById('cs-name').textContent=c.name;autoSave();}
 function openContactCoreMemory(){const c=getCurrentContact();if(!c)return;document.getElementById('contact-core-mem-title').textContent=c.name+' 的核心记忆';renderContactCoreMemList();screenStack.push('screen-contact-core-mem');showScreen('screen-contact-core-mem');}
@@ -1740,41 +1642,62 @@ function renderMasksList(){
   const list=document.getElementById('masks-list'),empty=document.getElementById('masks-empty');
   if(!state.masks.length){list.innerHTML='';list.style.display='none';empty.style.display='flex';return;}
   empty.style.display='none';list.style.display='block';
-  list.innerHTML=state.masks.map((m,i)=>`<div class="list-item"><div class="mask-avatar"><i class="${getIconClass(m.icon||'face-smile')}"></i></div><div class="list-item-content"><div class="list-item-title">${m.name}</div></div><button onclick="state.masks.splice(${i},1);renderMasksList();autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div>`).join('');
+  list.innerHTML=state.masks.map((m,i)=>`<div class="list-item"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div class="list-item-content"><div class="list-item-title">${m.name}</div></div><button onclick="state.masks.splice(${i},1);renderMasksList();autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div>`).join('');
 }
-function showAddMask(){document.getElementById('mask-name').value='';document.getElementById('mask-persona').value='';openOverlay('overlay-add-mask');}
-function saveMask(){const name=document.getElementById('mask-name').value.trim();if(!name){showAlert('请输入名称');return;}state.masks.push({id:Date.now(),name,icon:'face-smile',persona:document.getElementById('mask-persona').value.trim()});closeOverlay('overlay-add-mask');renderMasksList();autoSave();}
-function openMyRoles(){openScreen('screen-my-roles');}
+function showAddMask(){
+  state.pendingMaskAvatar = null;
+  document.getElementById('mask-name').value='';
+  document.getElementById('mask-persona').value='';
+  document.getElementById('mask-avatar-preview').innerHTML = '<i class="fa-regular fa-face-smile"></i>';
+  openOverlay('overlay-add-mask');
+}
+function previewMaskAvatar(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.pendingMaskAvatar = e.target.result;
+    document.getElementById('mask-avatar-preview').innerHTML = `<img src="${e.target.result}">`;
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+function saveMask(){
+  const name=document.getElementById('mask-name').value.trim();
+  if(!name){showAlert('请输入名称');return;}
+  state.masks.push({
+    id:Date.now(),
+    name,
+    icon:'face-smile',
+    avatarImg: state.pendingMaskAvatar || null,
+    persona:document.getElementById('mask-persona').value.trim()
+  });
+  closeOverlay('overlay-add-mask');
+  renderMasksList();
+  autoSave();
+}
+function openMyMasks(){openScreen('screen-my-masks');}
 
 function openEditProfile(){document.getElementById('profile-nickname').value=state.profileData.nickname;document.getElementById('profile-sig').value=state.profileData.sig;openScreen('screen-edit-profile');}
 function saveProfile(){state.profileData.nickname=document.getElementById('profile-nickname').value||'用户';state.profileData.sig=document.getElementById('profile-sig').value;document.getElementById('mine-name-display').textContent=state.profileData.nickname;document.getElementById('mine-sig-display').textContent=state.profileData.sig||'点击编辑';showAlert('已保存');goBack('screen-chat');autoSave();}
 
-function showNewChatMenu(){
-  const menu=document.getElementById('msg-ctx-menu');
-  menu.innerHTML=`<div class="msg-ctx-item" onclick="openOverlay('overlay-new-contact');hideMsgCtxMenu()">新建联系人</div><div class="msg-ctx-item" onclick="startNewChatFlow();hideMsgCtxMenu()">新建聊天</div>`;
-  menu.style.display='block';menu.style.right='16px';menu.style.top='88px';menu.style.left='auto';
-  setTimeout(()=>document.addEventListener('click',hideMsgCtxMenu,{once:true}),10);
-}
 function startNewChatFlow(){
+  if(!state.contacts.length){showAlert('请先在"角色"页面添加角色');return;}
   state.selectedNewChatMaskId=null;state.selectedNewChatCharId=null;
   const list=document.getElementById('mask-select-list');
-  list.innerHTML=`<div class="mask-item" onclick="selectNewMask(null)"><div class="mask-avatar"><i class="fa-regular fa-face-smile"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">不使用面具</div></div><div class="mask-check checked" id="mask-opt-none">✓</div></div>`+state.masks.map(m=>`<div class="mask-item" onclick="selectNewMask(${m.id})"><div class="mask-avatar"><i class="${getIconClass(m.icon||'face-smile')}"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check" id="mask-opt-${m.id}"></div></div>`).join('');
+  list.innerHTML=`<div class="mask-item" onclick="selectNewMask(null)"><div class="mask-avatar"><i class="fa-regular fa-face-smile"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">不使用面具</div></div><div class="mask-check checked" id="mask-opt-none">✓</div></div>`+state.masks.map(m=>`<div class="mask-item" onclick="selectNewMask(${m.id})"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check" id="mask-opt-${m.id}"></div></div>`).join('');
   openOverlay('overlay-new-chat-step1');
 }
 function selectNewMask(id){state.selectedNewChatMaskId=id;document.querySelectorAll('.mask-check').forEach(c=>{c.className='mask-check';c.textContent='';});const t=document.getElementById(id===null?'mask-opt-none':`mask-opt-${id}`);if(t){t.className='mask-check checked';t.textContent='✓';}}
 function proceedNewChatStep2(){
   closeOverlay('overlay-new-chat-step1');
   const list=document.getElementById('char-select-list');
-  list.innerHTML=state.contacts.map(c=>`<div class="mask-item" onclick="selectNewChar(${c.id})"><div class="mask-avatar">${c.avatarImg?`<img src="${c.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<i class="${getIconClass(c.icon)}"></i>`}</div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${c.name}</div></div><div class="mask-check" id="char-opt-${c.id}"></div></div>`).join('')||'<div style="padding:20px;text-align:center;color:var(--m-text3)">请先新建联系人</div>';
+  list.innerHTML=state.contacts.map(c=>`<div class="mask-item" onclick="selectNewChar(${c.id})"><div class="mask-avatar">${c.avatarImg?`<img src="${c.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<i class="${getIconClass(c.icon)}"></i>`}</div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${c.name}</div></div><div class="mask-check" id="char-opt-${c.id}"></div></div>`).join('')||'<div style="padding:20px;text-align:center;color:var(--m-text3)">请先在角色页面新建角色</div>';
   openOverlay('overlay-new-chat-step2');
 }
 function selectNewChar(id){state.selectedNewChatCharId=id;document.querySelectorAll('#char-select-list .mask-check').forEach(c=>{c.className='mask-check';c.textContent='';});const t=document.getElementById(`char-opt-${id}`);if(t){t.className='mask-check checked';t.textContent='✓';}}
 function goBackNewChat(){closeOverlay('overlay-new-chat-step2');openOverlay('overlay-new-chat-step1');}
 function createNewChat(){if(!state.selectedNewChatCharId){showAlert('请选择角色');return;}const c=state.contacts.find(x=>x.id===state.selectedNewChatCharId);if(c)c.maskId=state.selectedNewChatMaskId||null;closeOverlay('overlay-new-chat-step2');openChat(state.selectedNewChatCharId);autoSave();}
-
-let ncSelectedIcon='robot';
-function selectNcEmoji(el,icon){document.querySelectorAll('#nc-emoji-picker .avatar-opt').forEach(e=>e.classList.remove('selected'));el.classList.add('selected');ncSelectedIcon=icon;}
-function saveNewContact(){const name=document.getElementById('nc-name').value.trim();if(!name){showAlert('请输入名称');return;}state.contacts.push({id:Date.now(),name,icon:ncSelectedIcon,avatarImg:null,persona:document.getElementById('nc-persona').value.trim(),mountedWBIds:[],messages:[],maskId:null,lastSummaryIdx:0,innerThought:'',kkData:null});closeOverlay('overlay-new-contact');renderContacts();showAlert('已添加 '+name);document.getElementById('nc-name').value='';document.getElementById('nc-persona').value='';autoSave();}
 
 function updateProviderDefault(){const p=document.getElementById('api-provider').value;const bases={'OpenAI':'https://api.openai.com/v1','Anthropic (Claude)':'https://api.anthropic.com/v1','DeepSeek':'https://api.deepseek.com/v1','OpenRouter':'https://openrouter.ai/api/v1'};if(bases[p])document.getElementById('api-base').value=bases[p];}
 function saveAPI(){state.api.provider=document.getElementById('api-provider').value;state.api.base=document.getElementById('api-base').value.replace(/\/$/,'');state.api.key=document.getElementById('api-key').value;state.api.model=document.getElementById('api-model').value;showAlert('已保存');autoSave();}
@@ -1787,6 +1710,66 @@ async function testAPI(){
     if(res.ok){statusEl.textContent='● 已连接';statusEl.style.color='var(--m-green)';}else{statusEl.textContent='● 失败 ('+res.status+')';statusEl.style.color='var(--m-red)';}
   }catch(e){statusEl.textContent='● 网络错误';statusEl.style.color='var(--m-red)';}
 }
+
+async function fetchModels() {
+  const provider = document.getElementById('api-provider').value;
+  const base = document.getElementById('api-base').value;
+  const key = document.getElementById('api-key').value;
+  
+  if (!key) { showAlert('请先输入API Key'); return; }
+  
+  showAlert('正在拉取模型列表…');
+  const container = document.getElementById('model-list-container');
+  
+  try {
+    let models = [];
+    
+    if (provider === 'OpenAI' || provider === 'OpenRouter') {
+      const res = await fetch(`${base}/models`, {
+        headers: { 'Authorization': `Bearer ${key}` }
+      });
+      const data = await res.json();
+      models = (data.data || []).map(m => m.id).sort();
+    } else if (provider === 'Anthropic (Claude)') {
+      // Anthropic doesn't have a models endpoint, use predefined list
+      models = [
+        'claude-opus-4-20250514',
+        'claude-sonnet-4-20250514',
+        'claude-3-7-sonnet-20250219',
+        'claude-3-5-sonnet-20241022',
+        'claude-3-5-haiku-20241022',
+        'claude-3-opus-20240229',
+        'claude-3-sonnet-20240229',
+        'claude-3-haiku-20240307'
+      ];
+    } else if (provider === 'DeepSeek') {
+      models = ['deepseek-chat', 'deepseek-coder', 'deepseek-reasoner'];
+    }
+    
+    if (models.length === 0) {
+      showAlert('未获取到模型列表');
+      return;
+    }
+    
+    container.style.display = 'block';
+    container.innerHTML = `<div class="model-list-container">${models.map(m => 
+      `<div class="model-item ${state.api.model === m ? 'selected' : ''}" onclick="selectModel('${m}')">${m}</div>`
+    ).join('')}</div>`;
+    
+    showAlert(`获取到 ${models.length} 个模型`);
+  } catch (e) {
+    showAlert('拉取失败：' + e.message);
+  }
+}
+
+function selectModel(model) {
+  document.getElementById('api-model').value = model;
+  document.querySelectorAll('.model-item').forEach(el => {
+    el.classList.toggle('selected', el.textContent === model);
+  });
+  document.getElementById('model-list-container').style.display = 'none';
+}
+
 function renderApiPresets(){const list=document.getElementById('api-presets-list');if(!state.apiPresets.length){list.innerHTML='<div style="text-align:center;font-size:13px;color:var(--m-text3);padding:12px">暂无预设</div>';return;}list.innerHTML=state.apiPresets.map((p,i)=>`<div class="preset-item" onclick="applyApiPreset(${i})"><div><div class="preset-name">${p.name}</div><div class="preset-info">${p.model}</div></div><button class="preset-delete" onclick="event.stopPropagation();state.apiPresets.splice(${i},1);renderApiPresets();autoSave()">×</button></div>`).join('');}
 function saveApiPreset(){const name=prompt('预设名称：');if(!name)return;state.apiPresets.push({name,provider:document.getElementById('api-provider').value,base:document.getElementById('api-base').value,key:document.getElementById('api-key').value,model:document.getElementById('api-model').value});renderApiPresets();showAlert('预设已保存');autoSave();}
 function applyApiPreset(idx){const p=state.apiPresets[idx];document.getElementById('api-provider').value=p.provider;document.getElementById('api-base').value=p.base;document.getElementById('api-key').value=p.key;document.getElementById('api-model').value=p.model;showAlert('已应用预设');}
@@ -1845,7 +1828,7 @@ function resetAppearance(){
 }
 
 function uploadAvatarFor(target){document.getElementById('contact-avatar-input')?.click();}
-function applyUploadedAvatar(input,target){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{const c=getCurrentContact();if(c){c.avatarImg=e.target.result;openContactSettings();autoSave();}};reader.readAsDataURL(file);}
+function applyUploadedAvatar(input,target){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{const c=getCurrentContact();if(c){c.avatarImg=e.target.result;openContactSettings();renderRolesList();autoSave();}};reader.readAsDataURL(file);}
 
 function renderDiaryCharSelect(){document.getElementById('diary-char-select').innerHTML=state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');}
 function renderDiaries(){
@@ -1979,17 +1962,17 @@ async function generateKKData(charId){
 
 function initForumSetup(){
   const charList=document.getElementById('forum-char-select-list');
-  if(!state.contacts.length){charList.innerHTML='<div style="color:var(--m-text3);font-size:13px">请先添加联系人</div>';return;}
+  if(!state.contacts.length){charList.innerHTML='<div style="color:var(--m-text3);font-size:13px">请先添加角色</div>';return;}
   charList.innerHTML=state.contacts.map(c=>`
     <div class="mask-item" onclick="toggleForumChar(${c.id})">
-      <div class="mask-avatar"><i class="${getIconClass(c.icon)}"></i></div>
+      <div class="mask-avatar">${c.avatarImg?`<img src="${c.avatarImg}">`:`<i class="${getIconClass(c.icon)}"></i>`}</div>
       <div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${c.name}</div></div>
       <div class="mask-check ${state.forumSelectedCharIds.includes(c.id)?'checked':''}" id="fchar-${c.id}">${state.forumSelectedCharIds.includes(c.id)?'✓':''}</div>
     </div>
   `).join('');
   const maskList=document.getElementById('forum-mask-select-list');
   const noMask=`<div class="mask-item" onclick="selectForumMask(null)"><div class="mask-avatar"><i class="fa-regular fa-face-smile"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">不使用面具（用户本人）</div></div><div class="mask-check ${state.forumSelectedMaskId===null?'checked':''}" id="fmask-none">${state.forumSelectedMaskId===null?'✓':''}</div></div>`;
-  maskList.innerHTML=noMask+state.masks.map(m=>`<div class="mask-item" onclick="selectForumMask(${m.id})"><div class="mask-avatar"><i class="${getIconClass(m.icon||'face-smile')}"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check ${state.forumSelectedMaskId===m.id?'checked':''}" id="fmask-${m.id}">${state.forumSelectedMaskId===m.id?'✓':''}</div></div>`).join('');
+  maskList.innerHTML=noMask+state.masks.map(m=>`<div class="mask-item" onclick="selectForumMask(${m.id})"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check ${state.forumSelectedMaskId===m.id?'checked':''}" id="fmask-${m.id}">${state.forumSelectedMaskId===m.id?'✓':''}</div></div>`).join('');
   if(state.forumWorldview)document.getElementById('forum-worldview').value=state.forumWorldview;
 }
 function toggleForumChar(id){
@@ -2018,7 +2001,7 @@ function renderForumPosts(){
     const authorIsChar=p.authorType==='char';
     const authorC=authorIsChar?state.contacts.find(c=>c.id===p.authorId):null;
     const mask=p.authorMaskId?state.masks.find(m=>m.id===p.authorMaskId):null;
-    const avatarContent=authorIsChar?`<i class="${getIconClass(authorC?.icon||'robot')}"></i>`:(mask?`<i class="${getIconClass(mask.icon||'face-smile')}"></i>`:`<i class="${getIconClass(state.profileData.icon)}"></i>`);
+    const avatarContent=authorIsChar?(authorC?.avatarImg?`<img src="${authorC.avatarImg}">`:`<i class="${getIconClass(authorC?.icon||'robot')}"></i>`):(mask?(mask.avatarImg?`<img src="${mask.avatarImg}">`:`<i class="${getIconClass(mask.icon||'face-smile')}"></i>`):`<i class="${getIconClass(state.profileData.icon)}"></i>`);
     const authorName=authorIsChar?(authorC?.name||'角色'):(mask?mask.name:state.profileData.nickname||'用户');
     const commentsHtml=p.comments&&p.comments.length?`<div class="forum-post-comments">${p.comments.map(c=>`<div class="forum-comment-line"><span class="forum-comment-author">${c.author}</span><span>：${c.text}</span></div>`).join('')}</div>`:'';
     return `<div class="forum-post">
@@ -2073,10 +2056,10 @@ async function genForumComments(idx){
 function initFanficSetup(){
   const charList=document.getElementById('fanfic-char-select-list');
   const noChar='<div class="mask-item" onclick="selectFanficChar(null)"><div class="mask-avatar"><i class="fa-solid fa-minus"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">不指定角色</div></div><div class="mask-check" id="ff-char-none"></div></div>';
-  charList.innerHTML=noChar+state.contacts.map(c=>`<div class="mask-item" onclick="selectFanficChar(${c.id})"><div class="mask-avatar"><i class="${getIconClass(c.icon)}"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${c.name}</div></div><div class="mask-check ${state.fanficSelectedCharId===c.id?'checked':''}" id="ff-char-${c.id}">${state.fanficSelectedCharId===c.id?'✓':''}</div></div>`).join('');
+  charList.innerHTML=noChar+state.contacts.map(c=>`<div class="mask-item" onclick="selectFanficChar(${c.id})"><div class="mask-avatar">${c.avatarImg?`<img src="${c.avatarImg}">`:`<i class="${getIconClass(c.icon)}"></i>`}</div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${c.name}</div></div><div class="mask-check ${state.fanficSelectedCharId===c.id?'checked':''}" id="ff-char-${c.id}">${state.fanficSelectedCharId===c.id?'✓':''}</div></div>`).join('');
   const maskList=document.getElementById('fanfic-mask-select-list');
   const noMask='<div class="mask-item" onclick="selectFanficMask(null)"><div class="mask-avatar"><i class="fa-regular fa-face-smile"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">不指定面具</div></div><div class="mask-check" id="ff-mask-none"></div></div>';
-  maskList.innerHTML=noMask+state.masks.map(m=>`<div class="mask-item" onclick="selectFanficMask(${m.id})"><div class="mask-avatar"><i class="${getIconClass(m.icon||'face-smile')}"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check ${state.fanficSelectedMaskId===m.id?'checked':''}" id="ff-mask-${m.id}">${state.fanficSelectedMaskId===m.id?'✓':''}</div></div>`).join('');
+  maskList.innerHTML=noMask+state.masks.map(m=>`<div class="mask-item" onclick="selectFanficMask(${m.id})"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check ${state.fanficSelectedMaskId===m.id?'checked':''}" id="ff-mask-${m.id}">${state.fanficSelectedMaskId===m.id?'✓':''}</div></div>`).join('');
   const cci=document.getElementById(state.fanficSelectedCharId?`ff-char-${state.fanficSelectedCharId}`:'ff-char-none');
   if(cci){cci.className='mask-check checked';cci.textContent='✓';}
   const mci=document.getElementById(state.fanficSelectedMaskId?`ff-mask-${state.fanficSelectedMaskId}`:'ff-mask-none');
