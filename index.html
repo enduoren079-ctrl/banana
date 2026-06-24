@@ -1836,6 +1836,7 @@ function applyWidgetImage(input) {
     widget.classList.add('has-image');
     widget.innerHTML = `<img src="${e.target.result}" alt="widget">`;
     autoSave();
+    setTimeout(reEnterFullscreen, 300);
   };
   reader.readAsDataURL(file);
   input.value = '';
@@ -1877,6 +1878,7 @@ function previewRoleAvatar(input) {
   reader.onload = e => {
     state.pendingRoleAvatar = e.target.result;
     document.getElementById('role-avatar-preview').innerHTML = `<img src="${e.target.result}">`;
+    setTimeout(reEnterFullscreen, 300);
   };
   reader.readAsDataURL(file);
   input.value = '';
@@ -2415,6 +2417,7 @@ function previewEditMaskAvatar(input) {
   reader.onload = e => {
     state.editingMaskAvatar = e.target.result;
     document.getElementById('edit-mask-avatar-preview').innerHTML = `<img src="${e.target.result}">`;
+    setTimeout(reEnterFullscreen, 300);
   };
   reader.readAsDataURL(file);
   input.value = '';
@@ -2452,6 +2455,7 @@ function previewMaskAvatar(input) {
   reader.onload = e => {
     state.pendingMaskAvatar = e.target.result;
     document.getElementById('mask-avatar-preview').innerHTML = `<img src="${e.target.result}">`;
+    setTimeout(reEnterFullscreen, 300);
   };
   reader.readAsDataURL(file);
   input.value = '';
@@ -2484,6 +2488,9 @@ function applyMineAvatar(input) {
     mineAvatar.innerHTML = `<img src="${e.target.result}">`;
     showAlert('头像已更新');
     autoSave();
+    // Re-suppress address bar after file picker closes
+    setTimeout(reEnterFullscreen, 300);
+    setTimeout(reEnterFullscreen, 800);
   };
   reader.readAsDataURL(file);
   input.value = '';
@@ -2680,6 +2687,7 @@ function uploadWallpaper(input) {
   reader.onload = e => {
     state.appearance.homeWallpaper = e.target.result;
     renderWallpaperPreview();
+    setTimeout(reEnterFullscreen, 300);
   };
   reader.readAsDataURL(file);
   input.value = '';
@@ -2740,6 +2748,7 @@ function applyUploadedAvatar(input,target){
       openContactSettings();
       renderRolesList();
       autoSave();
+      setTimeout(reEnterFullscreen, 300);
     }
   };
   reader.readAsDataURL(file);
@@ -3118,26 +3127,40 @@ window.addEventListener('beforeunload', () => {
   saveState();
 });
 
-function autoRequestFullscreen() {
-  // Try to hide address bar immediately via scroll trick
-  if (document.body.scrollHeight > window.innerHeight) {
-    window.scrollTo(0, 1);
+function requestFullscreenNow() {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(() => {});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
   }
-  
+  document.body.classList.add('fullscreen-mode');
+  const toggle = document.getElementById('fullscreen-toggle');
+  if (toggle) toggle.classList.add('on');
+}
+
+function reEnterFullscreen() {
+  // Re-enter fullscreen after file picker or other events that break it
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    requestFullscreenNow();
+  }
+  window.scrollTo(0, 1);
+}
+
+function autoRequestFullscreen() {
+  // Trigger on first user interaction (browsers require gesture)
   const tryFullscreen = () => {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen().catch(() => {});
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-    }
-    document.body.classList.add('fullscreen-mode');
-    document.removeEventListener('click', tryFullscreen);
-    document.removeEventListener('touchstart', tryFullscreen);
+    requestFullscreenNow();
   };
-  
   document.addEventListener('click', tryFullscreen, { once: true });
   document.addEventListener('touchstart', tryFullscreen, { once: true });
+  // Also retry whenever window regains focus (e.g. after file picker closes)
+  window.addEventListener('focus', reEnterFullscreen);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      setTimeout(reEnterFullscreen, 200);
+    }
+  });
 }
 
 function init() {
@@ -3146,10 +3169,14 @@ function init() {
   applyInterfaceSettings();
   renderWallpaperPreview();
   
-  // Hide browser address bar on load
+  // Always hide address bar / go fullscreen by default
   document.body.classList.add('hide-address-bar');
   setTimeout(() => { window.scrollTo(0, 1); }, 0);
   setTimeout(() => { window.scrollTo(0, 1); }, 300);
+  
+  // Mark fullscreen toggle as ON by default
+  const toggle = document.getElementById('fullscreen-toggle');
+  if (toggle) toggle.classList.add('on');
   
   autoRequestFullscreen();
   
