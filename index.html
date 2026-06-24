@@ -217,6 +217,22 @@ body.fullscreen-mode #phone {
 .msg-avatar i{font-size:16px;}
 .msg-bubble-wrap{max-width:70%;display:flex;flex-direction:column;gap:2px;}
 .msg-row.self .msg-bubble-wrap{align-items:flex-end;}
+  /* 线下模式消息气泡更宽 */
+#screen-offline .msg-bubble-wrap {
+  max-width: 95%;
+}
+#screen-offline .msg-bubble {
+  max-width: 100%;
+}
+#screen-offline .msg-row {
+  gap: 6px;
+}
+#screen-offline .msg-row.other .msg-bubble,
+#screen-offline .msg-row.self .msg-bubble {
+  border-radius: 12px;
+  padding: 14px 16px;
+  line-height: 1.8;
+}
 .msg-bubble{padding:10px 14px;border-radius:18px;font-size:var(--font-size);line-height:1.5;color:var(--m-text);position:relative;word-break:break-word;}
 .msg-row.other .msg-bubble{background:var(--m-bubble-other);border:0.5px solid rgba(0,0,0,0.06);border-bottom-left-radius:4px;}
 .msg-row.self .msg-bubble{background:var(--m-bubble-self);border-bottom-right-radius:4px;}
@@ -1198,111 +1214,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 </div>
 
 <!-- Add Role Overlay -->
-<div class="overlay" id="overlay-add-role">
-  <div class="sheet" style="max-height:90vh">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-add-role')">取消</button>
-      <div class="sheet-title">新建角色</div>
-      <button class="sheet-btn" onclick="saveNewRole()">保存</button>
-    </div>
-    <div class="sheet-content">
-      <div style="display:flex;justify-content:center;margin-bottom:16px">
-        <div class="avatar-upload-wrapper">
-          <div class="avatar-upload-btn" id="role-avatar-preview" onclick="document.getElementById('role-avatar-input').click()">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
-        </div>
-        <input type="file" id="role-avatar-input" accept="image/*" style="display:none" onchange="previewRoleAvatar(this)">
-      </div>
-      <div class="form-group"><div class="form-label">角色名称</div><input class="form-input" id="role-name" placeholder="角色名称"></div>
-      <div class="form-group"><div class="form-label">角色设定</div><textarea class="form-textarea" id="role-persona" style="min-height:120px" placeholder="性格、背景…"></textarea></div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="overlay-add-mask">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-add-mask')">取消</button>
-      <div class="sheet-title">新建面具</div>
-      <button class="sheet-btn" onclick="saveMask()">保存</button>
-    </div>
-    <div class="sheet-content">
-      <div style="display:flex;justify-content:center;margin-bottom:16px">
-        <div class="avatar-upload-wrapper">
-          <div class="avatar-upload-btn" id="mask-avatar-preview" onclick="document.getElementById('mask-avatar-input').click()">
-            <i class="fa-regular fa-face-smile"></i>
-          </div>
-          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
-        </div>
-        <input type="file" id="mask-avatar-input" accept="image/*" style="display:none" onchange="previewMaskAvatar(this)">
-      </div>
-      <div class="form-group"><div class="form-label">名称</div><input class="form-input" id="mask-name" placeholder="例：学生小明"></div>
-      <div class="form-group"><div class="form-label">人设</div><textarea class="form-textarea" id="mask-persona" placeholder="身份背景…"></textarea></div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="overlay-add-wb">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-add-wb')">取消</button>
-      <div class="sheet-title">添加世界书</div>
-      <button class="sheet-btn" onclick="saveWBEntry()">保存</button>
-    </div>
-    <div class="sheet-content">
-      <div class="form-group"><div class="form-label">名称</div><input class="form-input" id="wb-entry-name" placeholder="例：魔法系统"></div>
-      <div class="form-group"><div class="form-label">内容</div><textarea class="form-textarea" id="wb-entry-content" style="min-height:140px" placeholder="详细描述…"></textarea></div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="overlay-add-mem">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-add-mem')">取消</button>
-      <div class="sheet-title" id="add-mem-title">添加记忆</div>
-      <button class="sheet-btn" onclick="saveMemory()">保存</button>
-    </div>
-    <div class="sheet-content">
-      <div class="form-group"><div class="form-label">角色</div><select class="api-select" id="mem-char-select"><option value="global">全局</option></select></div>
-      <div class="form-group"><div class="form-label">内容</div><textarea class="form-textarea" id="mem-content" style="min-height:100px" placeholder="记忆内容…"></textarea></div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="overlay-add-contact-mem">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-add-contact-mem')">取消</button>
-      <div class="sheet-title">添加核心记忆</div>
-      <button class="sheet-btn" onclick="saveContactMemory()">保存</button>
-    </div>
-    <div class="sheet-content">
-      <div class="form-group"><div class="form-label">内容</div><textarea class="form-textarea" id="contact-mem-content" style="min-height:100px" placeholder="记忆内容…"></textarea></div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="overlay-mount-wb">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <button class="sheet-btn" onclick="closeOverlay('overlay-mount-wb')">取消</button>
-      <div class="sheet-title">挂载世界书</div>
-      <button class="sheet-btn" onclick="saveMountedWB()">完成</button>
-    </div>
-    <div class="sheet-content"><div id="mount-wb-list"></div></div>
-  </div>
-</div>
-
-<div class="overlay" id="overlay-offline-settings">
+  <div class="overlay" id="overlay-offline-settings">
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
@@ -1327,6 +1239,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
           <option value="literary">文学性描写</option>
           <option value="concise">简洁直白</option>
           <option value="dramatic">戏剧化风格</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">人称视角</div>
+        <select class="api-select" id="offline-perspective">
+          <option value="third-char-first-user">角色第三人称 / 用户第一人称</option>
+          <option value="first-char-second-user">角色第一人称 / 用户第二人称</option>
+          <option value="third-both">双方都用第三人称</option>
+          <option value="first-char-third-user">角色第一人称 / 用户第三人称</option>
         </select>
       </div>
       <div style="margin-top:16px;border-top:0.5px solid var(--m-border);padding-top:16px">
@@ -1389,6 +1310,30 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
+<div class="overlay" id="overlay-edit-mask">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-edit-mask')">取消</button>
+      <div class="sheet-title">编辑面具</div>
+      <button class="sheet-btn" onclick="saveEditMask()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <div class="avatar-upload-wrapper">
+          <div class="avatar-upload-btn" id="edit-mask-avatar-preview" onclick="document.getElementById('edit-mask-avatar-input').click()">
+            <i class="fa-regular fa-face-smile"></i>
+          </div>
+          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
+        </div>
+        <input type="file" id="edit-mask-avatar-input" accept="image/*" style="display:none" onchange="previewEditMaskAvatar(this)">
+      </div>
+      <div class="form-group"><div class="form-label">名称</div><input class="form-input" id="edit-mask-name" placeholder="面具名称"></div>
+      <div class="form-group"><div class="form-label">人设</div><textarea class="form-textarea" id="edit-mask-persona" style="min-height:120px" placeholder="身份背景…"></textarea></div>
+    </div>
+  </div>
+</div>
+
 <div class="inner-thought-overlay" id="inner-thought-overlay" onclick="this.classList.remove('active')">
   <div class="inner-thought-card" onclick="event.stopPropagation()">
     <div class="inner-thought-title"><i class="fa-regular fa-lightbulb"></i> 心声</div>
@@ -1429,7 +1374,7 @@ const defaultState = {
   api:{provider:'Anthropic (Claude)',base:'https://api.anthropic.com/v1',key:'',model:'claude-sonnet-4-6'},
   apiPresets:[],
   appearance:{fontSize:15,theme:'',homeWallpaper:null},
-  offlineSettings:{wordCount:1000,style:'immersive'},
+  offlineSettings:{wordCount:1000,style:'immersive',perspective:'third-char-first-user'},
   offlinePresets:[],
   quoteText:'',
   selectedMsgIdx:null,
@@ -1443,13 +1388,13 @@ const defaultState = {
   widgetImage:null,
   pendingRoleAvatar:null,
   pendingMaskAvatar:null,
-  // 新增界面设置
+  editingMaskId:null,
+  editingMaskAvatar:null,
   interfaceSettings:{
     deviceMode:'desktop',
     pageZoom:100,
     hideAddressBar:false
   },
-  // 新增存储设置
   storageSettings:{
     autoSave:true,
     lastSaveTime:null
@@ -1463,10 +1408,10 @@ function loadState() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      // 合并默认值，确保新字段存在
       const merged = {...defaultState, ...parsed};
       merged.interfaceSettings = {...defaultState.interfaceSettings, ...parsed.interfaceSettings};
       merged.storageSettings = {...defaultState.storageSettings, ...parsed.storageSettings};
+      merged.offlineSettings = {...defaultState.offlineSettings, ...parsed.offlineSettings};
       return merged;
     }
   } catch (e) {
@@ -1504,7 +1449,6 @@ function applyDeviceMode(mode) {
   document.body.setAttribute('data-device', mode);
   state.interfaceSettings.deviceMode = mode;
   
-  // 更新UI选择状态
   document.querySelectorAll('.device-mode-opt').forEach(opt => {
     opt.classList.toggle('selected', opt.dataset.mode === mode);
   });
@@ -1520,7 +1464,6 @@ function applyPageZoom(zoom) {
   document.body.style.transform = `scale(${zoom / 100})`;
   document.body.style.transformOrigin = 'center center';
   
-  // 调整容器尺寸以适应缩放
   if (zoom !== 100) {
     document.body.style.width = `${100 / (zoom / 100)}%`;
     document.body.style.height = `${100 / (zoom / 100)}%`;
@@ -1541,7 +1484,6 @@ function toggleFullscreen() {
   const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
   
   if (isFullscreen) {
-    // 退出全屏
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
@@ -1550,7 +1492,6 @@ function toggleFullscreen() {
     toggle.classList.remove('on');
     document.body.classList.remove('fullscreen-mode');
   } else {
-    // 进入全屏
     const elem = document.documentElement;
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
@@ -1562,7 +1503,6 @@ function toggleFullscreen() {
   }
 }
 
-// 监听全屏状态变化
 document.addEventListener('fullscreenchange', () => {
   const toggle = document.getElementById('fullscreen-toggle');
   if (toggle) {
@@ -1583,7 +1523,6 @@ function toggleHideAddressBar() {
   
   if (state.interfaceSettings.hideAddressBar) {
     document.body.classList.add('hide-address-bar');
-    // 尝试滚动隐藏地址栏（仅移动端有效）
     window.scrollTo(0, 1);
   } else {
     document.body.classList.remove('hide-address-bar');
@@ -1597,15 +1536,12 @@ function saveInterfaceSettings() {
 }
 
 function applyInterfaceSettings() {
-  // 应用设备模式
   if (state.interfaceSettings.deviceMode) {
     applyDeviceMode(state.interfaceSettings.deviceMode);
   } else {
-    // 自动检测
     applyDeviceMode(detectDeviceMode());
   }
   
-  // 应用缩放
   if (state.interfaceSettings.pageZoom) {
     applyPageZoom(state.interfaceSettings.pageZoom);
     const slider = document.getElementById('zoom-slider');
@@ -1614,7 +1550,6 @@ function applyInterfaceSettings() {
     if (val) val.textContent = state.interfaceSettings.pageZoom + '%';
   }
   
-  // 应用隐藏地址栏
   if (state.interfaceSettings.hideAddressBar) {
     document.body.classList.add('hide-address-bar');
     const toggle = document.getElementById('hide-addressbar-toggle');
@@ -1633,7 +1568,7 @@ function toggleAutoSave() {
   if (state.storageSettings.autoSave) {
     status.className = 'storage-status';
     status.innerHTML = '<i class="fa-solid fa-check-circle"></i><span>自动存储已启用</span>';
-    saveState(); // 立即保存
+    saveState();
   } else {
     status.className = 'storage-status warning';
     status.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>自动存储已关闭</span>';
@@ -1646,19 +1581,23 @@ function updateStorageInfo() {
     const sizeBytes = new Blob([data]).size;
     const sizeKB = (sizeBytes / 1024).toFixed(2);
     
-    document.getElementById('storage-used').textContent = sizeKB + ' KB';
-    document.getElementById('storage-contacts').textContent = state.contacts.length;
+    const usedEl = document.getElementById('storage-used');
+    const contactsEl = document.getElementById('storage-contacts');
+    const messagesEl = document.getElementById('storage-messages');
+    const lastSaveEl = document.getElementById('storage-lastSave');
+    
+    if (usedEl) usedEl.textContent = sizeKB + ' KB';
+    if (contactsEl) contactsEl.textContent = state.contacts.length;
     
     let totalMessages = 0;
     state.contacts.forEach(c => {
       totalMessages += (c.messages || []).length;
     });
-    document.getElementById('storage-messages').textContent = totalMessages;
+    if (messagesEl) messagesEl.textContent = totalMessages;
     
-    if (state.storageSettings.lastSaveTime) {
+    if (state.storageSettings.lastSaveTime && lastSaveEl) {
       const date = new Date(state.storageSettings.lastSaveTime);
-      document.getElementById('storage-lastSave').textContent = 
-        date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+      lastSaveEl.textContent = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
     }
   } catch (e) {
     console.error('Failed to update storage info:', e);
@@ -1694,7 +1633,6 @@ function importData(input) {
     try {
       const imported = JSON.parse(e.target.result);
       
-      // 验证数据结构
       if (!imported.contacts && !imported.masks && !imported.worldbook) {
         showAlert('无效的数据文件');
         return;
@@ -1704,6 +1642,7 @@ function importData(input) {
         state = {...defaultState, ...imported};
         state.interfaceSettings = {...defaultState.interfaceSettings, ...imported.interfaceSettings};
         state.storageSettings = {...defaultState.storageSettings, ...imported.storageSettings};
+        state.offlineSettings = {...defaultState.offlineSettings, ...imported.offlineSettings};
         
         saveState();
         applySettings();
@@ -1778,7 +1717,6 @@ function applySettings() {
   if (state.api.key) document.getElementById('api-key').value = state.api.key;
   if (state.api.model) document.getElementById('api-model').value = state.api.model;
   
-  // Update profile display
   if (state.profileData) {
     document.getElementById('mine-name-display').textContent = state.profileData.nickname || '用户';
     document.getElementById('mine-sig-display').textContent = state.profileData.sig || '点击编辑个人信息';
@@ -1790,7 +1728,6 @@ function applySettings() {
     }
   }
   
-  // 应用存储设置UI
   const autosaveToggle = document.getElementById('autosave-toggle');
   if (autosaveToggle) {
     autosaveToggle.classList.toggle('on', state.storageSettings.autoSave);
@@ -1852,7 +1789,8 @@ function applyWidgetImage(input) {
   input.value = '';
 }
 
-// Roles management
+// ==================== 角色管理 ====================
+
 function renderRolesList() {
   const list = document.getElementById('roles-list');
   if (!state.contacts.length) {
@@ -1907,7 +1845,8 @@ function saveNewRole() {
     maskId: null,
     lastSummaryIdx: 0,
     innerThought: '',
-    kkData: null
+    kkData: null,
+    startedChat: false
   });
   
   closeOverlay('overlay-add-role');
@@ -1934,17 +1873,25 @@ function viewRoleDetail(id) {
   openContactSettings();
 }
 
+// ==================== 聊天列表 ====================
+
 function renderContacts(){
   const list=document.getElementById('contacts-list');
-  if(!state.contacts.length){list.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-comment-dots"></i></div><div class="empty-state-text">暂无聊天<br>请先在"角色"页面添加角色</div></div>';return;}
-  list.innerHTML=state.contacts.map(c=>{
+  const chatContacts = state.contacts.filter(c => c.startedChat);
+  if(!chatContacts.length){
+    list.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-comment-dots"></i></div><div class="empty-state-text">暂无聊天<br>点击右上角 + 新建聊天</div></div>';
+    return;
+  }
+  list.innerHTML=chatContacts.map(c=>{
     const last=c.messages[c.messages.length-1];
     const preview=last?(last.role==='user'?'你: ':'')+(last.image?'[图片]':last.content.substring(0,30)):'点击开始聊天';
     const avatarContent = c.avatarImg ? `<img src="${c.avatarImg}">` : `<i class="${getIconClass(c.icon)}"></i>`;
     return `<div class="contact-item" onclick="openChat(${c.id})"><div class="contact-avatar">${avatarContent}</div><div class="contact-info"><div class="contact-name">${c.name}</div><div class="contact-preview">${preview}</div></div></div>`;
   }).join('');
 }
+
 function getTimeStr(t){if(!t)return'';const d=new Date(t);return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');}
+
 function openChat(id){
   state.currentContactId=id;
   const c=state.contacts.find(x=>x.id===id);if(!c)return;
@@ -1954,7 +1901,9 @@ function openChat(id){
   screenStack.push('screen-chat-window');showScreen('screen-chat-window');
   renderMessages();closePlusMenu();clearQuote();
 }
+
 function getCurrentContact(){return state.contacts.find(c=>c.id===state.currentContactId);}
+
 function renderMessages(){
   const c=getCurrentContact();if(!c)return;
   const container=document.getElementById('chat-messages');
@@ -1975,9 +1924,11 @@ function renderMessages(){
   }).join('');
   setTimeout(()=>container.scrollTop=container.scrollHeight,50);
 }
+
 let longPressTimer=null;
 function startLongPress(e,idx){longPressTimer=setTimeout(()=>showMsgCtxMenu(e,idx),500);}
 function endLongPress(){clearTimeout(longPressTimer);}
+
 function showMsgCtxMenu(e,idx){
   e.preventDefault();state.selectedMsgIdx=idx;
   const menu=document.getElementById('msg-ctx-menu');
@@ -1989,7 +1940,9 @@ function showMsgCtxMenu(e,idx){
   menu.style.left=x+'px';menu.style.top=y+'px';
   setTimeout(()=>document.addEventListener('click',hideMsgCtxMenu,{once:true}),10);
 }
+
 function hideMsgCtxMenu(){document.getElementById('msg-ctx-menu').style.display='none';}
+
 function regenerateMessage(){
   hideMsgCtxMenu();
   const c=getCurrentContact();if(!c)return;
@@ -1999,6 +1952,7 @@ function regenerateMessage(){
     c.messages.splice(realIdx,1);renderMessages();requestReply();autoSave();
   }
 }
+
 function quoteMessage(){
   hideMsgCtxMenu();
   const c=getCurrentContact();if(!c)return;
@@ -2008,18 +1962,22 @@ function quoteMessage(){
     if(msg&&!msg.image){state.quoteText=msg.content.substring(0,50);document.getElementById('quote-text').textContent=state.quoteText;document.getElementById('quote-preview').style.display='block';}
   }
 }
+
 function clearQuote(){state.quoteText='';document.getElementById('quote-preview').style.display='none';}
+
 function deleteSelectedMessage(){
   hideMsgCtxMenu();
   const c=getCurrentContact();if(!c)return;
   const msgs=c.messages.filter(m=>!m.offline);
   if(state.selectedMsgIdx!==null){const realIdx=c.messages.indexOf(msgs[state.selectedMsgIdx]);if(realIdx>-1)c.messages.splice(realIdx,1);renderMessages();autoSave();}
 }
+
 function showInnerThought(){
   const c=getCurrentContact();if(!c)return;
   document.getElementById('inner-thought-content').textContent=c.innerThought||'暂无心声';
   document.getElementById('inner-thought-overlay').classList.add('active');
 }
+
 function sendMessage(){
   const input=document.getElementById('chat-input');
   const text=input.value.trim();if(!text)return;
@@ -2029,17 +1987,24 @@ function sendMessage(){
   c.messages.push(msg);input.value='';input.style.height='';
   renderMessages();closePlusMenu();autoSave();
 }
+
 async function requestReply(){const c=getCurrentContact();if(!c)return;await getAIReply(c,false);}
+
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+
 function togglePlusMenu(){document.getElementById('chat-plus-menu').classList.toggle('active');}
 function closePlusMenu(){document.getElementById('chat-plus-menu').classList.remove('active');}
 function selectChatImage(){document.getElementById('chat-image-input').click();}
+
 function sendChatImage(input){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{const c=getCurrentContact();if(!c)return;c.messages.push({role:'user',content:'',image:e.target.result,time:Date.now()});renderMessages();closePlusMenu();autoSave();};
   reader.readAsDataURL(file);input.value='';
 }
+
+// ==================== AI 回复 ====================
+
 async function getAIReply(c,offline){
   const msgId=offline?'offline-thinking':'thinking-banner';
   document.getElementById(msgId).style.display='flex';
@@ -2053,8 +2018,21 @@ async function getAIReply(c,offline){
   if(coreMems)sys+=`\n\n[核心记忆]\n${coreMems}`;
   if(wbEntries)sys+=`\n\n[世界书]\n${wbEntries}`;
   if(generalMems)sys+=`\n\n[一般记忆]\n${generalMems}`;
-  if(offline){const wordCount=state.offlineSettings.wordCount||1000;const styleDesc={immersive:'沉浸式叙事，细腻描写',literary:'文学性描写',concise:'简洁直白',dramatic:'戏剧化风格'}[state.offlineSettings.style]||'沉浸式叙事';sys+=`\n\n[线下模式] 以第一人称视角进行沉浸式回复，约${wordCount}字。文风：${styleDesc}。`;}
+  
+  if(offline){
+    const wordCount=state.offlineSettings.wordCount||1000;
+    const styleDesc={immersive:'沉浸式叙事，细腻描写',literary:'文学性描写',concise:'简洁直白',dramatic:'戏剧化风格'}[state.offlineSettings.style]||'沉浸式叙事';
+    const perspective = state.offlineSettings.perspective || 'third-char-first-user';
+    const perspectiveDesc = {
+      'third-char-first-user': `用第三人称描写${c.name}，用第一人称描写用户（"我"）`,
+      'first-char-second-user': `用第一人称描写${c.name}（"我"），用第二人称描写用户（"你"）`,
+      'third-both': `用第三人称描写${c.name}和用户`,
+      'first-char-third-user': `用第一人称描写${c.name}（"我"），用第三人称描写用户`
+    }[perspective];
+    sys+=`\n\n[线下模式] 进行沉浸式角色扮演回复，约${wordCount}字。文风：${styleDesc}。人称要求：${perspectiveDesc}。`;
+  }
   else{sys+='\n\n[线上聊天] 用分条短消息回复，用"/"分隔。在回复最后用[[心声:xxx]]附上内心独白（这是隐藏信息）。';}
+  
   const allMsgs=c.messages.filter(m=>!m.image&&(offline?m.offline:!m.offline)).slice(-20).map(m=>({role:m.role==='user'?'user':'assistant',content:m.content}));
   if(!state.api.key){document.getElementById(msgId).style.display='none';c.messages.push({role:'assistant',content:'请先配置API Key~',time:Date.now(),offline});if(offline)renderOfflineMessages();else renderMessages();return;}
   try{
@@ -2067,7 +2045,9 @@ async function getAIReply(c,offline){
   }catch(e){c.messages.push({role:'assistant',content:'网络错误',time:Date.now(),offline});if(offline)renderOfflineMessages();else renderMessages();}
   document.getElementById(msgId).style.display='none';
 }
+
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
 async function summarizeChat(){
   const c=getCurrentContact();if(!c||!state.api.key){showAlert('请先配置API');return;}
   const startIdx=c.lastSummaryIdx||0;const msgs=c.messages.slice(startIdx);
@@ -2082,7 +2062,16 @@ async function summarizeChat(){
   }catch(e){showAlert('总结失败');}
 }
 
-function openOfflineMode(){const c=getCurrentContact();if(!c)return;document.getElementById('oc-avatar').innerHTML=c.avatarImg?`<img src="${c.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<i class="${getIconClass(c.icon)}"></i>`;document.getElementById('oc-name').textContent=c.name;screenStack.push('screen-offline');showScreen('screen-offline');renderOfflineMessages();}
+// ==================== 线下模式 ====================
+
+function openOfflineMode(){
+  const c=getCurrentContact();if(!c)return;
+  document.getElementById('oc-avatar').innerHTML=c.avatarImg?`<img src="${c.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<i class="${getIconClass(c.icon)}"></i>`;
+  document.getElementById('oc-name').textContent=c.name;
+  screenStack.push('screen-offline');showScreen('screen-offline');
+  renderOfflineMessages();
+}
+
 function renderOfflineMessages(){
   const c=getCurrentContact();if(!c)return;
   const container=document.getElementById('offline-messages');
@@ -2091,13 +2080,16 @@ function renderOfflineMessages(){
   container.innerHTML=msgs.map(m=>`<div class="msg-row ${m.role==='user'?'self':'other'}"><div class="msg-bubble-wrap"><div class="msg-bubble" style="${m.role!=='user'?'white-space:pre-wrap;':''}">${m.content}</div></div></div>`).join('');
   container.scrollTop=container.scrollHeight;
 }
+
 async function sendOfflineMessage(){
   const input=document.getElementById('offline-input');const text=input.value.trim();if(!text)return;
   const c=getCurrentContact();if(!c)return;
   c.messages.push({role:'user',content:text,time:Date.now(),offline:true});
   input.value='';input.style.height='';renderOfflineMessages();await getAIReply(c,true);autoSave();
 }
+
 function handleOfflineKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendOfflineMessage();}}
+
 async function regenerateOffline(){
   const c=getCurrentContact();if(!c)return;
   const offlineMsgs=c.messages.filter(m=>m.offline);
@@ -2114,10 +2106,27 @@ function openOfflineMoreMenu(){
   menu.style.display='block';menu.style.right='16px';menu.style.top='60px';menu.style.left='auto';
   setTimeout(()=>document.addEventListener('click',hideMsgCtxMenu,{once:true}),10);
 }
-function openOfflineSettings(){document.getElementById('offline-word-slider').value=state.offlineSettings.wordCount;document.getElementById('offline-word-val').textContent=state.offlineSettings.wordCount;document.getElementById('offline-style').value=state.offlineSettings.style;renderOfflinePresets();openOverlay('overlay-offline-settings');}
-function saveOfflineSettings(){state.offlineSettings.wordCount=parseInt(document.getElementById('offline-word-slider').value);state.offlineSettings.style=document.getElementById('offline-style').value;closeOverlay('overlay-offline-settings');showAlert('已保存');autoSave();}
+
+function openOfflineSettings(){
+  document.getElementById('offline-word-slider').value=state.offlineSettings.wordCount;
+  document.getElementById('offline-word-val').textContent=state.offlineSettings.wordCount;
+  document.getElementById('offline-style').value=state.offlineSettings.style;
+  document.getElementById('offline-perspective').value=state.offlineSettings.perspective||'third-char-first-user';
+  renderOfflinePresets();
+  openOverlay('overlay-offline-settings');
+}
+
+function saveOfflineSettings(){
+  state.offlineSettings.wordCount=parseInt(document.getElementById('offline-word-slider').value);
+  state.offlineSettings.style=document.getElementById('offline-style').value;
+  state.offlineSettings.perspective=document.getElementById('offline-perspective').value;
+  closeOverlay('overlay-offline-settings');
+  showAlert('已保存');
+  autoSave();
+}
 
 function addOfflinePreset(){closeOverlay('overlay-offline-settings');document.getElementById('offline-preset-name').value='';document.getElementById('offline-preset-content').value='';openOverlay('overlay-add-offline-preset');}
+
 function saveOfflinePreset(){
   const name=document.getElementById('offline-preset-name').value.trim();
   const content=document.getElementById('offline-preset-content').value.trim();
@@ -2127,6 +2136,7 @@ function saveOfflinePreset(){
   openOverlay('overlay-offline-settings');
   renderOfflinePresets();showAlert('预设已保存');autoSave();
 }
+
 function renderOfflinePresets(){
   const list=document.getElementById('offline-presets-list');
   if(!state.offlinePresets.length){list.innerHTML='<div style="text-align:center;font-size:13px;color:var(--m-text3);padding:8px">暂无预设</div>';return;}
@@ -2140,15 +2150,19 @@ function renderOfflinePresets(){
     </div>
   `).join('');
 }
+
 function applyOfflinePreset(idx){
   const p=state.offlinePresets[idx];
   closeOverlay('overlay-offline-settings');
   document.getElementById('offline-input').value=p.content;
   showAlert(`已应用预设：${p.name}`);
 }
+
 function openOfflinePresets(){
   renderOfflinePresets();openOverlay('overlay-offline-settings');
 }
+
+// ==================== 联系人设置 ====================
 
 function openContactSettings(){
   const c=getCurrentContact();if(!c)return;
@@ -2158,10 +2172,45 @@ function openContactSettings(){
   document.getElementById('cs-wb-count').textContent=(c.mountedWBIds||[]).length?`已挂载 ${c.mountedWBIds.length} 个`:'未挂载';
   screenStack.push('screen-contact-settings');showScreen('screen-contact-settings');
 }
-function deleteContact(){const c=getCurrentContact();if(!c)return;if(confirm(`确认删除 ${c.name}？`)){state.contacts=state.contacts.filter(x=>x.id!==c.id);state.currentContactId=null;showAlert('已删除');screenStack=['screen-home','screen-chat'];showScreen('screen-chat');renderContacts();renderRolesList();autoSave();}}
-function openEditPersona(){const c=getCurrentContact();if(!c)return;document.getElementById('edit-persona-name').value=c.name;document.getElementById('edit-persona-content').value=c.persona||'';screenStack.push('screen-edit-persona');showScreen('screen-edit-persona');}
-function savePersona(){const c=getCurrentContact();if(!c)return;c.name=document.getElementById('edit-persona-name').value.trim()||c.name;c.persona=document.getElementById('edit-persona-content').value.trim();showAlert('已保存');goBack('screen-contact-settings');document.getElementById('cs-name').textContent=c.name;autoSave();}
-function openContactCoreMemory(){const c=getCurrentContact();if(!c)return;document.getElementById('contact-core-mem-title').textContent=c.name+' 的核心记忆';renderContactCoreMemList();screenStack.push('screen-contact-core-mem');showScreen('screen-contact-core-mem');}
+
+function deleteContact(){
+  const c=getCurrentContact();if(!c)return;
+  if(confirm(`确认删除 ${c.name}？`)){
+    state.contacts=state.contacts.filter(x=>x.id!==c.id);
+    state.currentContactId=null;
+    showAlert('已删除');
+    screenStack=['screen-home','screen-chat'];
+    showScreen('screen-chat');
+    renderContacts();
+    renderRolesList();
+    autoSave();
+  }
+}
+
+function openEditPersona(){
+  const c=getCurrentContact();if(!c)return;
+  document.getElementById('edit-persona-name').value=c.name;
+  document.getElementById('edit-persona-content').value=c.persona||'';
+  screenStack.push('screen-edit-persona');showScreen('screen-edit-persona');
+}
+
+function savePersona(){
+  const c=getCurrentContact();if(!c)return;
+  c.name=document.getElementById('edit-persona-name').value.trim()||c.name;
+  c.persona=document.getElementById('edit-persona-content').value.trim();
+  showAlert('已保存');
+  goBack('screen-contact-settings');
+  document.getElementById('cs-name').textContent=c.name;
+  autoSave();
+}
+
+function openContactCoreMemory(){
+  const c=getCurrentContact();if(!c)return;
+  document.getElementById('contact-core-mem-title').textContent=c.name+' 的核心记忆';
+  renderContactCoreMemList();
+  screenStack.push('screen-contact-core-mem');showScreen('screen-contact-core-mem');
+}
+
 function renderContactCoreMemList(){
   const c=getCurrentContact();if(!c)return;
   const mems=state.coreMemories.filter(m=>m.charId===c.id);
@@ -2170,8 +2219,21 @@ function renderContactCoreMemList(){
   empty.style.display='none';
   list.innerHTML=mems.map(m=>`<div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;border:0.5px solid var(--m-border)"><div style="display:flex;justify-content:flex-end"><button onclick="state.coreMemories=state.coreMemories.filter(x=>x.id!==${m.id});renderContactCoreMemList();autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div><div style="font-size:14px;color:var(--m-text)">${m.content}</div></div>`).join('');
 }
+
 function addContactMemory(){document.getElementById('contact-mem-content').value='';openOverlay('overlay-add-contact-mem');}
-function saveContactMemory(){const c=getCurrentContact();if(!c)return;const content=document.getElementById('contact-mem-content').value.trim();if(!content){showAlert('请输入内容');return;}state.coreMemories.push({id:Date.now(),charId:c.id,content});closeOverlay('overlay-add-contact-mem');renderContactCoreMemList();showAlert('已保存');autoSave();}
+
+function saveContactMemory(){
+  const c=getCurrentContact();if(!c)return;
+  const content=document.getElementById('contact-mem-content').value.trim();
+  if(!content){showAlert('请输入内容');return;}
+  state.coreMemories.push({id:Date.now(),charId:c.id,content});
+  closeOverlay('overlay-add-contact-mem');
+  renderContactCoreMemList();
+  showAlert('已保存');
+  autoSave();
+}
+
+// ==================== 世界书 ====================
 
 function renderWBList(){
   const list=document.getElementById('wb-list'),empty=document.getElementById('wb-empty');
@@ -2179,8 +2241,18 @@ function renderWBList(){
   if(empty)empty.style.display='none';
   list.innerHTML='<div style="padding:8px"></div>'+state.worldbook.map((e,i)=>`<div style="background:rgba(255,255,255,0.9);margin:0 12px 8px;border-radius:12px;padding:14px;border:0.5px solid rgba(0,0,0,0.04)"><div style="display:flex;justify-content:space-between"><div style="font-size:15px;font-weight:600;color:var(--m-text)">${e.name}</div><button onclick="state.worldbook.splice(${i},1);renderWBList();autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div><div style="font-size:13px;color:var(--m-text3);margin-top:4px">${e.content.substring(0,50)}</div></div>`).join('');
 }
+
 function showAddWBEntry(){document.getElementById('wb-entry-name').value='';document.getElementById('wb-entry-content').value='';openOverlay('overlay-add-wb');}
-function saveWBEntry(){const name=document.getElementById('wb-entry-name').value.trim();if(!name){showAlert('请输入名称');return;}state.worldbook.push({id:Date.now(),name,content:document.getElementById('wb-entry-content').value.trim()});closeOverlay('overlay-add-wb');renderWBList();autoSave();}
+
+function saveWBEntry(){
+  const name=document.getElementById('wb-entry-name').value.trim();
+  if(!name){showAlert('请输入名称');return;}
+  state.worldbook.push({id:Date.now(),name,content:document.getElementById('wb-entry-content').value.trim()});
+  closeOverlay('overlay-add-wb');
+  renderWBList();
+  autoSave();
+}
+
 function openMountWorldbook(){
   const c=getCurrentContact();if(!c)return;
   const list=document.getElementById('mount-wb-list');
@@ -2188,8 +2260,23 @@ function openMountWorldbook(){
   else{list.innerHTML=state.worldbook.map(e=>`<div class="mask-item" onclick="toggleMountWB(${e.id})"><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${e.name}</div></div><div class="mask-check ${(c.mountedWBIds||[]).includes(e.id)?'checked':''}" id="wb-check-${e.id}">${(c.mountedWBIds||[]).includes(e.id)?'✓':''}</div></div>`).join('');}
   openOverlay('overlay-mount-wb');
 }
-function toggleMountWB(id){const c=getCurrentContact();if(!c)return;if(!c.mountedWBIds)c.mountedWBIds=[];const idx=c.mountedWBIds.indexOf(id),el=document.getElementById(`wb-check-${id}`);if(idx>-1){c.mountedWBIds.splice(idx,1);el.className='mask-check';el.textContent='';}else{c.mountedWBIds.push(id);el.className='mask-check checked';el.textContent='✓';}}
-function saveMountedWB(){closeOverlay('overlay-mount-wb');const c=getCurrentContact();document.getElementById('cs-wb-count').textContent=(c?.mountedWBIds||[]).length?`已挂载 ${c.mountedWBIds.length} 个`:'未挂载';autoSave();}
+
+function toggleMountWB(id){
+  const c=getCurrentContact();if(!c)return;
+  if(!c.mountedWBIds)c.mountedWBIds=[];
+  const idx=c.mountedWBIds.indexOf(id),el=document.getElementById(`wb-check-${id}`);
+  if(idx>-1){c.mountedWBIds.splice(idx,1);el.className='mask-check';el.textContent='';}
+  else{c.mountedWBIds.push(id);el.className='mask-check checked';el.textContent='✓';}
+}
+
+function saveMountedWB(){
+  closeOverlay('overlay-mount-wb');
+  const c=getCurrentContact();
+  document.getElementById('cs-wb-count').textContent=(c?.mountedWBIds||[]).length?`已挂载 ${c.mountedWBIds.length} 个`:'未挂载';
+  autoSave();
+}
+
+// ==================== 记忆管理 ====================
 
 function renderMemList(type){
   const mems=type==='core'?state.coreMemories:state.generalMemories;
@@ -2198,15 +2285,103 @@ function renderMemList(type){
   empty.style.display='none';
   list.innerHTML=mems.map((m,i)=>`<div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;border:0.5px solid var(--m-border)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="badge">${m.charId==='global'?'全局':state.contacts.find(c=>c.id==m.charId)?.name||'已删除'}</span><button onclick="state.${type==='core'?'coreMemories':'generalMemories'}.splice(${i},1);renderMemList('${type}');autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div><div style="font-size:14px;color:var(--m-text)">${m.content}</div></div>`).join('');
 }
-function addMemory(type){state.selectedMemType=type;document.getElementById('add-mem-title').textContent=type==='core'?'添加核心记忆':'添加一般记忆';document.getElementById('mem-content').value='';const sel=document.getElementById('mem-char-select');sel.innerHTML='<option value="global">全局</option>'+state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');openOverlay('overlay-add-mem');}
-function saveMemory(){const content=document.getElementById('mem-content').value.trim();if(!content){showAlert('请输入内容');return;}const charId=document.getElementById('mem-char-select').value;const mem={id:Date.now(),charId:charId==='global'?'global':parseInt(charId),content};if(state.selectedMemType==='core')state.coreMemories.push(mem);else state.generalMemories.push(mem);closeOverlay('overlay-add-mem');renderMemList(state.selectedMemType);showAlert('已保存');autoSave();}
+
+function addMemory(type){
+  state.selectedMemType=type;
+  document.getElementById('add-mem-title').textContent=type==='core'?'添加核心记忆':'添加一般记忆';
+  document.getElementById('mem-content').value='';
+  const sel=document.getElementById('mem-char-select');
+  sel.innerHTML='<option value="global">全局</option>'+state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  openOverlay('overlay-add-mem');
+}
+
+function saveMemory(){
+  const content=document.getElementById('mem-content').value.trim();
+  if(!content){showAlert('请输入内容');return;}
+  const charId=document.getElementById('mem-char-select').value;
+  const mem={id:Date.now(),charId:charId==='global'?'global':parseInt(charId),content};
+  if(state.selectedMemType==='core')state.coreMemories.push(mem);
+  else state.generalMemories.push(mem);
+  closeOverlay('overlay-add-mem');
+  renderMemList(state.selectedMemType);
+  showAlert('已保存');
+  autoSave();
+}
+
+// ==================== 用户面具 ====================
 
 function renderMasksList(){
   const list=document.getElementById('masks-list'),empty=document.getElementById('masks-empty');
   if(!state.masks.length){list.innerHTML='';list.style.display='none';empty.style.display='flex';return;}
   empty.style.display='none';list.style.display='block';
-  list.innerHTML=state.masks.map((m,i)=>`<div class="list-item"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div class="list-item-content"><div class="list-item-title">${m.name}</div></div><button onclick="state.masks.splice(${i},1);renderMasksList();autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div>`).join('');
+  list.innerHTML=state.masks.map((m,i)=>`
+    <div class="list-item" onclick="openEditMask(${m.id})">
+      <div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div>
+      <div class="list-item-content">
+        <div class="list-item-title">${m.name}</div>
+        <div class="list-item-sub">${m.persona?.substring(0,20)||'暂无人设'}${m.persona?.length>20?'…':''}</div>
+      </div>
+      <button onclick="event.stopPropagation();deleteMask(${i})" style="background:none;border:none;color:var(--m-text3);cursor:pointer;padding:8px"><i class="fa-solid fa-trash"></i></button>
+    </div>
+  `).join('');
 }
+
+function deleteMask(idx) {
+  if(confirm('确认删除该面具？')) {
+    state.masks.splice(idx, 1);
+    renderMasksList();
+    autoSave();
+  }
+}
+
+function openEditMask(id) {
+  const mask = state.masks.find(m => m.id === id);
+  if (!mask) return;
+  
+  state.editingMaskId = id;
+  document.getElementById('edit-mask-name').value = mask.name || '';
+  document.getElementById('edit-mask-persona').value = mask.persona || '';
+  
+  const preview = document.getElementById('edit-mask-avatar-preview');
+  if (mask.avatarImg) {
+    preview.innerHTML = `<img src="${mask.avatarImg}">`;
+  } else {
+    preview.innerHTML = `<i class="${getIconClass(mask.icon || 'face-smile')}"></i>`;
+  }
+  state.editingMaskAvatar = mask.avatarImg || null;
+  
+  openOverlay('overlay-edit-mask');
+}
+
+function previewEditMaskAvatar(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.editingMaskAvatar = e.target.result;
+    document.getElementById('edit-mask-avatar-preview').innerHTML = `<img src="${e.target.result}">`;
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function saveEditMask() {
+  const mask = state.masks.find(m => m.id === state.editingMaskId);
+  if (!mask) return;
+  
+  const name = document.getElementById('edit-mask-name').value.trim();
+  if (!name) { showAlert('请输入名称'); return; }
+  
+  mask.name = name;
+  mask.persona = document.getElementById('edit-mask-persona').value.trim();
+  mask.avatarImg = state.editingMaskAvatar;
+  
+  closeOverlay('overlay-edit-mask');
+  renderMasksList();
+  showAlert('已保存');
+  autoSave();
+}
+
 function showAddMask(){
   state.pendingMaskAvatar = null;
   document.getElementById('mask-name').value='';
@@ -2214,6 +2389,7 @@ function showAddMask(){
   document.getElementById('mask-avatar-preview').innerHTML = '<i class="fa-regular fa-face-smile"></i>';
   openOverlay('overlay-add-mask');
 }
+
 function previewMaskAvatar(input) {
   const file = input.files[0];
   if (!file) return;
@@ -2225,6 +2401,7 @@ function previewMaskAvatar(input) {
   reader.readAsDataURL(file);
   input.value = '';
 }
+
 function saveMask(){
   const name=document.getElementById('mask-name').value.trim();
   if(!name){showAlert('请输入名称');return;}
@@ -2239,10 +2416,28 @@ function saveMask(){
   renderMasksList();
   autoSave();
 }
+
 function openMyMasks(){openScreen('screen-my-masks');}
 
-function openEditProfile(){document.getElementById('profile-nickname').value=state.profileData.nickname;document.getElementById('profile-sig').value=state.profileData.sig;openScreen('screen-edit-profile');}
-function saveProfile(){state.profileData.nickname=document.getElementById('profile-nickname').value||'用户';state.profileData.sig=document.getElementById('profile-sig').value;document.getElementById('mine-name-display').textContent=state.profileData.nickname;document.getElementById('mine-sig-display').textContent=state.profileData.sig||'点击编辑';showAlert('已保存');goBack('screen-chat');autoSave();}
+// ==================== 个人资料 ====================
+
+function openEditProfile(){
+  document.getElementById('profile-nickname').value=state.profileData.nickname;
+  document.getElementById('profile-sig').value=state.profileData.sig;
+  openScreen('screen-edit-profile');
+}
+
+function saveProfile(){
+  state.profileData.nickname=document.getElementById('profile-nickname').value||'用户';
+  state.profileData.sig=document.getElementById('profile-sig').value;
+  document.getElementById('mine-name-display').textContent=state.profileData.nickname;
+  document.getElementById('mine-sig-display').textContent=state.profileData.sig||'点击编辑';
+  showAlert('已保存');
+  goBack('screen-chat');
+  autoSave();
+}
+
+// ==================== 新建聊天 ====================
 
 function startNewChatFlow(){
   if(!state.contacts.length){showAlert('请先在"角色"页面添加角色');return;}
@@ -2251,19 +2446,59 @@ function startNewChatFlow(){
   list.innerHTML=`<div class="mask-item" onclick="selectNewMask(null)"><div class="mask-avatar"><i class="fa-regular fa-face-smile"></i></div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">不使用面具</div></div><div class="mask-check checked" id="mask-opt-none">✓</div></div>`+state.masks.map(m=>`<div class="mask-item" onclick="selectNewMask(${m.id})"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check" id="mask-opt-${m.id}"></div></div>`).join('');
   openOverlay('overlay-new-chat-step1');
 }
-function selectNewMask(id){state.selectedNewChatMaskId=id;document.querySelectorAll('.mask-check').forEach(c=>{c.className='mask-check';c.textContent='';});const t=document.getElementById(id===null?'mask-opt-none':`mask-opt-${id}`);if(t){t.className='mask-check checked';t.textContent='✓';}}
+
+function selectNewMask(id){
+  state.selectedNewChatMaskId=id;
+  document.querySelectorAll('#mask-select-list .mask-check').forEach(c=>{c.className='mask-check';c.textContent='';});
+  const t=document.getElementById(id===null?'mask-opt-none':`mask-opt-${id}`);
+  if(t){t.className='mask-check checked';t.textContent='✓';}
+}
+
 function proceedNewChatStep2(){
   closeOverlay('overlay-new-chat-step1');
   const list=document.getElementById('char-select-list');
   list.innerHTML=state.contacts.map(c=>`<div class="mask-item" onclick="selectNewChar(${c.id})"><div class="mask-avatar">${c.avatarImg?`<img src="${c.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<i class="${getIconClass(c.icon)}"></i>`}</div><div style="flex:1"><div style="font-size:15px;font-weight:500;color:var(--m-text)">${c.name}</div></div><div class="mask-check" id="char-opt-${c.id}"></div></div>`).join('')||'<div style="padding:20px;text-align:center;color:var(--m-text3)">请先在角色页面新建角色</div>';
   openOverlay('overlay-new-chat-step2');
 }
-function selectNewChar(id){state.selectedNewChatCharId=id;document.querySelectorAll('#char-select-list .mask-check').forEach(c=>{c.className='mask-check';c.textContent='';});const t=document.getElementById(`char-opt-${id}`);if(t){t.className='mask-check checked';t.textContent='✓';}}
-function goBackNewChat(){closeOverlay('overlay-new-chat-step2');openOverlay('overlay-new-chat-step1');}
-function createNewChat(){if(!state.selectedNewChatCharId){showAlert('请选择角色');return;}const c=state.contacts.find(x=>x.id===state.selectedNewChatCharId);if(c)c.maskId=state.selectedNewChatMaskId||null;closeOverlay('overlay-new-chat-step2');openChat(state.selectedNewChatCharId);autoSave();}
 
-function updateProviderDefault(){const p=document.getElementById('api-provider').value;const bases={'OpenAI':'https://api.openai.com/v1','Anthropic (Claude)':'https://api.anthropic.com/v1','DeepSeek':'https://api.deepseek.com/v1','OpenRouter':'https://openrouter.ai/api/v1'};if(bases[p])document.getElementById('api-base').value=bases[p];}
-function saveAPI(){state.api.provider=document.getElementById('api-provider').value;state.api.base=document.getElementById('api-base').value.replace(/\/$/,'');state.api.key=document.getElementById('api-key').value;state.api.model=document.getElementById('api-model').value;showAlert('已保存');autoSave();}
+function selectNewChar(id){
+  state.selectedNewChatCharId=id;
+  document.querySelectorAll('#char-select-list .mask-check').forEach(c=>{c.className='mask-check';c.textContent='';});
+  const t=document.getElementById(`char-opt-${id}`);
+  if(t){t.className='mask-check checked';t.textContent='✓';}
+}
+
+function goBackNewChat(){closeOverlay('overlay-new-chat-step2');openOverlay('overlay-new-chat-step1');}
+
+function createNewChat(){
+  if(!state.selectedNewChatCharId){showAlert('请选择角色');return;}
+  const c=state.contacts.find(x=>x.id===state.selectedNewChatCharId);
+  if(c){
+    c.maskId=state.selectedNewChatMaskId||null;
+    c.startedChat = true;
+  }
+  closeOverlay('overlay-new-chat-step2');
+  openChat(state.selectedNewChatCharId);
+  autoSave();
+}
+
+// ==================== API 设置 ====================
+
+function updateProviderDefault(){
+  const p=document.getElementById('api-provider').value;
+  const bases={'OpenAI':'https://api.openai.com/v1','Anthropic (Claude)':'https://api.anthropic.com/v1','DeepSeek':'https://api.deepseek.com/v1','OpenRouter':'https://openrouter.ai/api/v1'};
+  if(bases[p])document.getElementById('api-base').value=bases[p];
+}
+
+function saveAPI(){
+  state.api.provider=document.getElementById('api-provider').value;
+  state.api.base=document.getElementById('api-base').value.replace(/\/$/,'');
+  state.api.key=document.getElementById('api-key').value;
+  state.api.model=document.getElementById('api-model').value;
+  showAlert('已保存');
+  autoSave();
+}
+
 async function testAPI(){
   const statusEl=document.getElementById('api-status');
   statusEl.textContent='● 测试中…';statusEl.style.color='var(--m-text3)';
@@ -2332,12 +2567,42 @@ function selectModel(model) {
   document.getElementById('model-list-container').style.display = 'none';
 }
 
-function renderApiPresets(){const list=document.getElementById('api-presets-list');if(!state.apiPresets.length){list.innerHTML='<div style="text-align:center;font-size:13px;color:var(--m-text3);padding:12px">暂无预设</div>';return;}list.innerHTML=state.apiPresets.map((p,i)=>`<div class="preset-item" onclick="applyApiPreset(${i})"><div><div class="preset-name">${p.name}</div><div class="preset-info">${p.model}</div></div><button class="preset-delete" onclick="event.stopPropagation();state.apiPresets.splice(${i},1);renderApiPresets();autoSave()">×</button></div>`).join('');}
-function saveApiPreset(){const name=prompt('预设名称：');if(!name)return;state.apiPresets.push({name,provider:document.getElementById('api-provider').value,base:document.getElementById('api-base').value,key:document.getElementById('api-key').value,model:document.getElementById('api-model').value});renderApiPresets();showAlert('预设已保存');autoSave();}
-function applyApiPreset(idx){const p=state.apiPresets[idx];document.getElementById('api-provider').value=p.provider;document.getElementById('api-base').value=p.base;document.getElementById('api-key').value=p.key;document.getElementById('api-model').value=p.model;showAlert('已应用预设');}
+function renderApiPresets(){
+  const list=document.getElementById('api-presets-list');
+  if(!state.apiPresets.length){list.innerHTML='<div style="text-align:center;font-size:13px;color:var(--m-text3);padding:12px">暂无预设</div>';return;}
+  list.innerHTML=state.apiPresets.map((p,i)=>`<div class="preset-item" onclick="applyApiPreset(${i})"><div><div class="preset-name">${p.name}</div><div class="preset-info">${p.model}</div></div><button class="preset-delete" onclick="event.stopPropagation();state.apiPresets.splice(${i},1);renderApiPresets();autoSave()">×</button></div>`).join('');
+}
 
-function selectTheme(theme){document.querySelectorAll('.theme-opt').forEach(t=>t.classList.toggle('selected',t.dataset.theme===theme));state.appearance.theme=theme;}
-function previewFontSize(val){document.getElementById('font-val').textContent=val;state.appearance.fontSize=parseInt(val);}
+function saveApiPreset(){
+  const name=prompt('预设名称：');
+  if(!name)return;
+  state.apiPresets.push({name,provider:document.getElementById('api-provider').value,base:document.getElementById('api-base').value,key:document.getElementById('api-key').value,model:document.getElementById('api-model').value});
+  renderApiPresets();
+  showAlert('预设已保存');
+  autoSave();
+}
+
+function applyApiPreset(idx){
+  const p=state.apiPresets[idx];
+  document.getElementById('api-provider').value=p.provider;
+  document.getElementById('api-base').value=p.base;
+  document.getElementById('api-key').value=p.key;
+  document.getElementById('api-model').value=p.model;
+  showAlert('已应用预设');
+}
+
+// ==================== 外观设置 ====================
+
+function selectTheme(theme){
+  document.querySelectorAll('.theme-opt').forEach(t=>t.classList.toggle('selected',t.dataset.theme===theme));
+  state.appearance.theme=theme;
+}
+
+function previewFontSize(val){
+  document.getElementById('font-val').textContent=val;
+  state.appearance.fontSize=parseInt(val);
+}
+
 function uploadWallpaper(input) {
   const file = input.files[0];
   if (!file) return;
@@ -2349,6 +2614,7 @@ function uploadWallpaper(input) {
   reader.readAsDataURL(file);
   input.value = '';
 }
+
 function renderWallpaperPreview() {
   const container = document.getElementById('wallpaper-preview-container');
   if (state.appearance.homeWallpaper) {
@@ -2357,10 +2623,12 @@ function renderWallpaperPreview() {
     container.innerHTML = '';
   }
 }
+
 function removeWallpaper() {
   state.appearance.homeWallpaper = null;
   renderWallpaperPreview();
 }
+
 function saveAppearance(){
   document.getElementById('phone').className=state.appearance.theme||'';
   document.documentElement.style.setProperty('--font-size',state.appearance.fontSize+'px');
@@ -2372,6 +2640,7 @@ function saveAppearance(){
   showAlert('外观已保存');
   autoSave();
 }
+
 function resetAppearance(){
   state.appearance={fontSize:15,theme:'',homeWallpaper:null};
   state.widgetImage = null;
@@ -2390,15 +2659,35 @@ function resetAppearance(){
 }
 
 function uploadAvatarFor(target){document.getElementById('contact-avatar-input')?.click();}
-function applyUploadedAvatar(input,target){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{const c=getCurrentContact();if(c){c.avatarImg=e.target.result;openContactSettings();renderRolesList();autoSave();}};reader.readAsDataURL(file);}
 
-function renderDiaryCharSelect(){document.getElementById('diary-char-select').innerHTML=state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');}
+function applyUploadedAvatar(input,target){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const c=getCurrentContact();
+    if(c){
+      c.avatarImg=e.target.result;
+      openContactSettings();
+      renderRolesList();
+      autoSave();
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+// ==================== 日记 ====================
+
+function renderDiaryCharSelect(){
+  document.getElementById('diary-char-select').innerHTML=state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+}
+
 function renderDiaries(){
   const list=document.getElementById('diary-list'),empty=document.getElementById('diary-empty');
   if(!state.diaries.length){list.innerHTML='';empty.style.display='flex';return;}
   empty.style.display='none';
   list.innerHTML=state.diaries.map(d=>`<div class="diary-entry"><div class="diary-date">${d.date} · ${state.contacts.find(c=>c.id===d.charId)?.name||'未知'}</div><div class="diary-content">${d.content}</div></div>`).join('');
 }
+
 async function generateDiary(){
   const charId=parseInt(document.getElementById('diary-char-select').value);
   const c=state.contacts.find(x=>x.id===charId);
@@ -2414,16 +2703,33 @@ async function generateDiary(){
   }catch(e){showAlert('生成失败');}
 }
 
-function showNewMoment(){document.getElementById('moment-text').value='';document.getElementById('moment-img-preview').innerHTML='';state.pendingMomentImgs=[];openOverlay('overlay-new-moment');}
-function previewMomentImgs(input){
-  Array.from(input.files).forEach(file=>{const reader=new FileReader();reader.onload=e=>{state.pendingMomentImgs.push(e.target.result);document.getElementById('moment-img-preview').innerHTML=state.pendingMomentImgs.map(src=>`<div style="aspect-ratio:1;border-radius:6px;overflow:hidden"><img src="${src}" style="width:100%;height:100%;object-fit:cover"></div>`).join('');};reader.readAsDataURL(file);});
+// ==================== 朋友圈 ====================
+
+function showNewMoment(){
+  document.getElementById('moment-text').value='';
+  document.getElementById('moment-img-preview').innerHTML='';
+  state.pendingMomentImgs=[];
+  openOverlay('overlay-new-moment');
 }
+
+function previewMomentImgs(input){
+  Array.from(input.files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      state.pendingMomentImgs.push(e.target.result);
+      document.getElementById('moment-img-preview').innerHTML=state.pendingMomentImgs.map(src=>`<div style="aspect-ratio:1;border-radius:6px;overflow:hidden"><img src="${src}" style="width:100%;height:100%;object-fit:cover"></div>`).join('');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function postMoment(){
   const text=document.getElementById('moment-text').value.trim();
   if(!text&&!state.pendingMomentImgs.length){showAlert('请输入内容');return;}
   state.moments.unshift({id:Date.now(),text,imgs:[...state.pendingMomentImgs],time:Date.now(),comments:'',likes:0,liked:false});
   closeOverlay('overlay-new-moment');renderMoments();showAlert('发布成功');autoSave();
 }
+
 function renderMoments(){
   const list=document.getElementById('moments-list');
   if(!state.moments.length){list.innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-regular fa-image"></i></div><div class="empty-state-text">暂无朋友圈</div></div>';return;}
@@ -2442,11 +2748,13 @@ function renderMoments(){
     </div>`;
   }).join('');
 }
+
 function toggleMomentLike(idx){
   const m=state.moments[idx];
   m.liked=!m.liked;m.likes=m.liked?m.likes+1:m.likes-1;
   renderMoments();autoSave();
 }
+
 async function genMomentComments(idx){
   if(!state.api.key){showAlert('请配置API');return;}
   const m=state.moments[idx];const chars=state.contacts.map(c=>c.name).join('、');
@@ -2459,7 +2767,12 @@ async function genMomentComments(idx){
   }catch(e){showAlert('生成失败');}
 }
 
-function renderKKCharSelect(){document.getElementById('kk-char-select').innerHTML=state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');}
+// ==================== KK 应用 ====================
+
+function renderKKCharSelect(){
+  document.getElementById('kk-char-select').innerHTML=state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+}
+
 function renderKKDesktop(){
   const charId=parseInt(document.getElementById('kk-char-select').value);
   const c=state.contacts.find(x=>x.id===charId);
@@ -2490,6 +2803,7 @@ function renderKKDesktop(){
     </div>
   `;
 }
+
 function openCharApp(app,charId){
   const c=state.contacts.find(x=>x.id===charId);if(!c)return;
   const data=c.kkData||{chats:[],memo:'暂无内容',health:{}};
@@ -2508,6 +2822,7 @@ function openCharApp(app,charId){
     document.getElementById('kk-health-content').innerHTML=fields.map(([k,label])=>`<div class="kk-health-item"><div class="kk-health-value">${h[k]||'--'}</div><div class="kk-health-label">${label}</div></div>`).join('');
   }
 }
+
 async function generateKKData(charId){
   const c=state.contacts.find(x=>x.id===charId);
   if(!c||!state.api.key){showAlert('请配置API');return;}
@@ -2521,6 +2836,8 @@ async function generateKKData(charId){
     try{const jsonMatch=text.match(/\{[\s\S]*\}/);if(jsonMatch){c.kkData=JSON.parse(jsonMatch[0]);renderKKDesktop();showAlert('生成成功！点击应用查看内容');autoSave();}}catch(e){showAlert('解析失败');}
   }catch(e){showAlert('生成失败');}
 }
+
+// ==================== 论坛 ====================
 
 function initForumSetup(){
   const charList=document.getElementById('forum-char-select-list');
@@ -2537,24 +2854,28 @@ function initForumSetup(){
   maskList.innerHTML=noMask+state.masks.map(m=>`<div class="mask-item" onclick="selectForumMask(${m.id})"><div class="mask-avatar">${m.avatarImg?`<img src="${m.avatarImg}">`:`<i class="${getIconClass(m.icon||'face-smile')}"></i>`}</div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">${m.name}</div></div><div class="mask-check ${state.forumSelectedMaskId===m.id?'checked':''}" id="fmask-${m.id}">${state.forumSelectedMaskId===m.id?'✓':''}</div></div>`).join('');
   if(state.forumWorldview)document.getElementById('forum-worldview').value=state.forumWorldview;
 }
+
 function toggleForumChar(id){
   const idx=state.forumSelectedCharIds.indexOf(id);
   const el=document.getElementById(`fchar-${id}`);
   if(idx>-1){state.forumSelectedCharIds.splice(idx,1);el.className='mask-check';el.textContent='';}
   else{state.forumSelectedCharIds.push(id);el.className='mask-check checked';el.textContent='✓';}
 }
+
 function selectForumMask(id){
   state.forumSelectedMaskId=id;
   document.querySelectorAll('[id^="fmask-"]').forEach(el=>{el.className='mask-check';el.textContent='';});
   const t=document.getElementById(id===null?'fmask-none':`fmask-${id}`);
   if(t){t.className='mask-check checked';t.textContent='✓';}
 }
+
 function enterForum(){
   const wv=document.getElementById('forum-worldview').value.trim();
   state.forumWorldview=wv;
   screenStack.push('screen-forum');showScreen('screen-forum');
   renderForumPosts();autoSave();
 }
+
 function renderForumPosts(){
   const list=document.getElementById('forum-post-list');
   const wvBanner=state.forumWorldview?`<div class="forum-worldview-banner"><i class="fa-solid fa-globe"></i> ${state.forumWorldview.substring(0,60)}${state.forumWorldview.length>60?'…':''}</div>`:'';
@@ -2584,7 +2905,9 @@ function renderForumPosts(){
     </div>`;
   }).join('');
 }
+
 function openNewPostSheet(){openOverlay('overlay-new-post');document.getElementById('new-post-title').value='';document.getElementById('new-post-content').value='';}
+
 async function submitForumPost(){
   const title=document.getElementById('new-post-title').value.trim();
   const content=document.getElementById('new-post-content').value.trim();
@@ -2593,7 +2916,9 @@ async function submitForumPost(){
   state.forumPosts.unshift({id:Date.now(),title,content,time:Date.now(),authorType:'user',authorId:null,authorMaskId:state.forumSelectedMaskId,likes:0,liked:false,comments:[]});
   renderForumPosts();showAlert('发布成功');autoSave();
 }
+
 function toggleForumLike(idx){const p=state.forumPosts[idx];p.liked=!p.liked;p.likes=p.liked?p.likes+1:p.likes-1;renderForumPosts();autoSave();}
+
 async function genForumComments(idx){
   if(!state.api.key){showAlert('请配置API');return;}
   const p=state.forumPosts[idx];
@@ -2615,6 +2940,8 @@ async function genForumComments(idx){
   }catch(e){showAlert('生成失败');}
 }
 
+// ==================== 同人创作 ====================
+
 function initFanficSetup(){
   const charList=document.getElementById('fanfic-char-select-list');
   const noChar='<div class="mask-item" onclick="selectFanficChar(null)"><div class="mask-avatar"><i class="fa-solid fa-minus"></i></div><div style="flex:1"><div style="font-size:14px;font-weight:500;color:var(--m-text)">不指定角色</div></div><div class="mask-check" id="ff-char-none"></div></div>';
@@ -2627,23 +2954,27 @@ function initFanficSetup(){
   const mci=document.getElementById(state.fanficSelectedMaskId?`ff-mask-${state.fanficSelectedMaskId}`:'ff-mask-none');
   if(mci){mci.className='mask-check checked';mci.textContent='✓';}
 }
+
 function selectFanficChar(id){
   state.fanficSelectedCharId=id;
   document.querySelectorAll('[id^="ff-char-"]').forEach(el=>{el.className='mask-check';el.textContent='';});
   const t=document.getElementById(id===null?'ff-char-none':`ff-char-${id}`);
   if(t){t.className='mask-check checked';t.textContent='✓';}
 }
+
 function selectFanficMask(id){
   state.fanficSelectedMaskId=id;
   document.querySelectorAll('[id^="ff-mask-"]').forEach(el=>{el.className='mask-check';el.textContent='';});
   const t=document.getElementById(id===null?'ff-mask-none':`ff-mask-${id}`);
   if(t){t.className='mask-check checked';t.textContent='✓';}
 }
+
 function selectStyle(el,style){
   state.fanficSelectedStyle=style;
   document.querySelectorAll('.style-tag').forEach(t=>t.classList.remove('selected'));
   el.classList.add('selected');
 }
+
 async function generateFanfic(){
   if(!state.api.key){showAlert('请配置API');return;}
   const char=state.fanficSelectedCharId?state.contacts.find(c=>c.id===state.fanficSelectedCharId):null;
@@ -2676,6 +3007,7 @@ async function generateFanfic(){
     autoSave();
   }catch(e){document.getElementById('fanfic-result-area').innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-solid fa-circle-exclamation"></i></div><div class="empty-state-text">生成失败，请检查API配置</div></div>';}
 }
+
 async function genFanficComments(idx){
   if(!state.api.key){showAlert('请配置API');return;}
   const f=state.fanfics[idx];if(!f)return;
@@ -2700,37 +3032,50 @@ async function genFanficComments(idx){
 
 // ==================== 初始化 ====================
 
-// 监听窗口大小变化，自动调整设备模式（如果未手动设置）
 window.addEventListener('resize', () => {
-  // 仅在未手动设置时自动适配
   if (!state.interfaceSettings.deviceMode) {
     applyDeviceMode(detectDeviceMode());
   }
 });
 
-// 页面可见性变化时保存
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') {
     saveState();
   }
 });
 
-// 页面关闭前保存
 window.addEventListener('beforeunload', () => {
   saveState();
 });
 
-// 初始化
+function autoRequestFullscreen() {
+  const tryFullscreen = () => {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen().catch(() => {});
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    }
+    document.body.classList.add('fullscreen-mode');
+    document.removeEventListener('click', tryFullscreen);
+    document.removeEventListener('touchstart', tryFullscreen);
+  };
+  
+  document.addEventListener('click', tryFullscreen, { once: true });
+  document.addEventListener('touchstart', tryFullscreen, { once: true });
+}
+
 function init() {
   renderContacts();
   applySettings();
   applyInterfaceSettings();
   renderWallpaperPreview();
   
-  // 如果是移动设备且开启了隐藏地址栏，尝试隐藏
   if (state.interfaceSettings.hideAddressBar) {
     setTimeout(() => window.scrollTo(0, 1), 100);
   }
+  
+  autoRequestFullscreen();
   
   console.log('AI 角色扮演手机 已加载');
   console.log('数据自动保存:', state.storageSettings.autoSave ? '已启用' : '已关闭');
