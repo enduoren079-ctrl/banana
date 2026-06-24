@@ -8,6 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#f5f5f5">
 <meta name="format-detection" content="telephone=no">
+<style>html,body{scroll-behavior:auto;}</style>
 <title>AI 角色扮演手机</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -602,7 +603,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
         <div class="topbar"><span class="topbar-title">我的</span></div>
         <div class="scroll-area">
           <div class="profile-hero">
-            <div class="profile-avatar-big" id="mine-avatar-display" onclick="openEditProfile()"><i class="fa-regular fa-face-smile" id="mine-avatar-icon"></i></div>
+            <div class="profile-avatar-big" id="mine-avatar-display" onclick="document.getElementById('mine-avatar-input').click()" style="cursor:pointer"><i class="fa-regular fa-face-smile" id="mine-avatar-icon"></i></div>
             <div><div class="profile-name" id="mine-name-display">用户</div><div class="profile-sig" id="mine-sig-display">点击编辑个人信息</div></div>
           </div>
           <div class="section-divider"></div>
@@ -1347,9 +1348,60 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   <div class="msg-ctx-item" onclick="deleteSelectedMessage()">删除</div>
 </div>
 
+<!-- Add Role Overlay -->
+<div class="overlay" id="overlay-add-role">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-add-role')">取消</button>
+      <div class="sheet-title">添加角色</div>
+      <button class="sheet-btn" onclick="saveNewRole()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <div class="avatar-upload-wrapper">
+          <div class="avatar-upload-btn" id="role-avatar-preview" onclick="document.getElementById('role-avatar-input').click()">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
+        </div>
+        <input type="file" id="role-avatar-input" accept="image/*" style="display:none" onchange="previewRoleAvatar(this)">
+      </div>
+      <div class="form-group"><div class="form-label">角色名称</div><input class="form-input" id="role-name" placeholder="名称"></div>
+      <div class="form-group"><div class="form-label">角色设定</div><textarea class="form-textarea" id="role-persona" style="min-height:120px" placeholder="性格、背景…"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Mask Overlay -->
+<div class="overlay" id="overlay-add-mask">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-add-mask')">取消</button>
+      <div class="sheet-title">添加面具</div>
+      <button class="sheet-btn" onclick="saveMask()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <div class="avatar-upload-wrapper">
+          <div class="avatar-upload-btn" id="mask-avatar-preview" onclick="document.getElementById('mask-avatar-input').click()">
+            <i class="fa-regular fa-face-smile"></i>
+          </div>
+          <div class="avatar-upload-badge"><i class="fa-solid fa-camera"></i></div>
+        </div>
+        <input type="file" id="mask-avatar-input" accept="image/*" style="display:none" onchange="previewMaskAvatar(this)">
+      </div>
+      <div class="form-group"><div class="form-label">面具名称</div><input class="form-input" id="mask-name" placeholder="名称"></div>
+      <div class="form-group"><div class="form-label">人设</div><textarea class="form-textarea" id="mask-persona" style="min-height:120px" placeholder="身份背景…"></textarea></div>
+    </div>
+  </div>
+</div>
+
 <div id="toast" style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(50,50,50,0.9);color:white;padding:10px 20px;border-radius:20px;font-size:14px;z-index:500;opacity:0;transition:opacity 0.3s;pointer-events:none;backdrop-filter:blur(10px)"></div>
 
 <input type="file" id="contact-avatar-input" accept="image/*" style="display:none" onchange="applyUploadedAvatar(this,'contact')">
+<input type="file" id="mine-avatar-input" accept="image/*" style="display:none" onchange="applyMineAvatar(this)">
 <input type="file" id="widget-image-input" accept="image/*" style="display:none" onchange="applyWidgetImage(this)">
 
 <script>
@@ -1911,7 +1963,10 @@ function renderMessages(){
   if(!msgs.length){container.innerHTML='<div class="msg-date">开始与 '+c.name+' 的对话</div>';return;}
   container.innerHTML=msgs.map((m,i)=>{
     const isSelf=m.role==='user';
-    const avatarHtml=isSelf?(state.profileData.avatarImg?`<img src="${state.profileData.avatarImg}">`:`<i class="${getIconClass(state.profileData.icon)}"></i>`):(c.avatarImg?`<img src="${c.avatarImg}">`:`<i class="${getIconClass(c.icon)}"></i>`);
+    const mask=c.maskId?state.masks.find(m=>m.id===c.maskId):null;
+    const userAvatarImg=mask?.avatarImg||state.profileData.avatarImg;
+    const userAvatarIcon=mask?(mask.icon||'face-smile'):(state.profileData.icon||'face-smile');
+    const avatarHtml=isSelf?(userAvatarImg?`<img src="${userAvatarImg}">`:`<i class="${getIconClass(userAvatarIcon)}"></i>`):(c.avatarImg?`<img src="${c.avatarImg}">`:`<i class="${getIconClass(c.icon)}"></i>`);
     let contentHtml='';
     if(m.quote)contentHtml+=`<div class="msg-quote">${m.quote}</div>`;
     if(m.image)contentHtml+=`<div class="msg-image"><img src="${m.image}"></div>`;
@@ -2418,6 +2473,21 @@ function saveMask(){
 }
 
 function openMyMasks(){openScreen('screen-my-masks');}
+
+function applyMineAvatar(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.profileData.avatarImg = e.target.result;
+    const mineAvatar = document.getElementById('mine-avatar-display');
+    mineAvatar.innerHTML = `<img src="${e.target.result}">`;
+    showAlert('头像已更新');
+    autoSave();
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
 
 // ==================== 个人资料 ====================
 
@@ -3049,6 +3119,11 @@ window.addEventListener('beforeunload', () => {
 });
 
 function autoRequestFullscreen() {
+  // Try to hide address bar immediately via scroll trick
+  if (document.body.scrollHeight > window.innerHeight) {
+    window.scrollTo(0, 1);
+  }
+  
   const tryFullscreen = () => {
     const elem = document.documentElement;
     if (elem.requestFullscreen) {
@@ -3071,9 +3146,10 @@ function init() {
   applyInterfaceSettings();
   renderWallpaperPreview();
   
-  if (state.interfaceSettings.hideAddressBar) {
-    setTimeout(() => window.scrollTo(0, 1), 100);
-  }
+  // Hide browser address bar on load
+  document.body.classList.add('hide-address-bar');
+  setTimeout(() => { window.scrollTo(0, 1); }, 0);
+  setTimeout(() => { window.scrollTo(0, 1); }, 300);
   
   autoRequestFullscreen();
   
