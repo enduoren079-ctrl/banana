@@ -36,7 +36,6 @@
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
-/* 关键修复：确保 html 和 body 完全填充 */
 html{
   width:100%;
   height:100%;
@@ -60,7 +59,6 @@ body{
   transform:scale(var(--page-zoom));
 }
 
-/* 全屏模式样式 */
 body.fullscreen-mode {
   position:fixed;
   top:0;
@@ -70,7 +68,6 @@ body.fullscreen-mode {
   z-index:9999;
 }
 
-/* 隐藏地址栏辅助 */
 body.hide-address-bar {
   min-height:100.1vh;
 }
@@ -85,7 +82,6 @@ body.hide-address-bar {
   margin:0;
 }
 
-/* 设备模式适配 */
 #phone{
   position:relative;
   background:var(--wallpaper);
@@ -96,7 +92,6 @@ body.hide-address-bar {
   transition:all 0.3s ease;
 }
 
-/* 桌面模式 - 模拟手机外观 */
 body[data-device="desktop"] #phone {
   width:390px;
   height:844px;
@@ -106,7 +101,6 @@ body[data-device="desktop"] #phone {
   box-shadow:0 25px 50px -12px rgba(0,0,0,0.5),inset 0 0 0 10px #1a1a1a;
 }
 
-/* 平板模式 */
 body[data-device="tablet"] #phone {
   width:768px;
   height:1024px;
@@ -116,7 +110,6 @@ body[data-device="tablet"] #phone {
   box-shadow:0 20px 40px -10px rgba(0,0,0,0.4);
 }
 
-/* 手机模式 - 完全填充屏幕 */
 body[data-device="mobile"] #phone {
   width:100vw;
   height:100vh;
@@ -130,7 +123,43 @@ body[data-device="mobile"] #phone {
   padding-right:env(safe-area-inset-right);
 }
 
-/* 全屏模式下强制手机样式 */
+/* iPhone适配模式 */
+body[data-device="iphone-mini"] #phone {
+  width:375px;
+  height:812px;
+  max-width:100vw;
+  max-height:100vh;
+  border-radius:44px;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,0.5),inset 0 0 0 10px #1a1a1a;
+}
+
+body[data-device="iphone-standard"] #phone {
+  width:390px;
+  height:844px;
+  max-width:100vw;
+  max-height:100vh;
+  border-radius:47px;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,0.5),inset 0 0 0 10px #1a1a1a;
+}
+
+body[data-device="iphone-plus"] #phone {
+  width:430px;
+  height:932px;
+  max-width:100vw;
+  max-height:100vh;
+  border-radius:55px;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,0.5),inset 0 0 0 10px #1a1a1a;
+}
+
+body[data-device="iphone-se"] #phone {
+  width:375px;
+  height:667px;
+  max-width:100vw;
+  max-height:100vh;
+  border-radius:0;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,0.5),inset 0 0 0 10px #1a1a1a;
+}
+
 body.fullscreen-mode #phone {
   width:100vw !important;
   height:100vh !important;
@@ -218,7 +247,6 @@ body.fullscreen-mode #phone {
 .msg-avatar i{font-size:16px;}
 .msg-bubble-wrap{max-width:70%;display:flex;flex-direction:column;gap:2px;}
 .msg-row.self .msg-bubble-wrap{align-items:flex-end;}
-  /* 线下模式消息气泡更宽 */
 #screen-offline .msg-bubble-wrap {
   max-width: 95%;
 }
@@ -451,17 +479,56 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .model-item:hover{background:rgba(0,0,0,0.02);}
 .model-item.selected{background:rgba(0,0,0,0.05);font-weight:500;}
 
-/* 设备模式选择器样式 */
 .device-mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
 .device-mode-opt{padding:12px 8px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--m-bg2);}
 .device-mode-opt.selected{border-color:var(--m-text);background:var(--m-card);}
 .device-mode-opt i{font-size:24px;color:var(--m-text2);}
 .device-mode-opt span{font-size:12px;color:var(--m-text2);}
 
-/* 数据存储状态指示 */
+.iphone-mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
+.iphone-mode-opt{padding:10px 8px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--m-bg2);}
+.iphone-mode-opt.selected{border-color:var(--m-text);background:var(--m-card);}
+.iphone-mode-opt span.model-name{font-size:12px;color:var(--m-text);font-weight:500;}
+.iphone-mode-opt span.model-size{font-size:10px;color:var(--m-text3);}
+
 .storage-status{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(122,171,122,0.1);border-radius:8px;margin-bottom:12px;font-size:13px;color:var(--m-green);}
 .storage-status.warning{background:rgba(201,112,112,0.1);color:var(--m-red);}
 .storage-status i{font-size:16px;}
+
+/* 记忆条目样式 */
+.memory-item{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;border:0.5px solid var(--m-border);cursor:pointer;transition:background 0.15s;}
+.memory-item:active{background:rgba(0,0,0,0.02);}
+.memory-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.memory-item-name{font-size:14px;font-weight:600;color:var(--m-text);}
+.memory-item-delete{background:none;border:none;color:var(--m-text3);cursor:pointer;padding:4px;}
+.memory-item-content{font-size:13px;color:var(--m-text2);line-height:1.5;}
+
+/* 同人文列表样式 */
+.fanfic-list-item{background:#fffef8;border-radius:12px;padding:14px;margin-bottom:10px;border:0.5px solid rgba(200,180,150,0.3);cursor:pointer;}
+.fanfic-list-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.fanfic-list-item-title{font-size:14px;font-weight:600;color:#5a4030;}
+.fanfic-list-item-time{font-size:11px;color:#a09080;}
+.fanfic-list-item-preview{font-size:13px;color:#5a5040;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* 转账样式 */
+.transfer-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+.transfer-overlay.active{opacity:1;pointer-events:all;}
+.transfer-card{width:300px;background:white;border-radius:16px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.2);}
+.transfer-header{background:linear-gradient(135deg,#f5a623,#f78e1e);color:white;padding:20px;text-align:center;}
+.transfer-header i{font-size:40px;margin-bottom:8px;}
+.transfer-header-title{font-size:18px;font-weight:600;}
+.transfer-body{padding:20px;}
+.transfer-amount-input{width:100%;font-size:36px;font-weight:300;text-align:center;border:none;outline:none;color:var(--m-text);padding:20px 0;border-bottom:1px solid var(--m-border);}
+.transfer-amount-input::placeholder{color:var(--m-text3);}
+.transfer-note{width:100%;border:none;outline:none;padding:12px 0;font-size:14px;color:var(--m-text2);text-align:center;}
+.transfer-note::placeholder{color:var(--m-text3);}
+.transfer-actions{display:flex;gap:10px;margin-top:16px;}
+.transfer-btn{flex:1;padding:12px;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;}
+.transfer-btn.cancel{background:var(--m-bg2);color:var(--m-text2);}
+.transfer-btn.confirm{background:linear-gradient(135deg,#f5a623,#f78e1e);color:white;}
+.transfer-received{text-align:center;padding:30px 20px;}
+.transfer-received-amount{font-size:48px;font-weight:300;color:var(--m-text);margin:16px 0;}
+.transfer-received-note{font-size:14px;color:var(--m-text3);}
 
 @media(max-width:390px){
   .home-time{font-size:60px;}
@@ -474,7 +541,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   #statusbar{height:36px;}
 }
 
-/* 响应式：自动检测设备 */
 @media(max-width:480px){
   body:not([data-device]) {
     --device-mode:mobile;
@@ -651,6 +717,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
             <div class="chat-plus-icon"><i class="fa-regular fa-image"></i></div>
             <div class="chat-plus-label">图片</div>
           </div>
+          <div class="chat-plus-item" onclick="openTransferSend()">
+            <div class="chat-plus-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+            <div class="chat-plus-label">转账</div>
+          </div>
         </div>
       </div>
       <div class="chat-input-bar">
@@ -755,7 +825,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       </div>
     </div>
 
-    <!-- INTERFACE SETTINGS (NEW) -->
+    <!-- INTERFACE SETTINGS -->
     <div class="screen" id="screen-interface">
       <div class="topbar">
         <button class="topbar-back" onclick="goBack('screen-settings')"><i class="fa-solid fa-chevron-left"></i> 设置</button>
@@ -763,7 +833,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
         <button class="sheet-btn" onclick="saveInterfaceSettings()">保存</button>
       </div>
       <div class="scroll-area" style="padding:16px">
-        <!-- 全屏模式 -->
         <div class="form-group">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div>
@@ -776,7 +845,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 
         <div class="section-divider"></div>
 
-        <!-- 屏幕尺寸适配 -->
         <div class="form-group">
           <div class="form-label">屏幕尺寸适配</div>
           <div class="device-mode-grid">
@@ -795,7 +863,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
           </div>
         </div>
 
-        <!-- 网页缩放 -->
+        <div class="form-group">
+          <div class="form-label">苹果手机适配</div>
+          <div class="iphone-mode-grid">
+            <div class="iphone-mode-opt" data-mode="iphone-mini" onclick="selectDeviceMode('iphone-mini')">
+              <span class="model-name">iPhone 13 mini</span>
+              <span class="model-size">375×812</span>
+            </div>
+            <div class="iphone-mode-opt" data-mode="iphone-standard" onclick="selectDeviceMode('iphone-standard')">
+              <span class="model-name">iPhone 14/15</span>
+              <span class="model-size">390×844</span>
+            </div>
+            <div class="iphone-mode-opt" data-mode="iphone-plus" onclick="selectDeviceMode('iphone-plus')">
+              <span class="model-name">iPhone 15 Plus/Pro Max</span>
+              <span class="model-size">430×932</span>
+            </div>
+            <div class="iphone-mode-opt" data-mode="iphone-se" onclick="selectDeviceMode('iphone-se')">
+              <span class="model-name">iPhone SE</span>
+              <span class="model-size">375×667</span>
+            </div>
+          </div>
+        </div>
+
         <div class="form-group">
           <div class="form-label">网页缩放</div>
           <div class="range-wrap">
@@ -808,7 +897,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 
         <div class="section-divider"></div>
 
-        <!-- 隐藏地址栏 -->
         <div class="form-group">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div>
@@ -826,20 +914,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       </div>
     </div>
 
-    <!-- DATA STORAGE SETTINGS (NEW) -->
+    <!-- DATA STORAGE SETTINGS -->
     <div class="screen" id="screen-storage">
       <div class="topbar">
         <button class="topbar-back" onclick="goBack('screen-settings')"><i class="fa-solid fa-chevron-left"></i> 设置</button>
         <span class="topbar-title">数据储存</span>
       </div>
       <div class="scroll-area" style="padding:16px">
-        <!-- 存储状态 -->
         <div class="storage-status" id="storage-status">
           <i class="fa-solid fa-check-circle"></i>
           <span>自动存储已启用</span>
         </div>
 
-        <!-- 自动保存开关 -->
         <div class="form-group">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div>
@@ -852,7 +938,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 
         <div class="section-divider"></div>
 
-        <!-- 存储信息 -->
         <div class="form-group">
           <div class="form-label">存储信息</div>
           <div style="background:var(--m-card);border-radius:10px;padding:12px;border:0.5px solid var(--m-border)">
@@ -877,7 +962,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 
         <div class="section-divider"></div>
 
-        <!-- 数据操作 -->
         <div class="form-group">
           <div class="form-label">数据操作</div>
           <button class="secondary-btn" onclick="exportData()" style="margin-bottom:8px">
@@ -1144,7 +1228,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       <div class="topbar">
         <button class="topbar-btn" onclick="goHome()" style="background:none"><i class="fa-solid fa-chevron-left"></i></button>
         <span class="topbar-title">同人创作</span>
-        <button class="sheet-btn" onclick="generateFanfic()">生成</button>
+        <button class="topbar-btn" onclick="openFanficLibrary()"><i class="fa-solid fa-book"></i></button>
       </div>
       <div class="scroll-area" style="padding:16px">
         <div class="form-group">
@@ -1172,6 +1256,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
           <div class="form-label">额外描述（可选）</div>
           <textarea class="form-textarea" id="fanfic-extra" placeholder="补充情节设定…"></textarea>
         </div>
+        <button class="primary-btn" onclick="generateFanfic()"><i class="fa-solid fa-sparkles" style="margin-right:8px"></i>生成同人文</button>
+      </div>
+    </div>
+
+    <!-- FANFIC LIBRARY -->
+    <div class="screen" id="screen-fanfic-library">
+      <div class="topbar">
+        <button class="topbar-back" onclick="goBack('screen-fanfic-setup')"><i class="fa-solid fa-chevron-left"></i> 返回</button>
+        <span class="topbar-title">同人文库</span>
+      </div>
+      <div class="scroll-area" style="padding:12px" id="fanfic-library-list">
+        <div class="empty-state" id="fanfic-library-empty"><div class="empty-state-icon"><i class="fa-solid fa-feather-pointed"></i></div><div class="empty-state-text">暂无已生成的同人文</div></div>
       </div>
     </div>
 
@@ -1215,7 +1311,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 </div>
 
 <!-- Add Role Overlay -->
-  <div class="overlay" id="overlay-offline-settings">
+<div class="overlay" id="overlay-offline-settings">
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
@@ -1243,12 +1339,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
         </select>
       </div>
       <div class="form-group">
-        <div class="form-label">人称视角</div>
-        <select class="api-select" id="offline-perspective">
-          <option value="third-char-first-user">角色第三人称 / 用户第一人称</option>
-          <option value="first-char-second-user">角色第一人称 / 用户第二人称</option>
-          <option value="third-both">双方都用第三人称</option>
-          <option value="first-char-third-user">角色第一人称 / 用户第三人称</option>
+        <div class="form-label">角色（Char）人称视角</div>
+        <select class="api-select" id="offline-char-perspective">
+          <option value="first">第一人称（"我"）</option>
+          <option value="second">第二人称（"你"）</option>
+          <option value="third" selected>第三人称</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">用户（User）人称视角</div>
+        <select class="api-select" id="offline-user-perspective">
+          <option value="first" selected>第一人称（"我"）</option>
+          <option value="second">第二人称（"你"）</option>
+          <option value="third">第三人称</option>
         </select>
       </div>
       <div style="margin-top:16px;border-top:0.5px solid var(--m-border);padding-top:16px">
@@ -1348,6 +1451,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   <div class="msg-ctx-item" onclick="deleteSelectedMessage()">删除</div>
 </div>
 
+<!-- 线下模式消息右键菜单 -->
+<div class="msg-ctx-menu" id="offline-msg-ctx-menu">
+  <div class="msg-ctx-item" onclick="editOfflineMessage()">编辑</div>
+  <div class="msg-ctx-item" onclick="deleteOfflineMessage()">删除</div>
+</div>
+
 <!-- Add Role Overlay -->
 <div class="overlay" id="overlay-add-role">
   <div class="sheet">
@@ -1398,6 +1507,151 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   </div>
 </div>
 
+<!-- Add Memory Overlay -->
+<div class="overlay" id="overlay-add-mem">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-add-mem')">取消</button>
+      <div class="sheet-title" id="add-mem-title">添加记忆</div>
+      <button class="sheet-btn" onclick="saveMemory()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div class="form-group"><div class="form-label">记忆名称</div><input class="form-input" id="mem-name" placeholder="给这条记忆起个名字"></div>
+      <div class="form-group"><div class="form-label">关联角色</div><select class="api-select" id="mem-char-select"><option value="global">全局</option></select></div>
+      <div class="form-group"><div class="form-label">记忆内容</div><textarea class="form-textarea" id="mem-content" style="min-height:100px" placeholder="记忆内容…"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Memory Overlay -->
+<div class="overlay" id="overlay-edit-mem">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-edit-mem')">取消</button>
+      <div class="sheet-title">编辑记忆</div>
+      <button class="sheet-btn" onclick="saveEditMemory()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div class="form-group"><div class="form-label">记忆名称</div><input class="form-input" id="edit-mem-name" placeholder="记忆名称"></div>
+      <div class="form-group"><div class="form-label">记忆内容</div><textarea class="form-textarea" id="edit-mem-content" style="min-height:100px" placeholder="记忆内容…"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Contact Memory Overlay -->
+<div class="overlay" id="overlay-add-contact-mem">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-add-contact-mem')">取消</button>
+      <div class="sheet-title">添加核心记忆</div>
+      <button class="sheet-btn" onclick="saveContactMemory()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div class="form-group"><div class="form-label">记忆名称</div><input class="form-input" id="contact-mem-name" placeholder="给这条记忆起个名字"></div>
+      <div class="form-group"><div class="form-label">记忆内容</div><textarea class="form-textarea" id="contact-mem-content" style="min-height:100px" placeholder="记忆内容…"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Contact Memory Overlay -->
+<div class="overlay" id="overlay-edit-contact-mem">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-edit-contact-mem')">取消</button>
+      <div class="sheet-title">编辑记忆</div>
+      <button class="sheet-btn" onclick="saveEditContactMemory()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div class="form-group"><div class="form-label">记忆名称</div><input class="form-input" id="edit-contact-mem-name" placeholder="记忆名称"></div>
+      <div class="form-group"><div class="form-label">记忆内容</div><textarea class="form-textarea" id="edit-contact-mem-content" style="min-height:100px" placeholder="记忆内容…"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Worldbook Overlay -->
+<div class="overlay" id="overlay-add-wb">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-add-wb')">取消</button>
+      <div class="sheet-title">添加世界书条目</div>
+      <button class="sheet-btn" onclick="saveWBEntry()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div class="form-group"><div class="form-label">名称</div><input class="form-input" id="wb-entry-name" placeholder="条目名称"></div>
+      <div class="form-group"><div class="form-label">内容</div><textarea class="form-textarea" id="wb-entry-content" style="min-height:120px" placeholder="条目内容…"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mount Worldbook Overlay -->
+<div class="overlay" id="overlay-mount-wb">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-mount-wb')">取消</button>
+      <div class="sheet-title">挂载世界书</div>
+      <button class="sheet-btn" onclick="saveMountedWB()">确定</button>
+    </div>
+    <div class="sheet-content">
+      <div id="mount-wb-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Transfer Overlay -->
+<div class="transfer-overlay" id="transfer-overlay">
+  <div class="transfer-card">
+    <div class="transfer-header">
+      <i class="fa-solid fa-money-bill-transfer"></i>
+      <div class="transfer-header-title" id="transfer-title">转账给TA</div>
+    </div>
+    <div class="transfer-body">
+      <input type="number" class="transfer-amount-input" id="transfer-amount" placeholder="0.00">
+      <input type="text" class="transfer-note" id="transfer-note" placeholder="添加转账说明">
+      <div class="transfer-actions">
+        <button class="transfer-btn cancel" onclick="closeTransfer()">取消</button>
+        <button class="transfer-btn confirm" onclick="confirmTransfer()">转账</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Transfer Received Overlay -->
+<div class="transfer-overlay" id="transfer-received-overlay">
+  <div class="transfer-card">
+    <div class="transfer-header">
+      <i class="fa-solid fa-gift"></i>
+      <div class="transfer-header-title">收到转账</div>
+    </div>
+    <div class="transfer-received">
+      <div style="font-size:14px;color:var(--m-text3)" id="transfer-from">来自 TA</div>
+      <div class="transfer-received-amount" id="transfer-received-amount">¥0.00</div>
+      <div class="transfer-received-note" id="transfer-received-note"></div>
+      <button class="primary-btn" style="margin-top:20px" onclick="acceptTransfer()">收下</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Offline Message Overlay -->
+<div class="overlay" id="overlay-edit-offline-msg">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="sheet-btn" onclick="closeOverlay('overlay-edit-offline-msg')">取消</button>
+      <div class="sheet-title">编辑回复</div>
+      <button class="sheet-btn" onclick="saveEditOfflineMsg()">保存</button>
+    </div>
+    <div class="sheet-content">
+      <div class="form-group"><textarea class="form-textarea" id="edit-offline-msg-content" style="min-height:200px"></textarea></div>
+    </div>
+  </div>
+</div>
+
 <div id="toast" style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(50,50,50,0.9);color:white;padding:10px 20px;border-radius:20px;font-size:14px;z-index:500;opacity:0;transition:opacity 0.3s;pointer-events:none;backdrop-filter:blur(10px)"></div>
 
 <input type="file" id="contact-avatar-input" accept="image/*" style="display:none" onchange="applyUploadedAvatar(this,'contact')">
@@ -1426,10 +1680,11 @@ const defaultState = {
   api:{provider:'Anthropic (Claude)',base:'https://api.anthropic.com/v1',key:'',model:'claude-sonnet-4-6'},
   apiPresets:[],
   appearance:{fontSize:15,theme:'',homeWallpaper:null},
-  offlineSettings:{wordCount:1000,style:'immersive',perspective:'third-char-first-user'},
+  offlineSettings:{wordCount:1000,style:'immersive',charPerspective:'third',userPerspective:'first'},
   offlinePresets:[],
   quoteText:'',
   selectedMsgIdx:null,
+  selectedOfflineMsgIdx:null,
   pendingMomentImgs:[],
   forumWorldview:'',
   forumSelectedCharIds:[],
@@ -1442,6 +1697,9 @@ const defaultState = {
   pendingMaskAvatar:null,
   editingMaskId:null,
   editingMaskAvatar:null,
+  editingMemId:null,
+  editingMemType:null,
+  editingContactMemId:null,
   interfaceSettings:{
     deviceMode:'desktop',
     pageZoom:100,
@@ -1501,7 +1759,12 @@ function applyDeviceMode(mode) {
   document.body.setAttribute('data-device', mode);
   state.interfaceSettings.deviceMode = mode;
   
+  // Update device mode grid selection
   document.querySelectorAll('.device-mode-opt').forEach(opt => {
+    opt.classList.toggle('selected', opt.dataset.mode === mode);
+  });
+  // Update iPhone mode grid selection
+  document.querySelectorAll('.iphone-mode-opt').forEach(opt => {
     opt.classList.toggle('selected', opt.dataset.mode === mode);
   });
 }
@@ -1938,7 +2201,7 @@ function renderContacts(){
   }
   list.innerHTML=chatContacts.map(c=>{
     const last=c.messages[c.messages.length-1];
-    const preview=last?(last.role==='user'?'你: ':'')+(last.image?'[图片]':last.content.substring(0,30)):'点击开始聊天';
+    const preview=last?(last.role==='user'?'你: ':'')+(last.image?'[图片]':(last.transfer?'[转账]':last.content.substring(0,30))):'点击开始聊天';
     const avatarContent = c.avatarImg ? `<img src="${c.avatarImg}">` : `<i class="${getIconClass(c.icon)}"></i>`;
     return `<div class="contact-item" onclick="openChat(${c.id})"><div class="contact-avatar">${avatarContent}</div><div class="contact-info"><div class="contact-name">${c.name}</div><div class="contact-preview">${preview}</div></div></div>`;
   }).join('');
@@ -1965,15 +2228,26 @@ function renderMessages(){
   if(!msgs.length){container.innerHTML='<div class="msg-date">开始与 '+c.name+' 的对话</div>';return;}
   container.innerHTML=msgs.map((m,i)=>{
     const isSelf=m.role==='user';
-    const mask=c.maskId?state.masks.find(m=>m.id===c.maskId):null;
+    const mask=c.maskId?state.masks.find(mk=>mk.id===c.maskId):null;
     const userAvatarImg=mask?.avatarImg||state.profileData.avatarImg;
     const userAvatarIcon=mask?(mask.icon||'face-smile'):(state.profileData.icon||'face-smile');
     const avatarHtml=isSelf?(userAvatarImg?`<img src="${userAvatarImg}">`:`<i class="${getIconClass(userAvatarIcon)}"></i>`):(c.avatarImg?`<img src="${c.avatarImg}">`:`<i class="${getIconClass(c.icon)}"></i>`);
     let contentHtml='';
     if(m.quote)contentHtml+=`<div class="msg-quote">${m.quote}</div>`;
     if(m.image)contentHtml+=`<div class="msg-image"><img src="${m.image}"></div>`;
-    else if(!isSelf){const parts=m.content.split('/').map(s=>s.trim()).filter(Boolean);contentHtml+=parts.map(p=>`<div class="msg-bubble">${p}</div>`).join('');}
-    else contentHtml+=`<div class="msg-bubble">${m.content}</div>`;
+    else if(m.transfer){
+      contentHtml+=`<div class="msg-bubble" style="background:linear-gradient(135deg,#f5a623,#f78e1e);color:white;cursor:pointer" onclick="showTransferReceived('${m.transfer.amount}','${m.transfer.note||''}','${isSelf?'你':c.name}')">
+        <div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-money-bill-transfer" style="font-size:20px"></i><span>转账</span></div>
+        <div style="font-size:24px;font-weight:600;margin:8px 0">¥${m.transfer.amount}</div>
+        ${m.transfer.note?`<div style="font-size:12px;opacity:0.8">${m.transfer.note}</div>`:''}
+      </div>`;
+    }
+    else if(!isSelf){
+      // 根据内容长度动态调整气泡
+      const parts=m.content.split('/').map(s=>s.trim()).filter(Boolean);
+      contentHtml+=parts.map(p=>`<div class="msg-bubble" style="display:inline-block;max-width:${p.length>50?'100%':'fit-content'}">${p}</div>`).join('');
+    }
+    else contentHtml+=`<div class="msg-bubble" style="display:inline-block;max-width:${m.content.length>50?'100%':'fit-content'}">${m.content}</div>`;
     return `<div class="msg-row ${isSelf?'self':'other'}" data-idx="${i}" oncontextmenu="showMsgCtxMenu(event,${i})" ontouchstart="startLongPress(event,${i})" ontouchend="endLongPress()">
       <div class="msg-avatar" ${!isSelf?'onclick="showInnerThought()"':''}>${avatarHtml}</div>
       <div class="msg-bubble-wrap">${contentHtml}<div class="msg-meta"><span>${getTimeStr(m.time)}</span></div></div>
@@ -2016,7 +2290,7 @@ function quoteMessage(){
   const msgs=c.messages.filter(m=>!m.offline);
   if(state.selectedMsgIdx!==null){
     const msg=msgs[state.selectedMsgIdx];
-    if(msg&&!msg.image){state.quoteText=msg.content.substring(0,50);document.getElementById('quote-text').textContent=state.quoteText;document.getElementById('quote-preview').style.display='block';}
+    if(msg&&!msg.image&&!msg.transfer){state.quoteText=msg.content.substring(0,50);document.getElementById('quote-text').textContent=state.quoteText;document.getElementById('quote-preview').style.display='block';}
   }
 }
 
@@ -2060,6 +2334,54 @@ function sendChatImage(input){
   reader.readAsDataURL(file);input.value='';
 }
 
+// ==================== 转账功能 ====================
+
+function openTransferSend() {
+  closePlusMenu();
+  document.getElementById('transfer-amount').value = '';
+  document.getElementById('transfer-note').value = '';
+  const c = getCurrentContact();
+  document.getElementById('transfer-title').textContent = `转账给 ${c?.name || 'TA'}`;
+  document.getElementById('transfer-overlay').classList.add('active');
+}
+
+function closeTransfer() {
+  document.getElementById('transfer-overlay').classList.remove('active');
+}
+
+function confirmTransfer() {
+  const amount = document.getElementById('transfer-amount').value;
+  const note = document.getElementById('transfer-note').value;
+  if (!amount || parseFloat(amount) <= 0) {
+    showAlert('请输入有效金额');
+    return;
+  }
+  const c = getCurrentContact();
+  if (!c) return;
+  c.messages.push({
+    role: 'user',
+    content: '',
+    transfer: { amount: parseFloat(amount).toFixed(2), note },
+    time: Date.now()
+  });
+  closeTransfer();
+  renderMessages();
+  autoSave();
+  showAlert('转账成功');
+}
+
+function showTransferReceived(amount, note, from) {
+  document.getElementById('transfer-from').textContent = `来自 ${from}`;
+  document.getElementById('transfer-received-amount').textContent = `¥${amount}`;
+  document.getElementById('transfer-received-note').textContent = note || '';
+  document.getElementById('transfer-received-overlay').classList.add('active');
+}
+
+function acceptTransfer() {
+  document.getElementById('transfer-received-overlay').classList.remove('active');
+  showAlert('已收下');
+}
+
 // ==================== AI 回复 ====================
 
 async function getAIReply(c,offline){
@@ -2068,29 +2390,56 @@ async function getAIReply(c,offline){
   const mask=c.maskId?state.masks.find(m=>m.id===c.maskId):null;
   const charPersona=c.persona||'';
   const userPersona=mask?`\n\nUser (${mask.name}): ${mask.persona}`:'';
-  const coreMems=state.coreMemories.filter(m=>m.charId===c.id||m.charId==='global').map(m=>m.content).join('\n');
+  const coreMems=state.coreMemories.filter(m=>m.charId===c.id||m.charId==='global').map(m=>`[${m.name||'记忆'}] ${m.content}`).join('\n');
   const wbEntries=state.worldbook.filter(e=>(c.mountedWBIds||[]).includes(e.id)).map(e=>`[${e.name}]: ${e.content}`).join('\n');
-  const generalMems=state.generalMemories.filter(m=>m.charId===c.id||m.charId==='global').map(m=>m.content).join('\n');
-  let sys=`你是${c.name}。${charPersona}${userPersona}\n\n要求：回复要有活人感，语气自然生动，可以用网络流行语、表情符号、热梗。不要太官方。`;
+  const generalMems=state.generalMemories.filter(m=>m.charId===c.id||m.charId==='global').map(m=>`[${m.name||'记忆'}] ${m.content}`).join('\n');
+  
+  // 基础系统提示 - 强调真实感和尊重
+  let sys=`你是${c.name}。${charPersona}${userPersona}
+
+核心要求：
+1. 回复要有活人感，语气自然生动，像真实的人在交流
+2. 保持角色性格特征稳定且鲜明，作为独立情感个体存在
+3. 尊重对方，不居高临下，不说教，真诚换位思考
+4. 营造真实的互动体验，而非单纯的服务性讨好
+5. 禁止油腻、自恋、刻意讨好的表达方式`;
+
   if(coreMems)sys+=`\n\n[核心记忆]\n${coreMems}`;
   if(wbEntries)sys+=`\n\n[世界书]\n${wbEntries}`;
   if(generalMems)sys+=`\n\n[一般记忆]\n${generalMems}`;
   
   if(offline){
     const wordCount=state.offlineSettings.wordCount||1000;
+    const minWords = Math.max(300, wordCount - 200);
+    const maxWords = wordCount + 200;
     const styleDesc={immersive:'沉浸式叙事，细腻描写',literary:'文学性描写',concise:'简洁直白',dramatic:'戏剧化风格'}[state.offlineSettings.style]||'沉浸式叙事';
-    const perspective = state.offlineSettings.perspective || 'third-char-first-user';
-    const perspectiveDesc = {
-      'third-char-first-user': `用第三人称描写${c.name}，用第一人称描写用户（"我"）`,
-      'first-char-second-user': `用第一人称描写${c.name}（"我"），用第二人称描写用户（"你"）`,
-      'third-both': `用第三人称描写${c.name}和用户`,
-      'first-char-third-user': `用第一人称描写${c.name}（"我"），用第三人称描写用户`
-    }[perspective];
-    sys+=`\n\n[线下模式] 进行沉浸式角色扮演回复，约${wordCount}字。文风：${styleDesc}。人称要求：${perspectiveDesc}。`;
+    
+    const charPerspective = state.offlineSettings.charPerspective || 'third';
+    const userPerspective = state.offlineSettings.userPerspective || 'first';
+    
+    const perspectiveMap = {
+      'first': '第一人称（"我"）',
+      'second': '第二人称（"你"）',
+      'third': '第三人称'
+    };
+    
+    sys+=`\n\n[线下模式]
+- 进行沉浸式角色扮演回复
+- 字数要求：${minWords}-${maxWords}字之间，禁止截断，必须完整
+- 文风：${styleDesc}
+- 人称要求：描写${c.name}时使用${perspectiveMap[charPerspective]}，描写用户时使用${perspectiveMap[userPerspective]}
+- 把握节奏，根据用户指令逐步推进剧情，感情发展不可过快也不可过慢
+- 直接输出内容，禁止输出思考过程`;
   }
-  else{sys+='\n\n[线上聊天] 用分条短消息回复，用"/"分隔。在回复最后用[[心声:xxx]]附上内心独白（这是隐藏信息）。';}
+  else{
+    sys+=`\n\n[线上聊天]
+- 聚焦日常对话，跟随用户的话题方向
+- 用分条短消息回复，用"/"分隔
+- 在回复最后用[[心声:xxx]]附上内心独白（这是隐藏信息，用户看不到）
+- 直接输出内容，禁止输出思考过程`;
+  }
   
-  const allMsgs=c.messages.filter(m=>!m.image&&(offline?m.offline:!m.offline)).slice(-20).map(m=>({role:m.role==='user'?'user':'assistant',content:m.content}));
+  const allMsgs=c.messages.filter(m=>!m.image&&!m.transfer&&(offline?m.offline:!m.offline)).slice(-20).map(m=>({role:m.role==='user'?'user':'assistant',content:m.content}));
   if(!state.api.key){document.getElementById(msgId).style.display='none';c.messages.push({role:'assistant',content:'请先配置API Key~',time:Date.now(),offline});if(offline)renderOfflineMessages();else renderMessages();return;}
   try{
     const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model||'claude-sonnet-4-6',max_tokens:offline?(state.offlineSettings.wordCount*2||2000):600,system:sys,messages:allMsgs})});
@@ -2114,7 +2463,7 @@ async function summarizeChat(){
   try{
     const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:500,messages:[{role:'user',content:`简洁总结对话重点：\n\n${chatText}`}]})});
     const data=await res.json();
-    state.generalMemories.push({id:Date.now(),charId:c.id,content:`[总结 ${new Date().toLocaleDateString()}] ${data.content?.[0]?.text||''}`});
+    state.generalMemories.push({id:Date.now(),charId:c.id,name:`总结 ${new Date().toLocaleDateString()}`,content:data.content?.[0]?.text||''});
     c.lastSummaryIdx=c.messages.length;showAlert('已保存到一般记忆');autoSave();
   }catch(e){showAlert('总结失败');}
 }
@@ -2134,8 +2483,70 @@ function renderOfflineMessages(){
   const container=document.getElementById('offline-messages');
   const msgs=c.messages.filter(m=>m.offline);
   if(!msgs.length){container.innerHTML='<div class="msg-date">线下模式</div>';return;}
-  container.innerHTML=msgs.map(m=>`<div class="msg-row ${m.role==='user'?'self':'other'}"><div class="msg-bubble-wrap"><div class="msg-bubble" style="${m.role!=='user'?'white-space:pre-wrap;':''}">${m.content}</div></div></div>`).join('');
+  container.innerHTML=msgs.map((m,i)=>`<div class="msg-row ${m.role==='user'?'self':'other'}" data-offline-idx="${i}" oncontextmenu="showOfflineMsgCtxMenu(event,${i})" ontouchstart="startOfflineLongPress(event,${i})" ontouchend="endOfflineLongPress()"><div class="msg-bubble-wrap"><div class="msg-bubble" style="${m.role!=='user'?'white-space:pre-wrap;':''}">${m.content}</div></div></div>`).join('');
   container.scrollTop=container.scrollHeight;
+}
+
+let offlineLongPressTimer=null;
+function startOfflineLongPress(e,idx){offlineLongPressTimer=setTimeout(()=>showOfflineMsgCtxMenu(e,idx),500);}
+function endOfflineLongPress(){clearTimeout(offlineLongPressTimer);}
+
+function showOfflineMsgCtxMenu(e,idx){
+  e.preventDefault();
+  const c=getCurrentContact();if(!c)return;
+  const msgs=c.messages.filter(m=>m.offline);
+  const msg=msgs[idx];
+  if(!msg || msg.role==='user')return; // 只对AI回复显示菜单
+  
+  state.selectedOfflineMsgIdx=idx;
+  const menu=document.getElementById('offline-msg-ctx-menu');
+  menu.style.display='block';
+  let x=e.clientX||e.touches?.[0]?.clientX||100;
+  let y=e.clientY||e.touches?.[0]?.clientY||100;
+  if(x+130>window.innerWidth)x=window.innerWidth-135;
+  if(y+100>window.innerHeight)y=y-100;
+  menu.style.left=x+'px';menu.style.top=y+'px';
+  setTimeout(()=>document.addEventListener('click',hideOfflineMsgCtxMenu,{once:true}),10);
+}
+
+function hideOfflineMsgCtxMenu(){document.getElementById('offline-msg-ctx-menu').style.display='none';}
+
+function editOfflineMessage(){
+  hideOfflineMsgCtxMenu();
+  const c=getCurrentContact();if(!c)return;
+  const msgs=c.messages.filter(m=>m.offline);
+  const msg=msgs[state.selectedOfflineMsgIdx];
+  if(!msg)return;
+  document.getElementById('edit-offline-msg-content').value=msg.content;
+  openOverlay('overlay-edit-offline-msg');
+}
+
+function saveEditOfflineMsg(){
+  const c=getCurrentContact();if(!c)return;
+  const msgs=c.messages.filter(m=>m.offline);
+  const msg=msgs[state.selectedOfflineMsgIdx];
+  if(!msg)return;
+  const realIdx=c.messages.indexOf(msg);
+  if(realIdx>-1){
+    c.messages[realIdx].content=document.getElementById('edit-offline-msg-content').value;
+    renderOfflineMessages();
+    autoSave();
+  }
+  closeOverlay('overlay-edit-offline-msg');
+}
+
+function deleteOfflineMessage(){
+  hideOfflineMsgCtxMenu();
+  const c=getCurrentContact();if(!c)return;
+  const msgs=c.messages.filter(m=>m.offline);
+  const msg=msgs[state.selectedOfflineMsgIdx];
+  if(!msg)return;
+  const realIdx=c.messages.indexOf(msg);
+  if(realIdx>-1){
+    c.messages.splice(realIdx,1);
+    renderOfflineMessages();
+    autoSave();
+  }
 }
 
 async function sendOfflineMessage(){
@@ -2168,7 +2579,8 @@ function openOfflineSettings(){
   document.getElementById('offline-word-slider').value=state.offlineSettings.wordCount;
   document.getElementById('offline-word-val').textContent=state.offlineSettings.wordCount;
   document.getElementById('offline-style').value=state.offlineSettings.style;
-  document.getElementById('offline-perspective').value=state.offlineSettings.perspective||'third-char-first-user';
+  document.getElementById('offline-char-perspective').value=state.offlineSettings.charPerspective||'third';
+  document.getElementById('offline-user-perspective').value=state.offlineSettings.userPerspective||'first';
   renderOfflinePresets();
   openOverlay('overlay-offline-settings');
 }
@@ -2176,7 +2588,8 @@ function openOfflineSettings(){
 function saveOfflineSettings(){
   state.offlineSettings.wordCount=parseInt(document.getElementById('offline-word-slider').value);
   state.offlineSettings.style=document.getElementById('offline-style').value;
-  state.offlineSettings.perspective=document.getElementById('offline-perspective').value;
+  state.offlineSettings.charPerspective=document.getElementById('offline-char-perspective').value;
+  state.offlineSettings.userPerspective=document.getElementById('offline-user-perspective').value;
   closeOverlay('overlay-offline-settings');
   showAlert('已保存');
   autoSave();
@@ -2274,20 +2687,61 @@ function renderContactCoreMemList(){
   const list=document.getElementById('contact-core-mem-list');const empty=document.getElementById('contact-core-mem-empty');
   if(!mems.length){list.innerHTML='';empty.style.display='flex';return;}
   empty.style.display='none';
-  list.innerHTML=mems.map(m=>`<div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;border:0.5px solid var(--m-border)"><div style="display:flex;justify-content:flex-end"><button onclick="state.coreMemories=state.coreMemories.filter(x=>x.id!==${m.id});renderContactCoreMemList();autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div><div style="font-size:14px;color:var(--m-text)">${m.content}</div></div>`).join('');
+  list.innerHTML=mems.map(m=>`
+    <div class="memory-item" onclick="editContactMemory(${m.id})">
+      <div class="memory-item-header">
+        <span class="memory-item-name">${m.name||'未命名'}</span>
+        <button class="memory-item-delete" onclick="event.stopPropagation();deleteContactMemory(${m.id})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+      <div class="memory-item-content">${m.content.substring(0,100)}${m.content.length>100?'…':''}</div>
+    </div>
+  `).join('');
 }
 
-function addContactMemory(){document.getElementById('contact-mem-content').value='';openOverlay('overlay-add-contact-mem');}
+function addContactMemory(){
+  document.getElementById('contact-mem-name').value='';
+  document.getElementById('contact-mem-content').value='';
+  openOverlay('overlay-add-contact-mem');
+}
 
 function saveContactMemory(){
   const c=getCurrentContact();if(!c)return;
+  const name=document.getElementById('contact-mem-name').value.trim();
   const content=document.getElementById('contact-mem-content').value.trim();
   if(!content){showAlert('请输入内容');return;}
-  state.coreMemories.push({id:Date.now(),charId:c.id,content});
+  state.coreMemories.push({id:Date.now(),charId:c.id,name:name||'未命名',content});
   closeOverlay('overlay-add-contact-mem');
   renderContactCoreMemList();
   showAlert('已保存');
   autoSave();
+}
+
+function editContactMemory(id){
+  const mem=state.coreMemories.find(m=>m.id===id);
+  if(!mem)return;
+  state.editingContactMemId=id;
+  document.getElementById('edit-contact-mem-name').value=mem.name||'';
+  document.getElementById('edit-contact-mem-content').value=mem.content||'';
+  openOverlay('overlay-edit-contact-mem');
+}
+
+function saveEditContactMemory(){
+  const mem=state.coreMemories.find(m=>m.id===state.editingContactMemId);
+  if(!mem)return;
+  mem.name=document.getElementById('edit-contact-mem-name').value.trim()||'未命名';
+  mem.content=document.getElementById('edit-contact-mem-content').value.trim();
+  closeOverlay('overlay-edit-contact-mem');
+  renderContactCoreMemList();
+  showAlert('已保存');
+  autoSave();
+}
+
+function deleteContactMemory(id){
+  if(confirm('确认删除该记忆？')){
+    state.coreMemories=state.coreMemories.filter(m=>m.id!==id);
+    renderContactCoreMemList();
+    autoSave();
+  }
 }
 
 // ==================== 世界书 ====================
@@ -2340,12 +2794,24 @@ function renderMemList(type){
   const list=document.getElementById(type+'-mem-list'),empty=document.getElementById(type+'-mem-empty');
   if(!mems.length){list.innerHTML='';empty.style.display='flex';return;}
   empty.style.display='none';
-  list.innerHTML=mems.map((m,i)=>`<div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;border:0.5px solid var(--m-border)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="badge">${m.charId==='global'?'全局':state.contacts.find(c=>c.id==m.charId)?.name||'已删除'}</span><button onclick="state.${type==='core'?'coreMemories':'generalMemories'}.splice(${i},1);renderMemList('${type}');autoSave()" style="background:none;border:none;color:var(--m-text3);cursor:pointer">×</button></div><div style="font-size:14px;color:var(--m-text)">${m.content}</div></div>`).join('');
+  list.innerHTML=mems.map(m=>`
+    <div class="memory-item" onclick="editMemory('${type}',${m.id})">
+      <div class="memory-item-header">
+        <div>
+          <span class="memory-item-name">${m.name||'未命名'}</span>
+          <span class="badge" style="margin-left:8px">${m.charId==='global'?'全局':state.contacts.find(c=>c.id==m.charId)?.name||'已删除'}</span>
+        </div>
+        <button class="memory-item-delete" onclick="event.stopPropagation();deleteMemory('${type}',${m.id})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+      <div class="memory-item-content">${m.content.substring(0,100)}${m.content.length>100?'…':''}</div>
+    </div>
+  `).join('');
 }
 
 function addMemory(type){
   state.selectedMemType=type;
   document.getElementById('add-mem-title').textContent=type==='core'?'添加核心记忆':'添加一般记忆';
+  document.getElementById('mem-name').value='';
   document.getElementById('mem-content').value='';
   const sel=document.getElementById('mem-char-select');
   sel.innerHTML='<option value="global">全局</option>'+state.contacts.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
@@ -2353,16 +2819,52 @@ function addMemory(type){
 }
 
 function saveMemory(){
+  const name=document.getElementById('mem-name').value.trim();
   const content=document.getElementById('mem-content').value.trim();
   if(!content){showAlert('请输入内容');return;}
   const charId=document.getElementById('mem-char-select').value;
-  const mem={id:Date.now(),charId:charId==='global'?'global':parseInt(charId),content};
+  const mem={id:Date.now(),charId:charId==='global'?'global':parseInt(charId),name:name||'未命名',content};
   if(state.selectedMemType==='core')state.coreMemories.push(mem);
   else state.generalMemories.push(mem);
   closeOverlay('overlay-add-mem');
   renderMemList(state.selectedMemType);
   showAlert('已保存');
   autoSave();
+}
+
+function editMemory(type,id){
+  const mems=type==='core'?state.coreMemories:state.generalMemories;
+  const mem=mems.find(m=>m.id===id);
+  if(!mem)return;
+  state.editingMemId=id;
+  state.editingMemType=type;
+  document.getElementById('edit-mem-name').value=mem.name||'';
+  document.getElementById('edit-mem-content').value=mem.content||'';
+  openOverlay('overlay-edit-mem');
+}
+
+function saveEditMemory(){
+  const mems=state.editingMemType==='core'?state.coreMemories:state.generalMemories;
+  const mem=mems.find(m=>m.id===state.editingMemId);
+  if(!mem)return;
+  mem.name=document.getElementById('edit-mem-name').value.trim()||'未命名';
+  mem.content=document.getElementById('edit-mem-content').value.trim();
+  closeOverlay('overlay-edit-mem');
+  renderMemList(state.editingMemType);
+  showAlert('已保存');
+  autoSave();
+}
+
+function deleteMemory(type,id){
+  if(confirm('确认删除该记忆？')){
+    if(type==='core'){
+      state.coreMemories=state.coreMemories.filter(m=>m.id!==id);
+    }else{
+      state.generalMemories=state.generalMemories.filter(m=>m.id!==id);
+    }
+    renderMemList(type);
+    autoSave();
+  }
 }
 
 // ==================== 用户面具 ====================
@@ -2488,7 +2990,6 @@ function applyMineAvatar(input) {
     mineAvatar.innerHTML = `<img src="${e.target.result}">`;
     showAlert('头像已更新');
     autoSave();
-    // Re-suppress address bar after file picker closes
     setTimeout(reEnterFullscreen, 300);
     setTimeout(reEnterFullscreen, 800);
   };
@@ -2775,7 +3276,7 @@ async function generateDiary(){
   const coreMems=state.coreMemories.filter(m=>m.charId===c.id||m.charId==='global').map(m=>m.content).join('\n');
   const chats=c.messages.slice(-30).map(m=>`${m.role==='user'?'用户':c.name}: ${m.content}`).join('\n');
   try{
-    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:800,messages:[{role:'user',content:`你是${c.name}。${c.persona}\n\n记忆：${coreMems||'无'}\n\n今日对话：\n${chats||'无'}\n\n请写一篇今日日记，第一人称视角。`}]})});
+    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:800,messages:[{role:'user',content:`你是${c.name}。${c.persona}\n\n记忆：${coreMems||'无'}\n\n今日对话：\n${chats||'无'}\n\n请写一篇今日日记，第一人称视角。直接输出日记内容，禁止输出思考过程。`}]})});
     const data=await res.json();
     state.diaries.unshift({id:Date.now(),charId,date:new Date().toLocaleDateString(),content:data.content?.[0]?.text||''});
     renderDiaries();showAlert('日记已生成');autoSave();
@@ -2838,7 +3339,7 @@ async function genMomentComments(idx){
   if(!state.api.key){showAlert('请配置API');return;}
   const m=state.moments[idx];const chars=state.contacts.map(c=>c.name).join('、');
   try{
-    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:300,messages:[{role:'user',content:`生成2-3条朋友圈评论，评论人是${chars||'朋友们'}，针对："${m.text}"。格式：名字：评论。语气自然有活人感。`}]})});
+    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:300,messages:[{role:'user',content:`生成2-3条朋友圈评论，评论人是${chars||'朋友们'}，针对："${m.text}"。格式：名字：评论。语气自然有活人感。直接输出评论，禁止输出思考过程。`}]})});
     const data=await res.json();
     const comments=data.content?.[0]?.text||'';
     state.moments[idx].comments=comments.split('\n').filter(Boolean).map(line=>{const parts=line.split('：');return parts.length>=2?`<span class="comment-name">${parts[0]}</span>：${parts.slice(1).join('：')}`:line;}).join('<br>');
@@ -2909,7 +3410,7 @@ async function generateKKData(charId){
   const coreMems=state.coreMemories.filter(m=>m.charId===c.id||m.charId==='global').map(m=>m.content).join('\n');
   const chats=c.messages.slice(-20).map(m=>`${m.role==='user'?'用户':c.name}: ${m.content}`).join('\n');
   try{
-    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:1000,messages:[{role:'user',content:`你是${c.name}。${c.persona}\n\n记忆：${coreMems||'无'}\n\n与用户的对话：\n${chats||'无'}\n\n请生成这个角色手机里的内容，用JSON格式：\n{\n  "chats": [{"name":"联系人名","msg":"最新消息"}],\n  "memo": "备忘录内容",\n  "health": {"height":"身高数字","weight":"体重数字","bust":"胸围","waist":"腰围","hip":"臀围","heartRate":"心率","steps":"步数","exercise":"运动内容"}\n}\n根据角色人设合理生成，只返回JSON。`}]})});
+    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:1000,messages:[{role:'user',content:`你是${c.name}。${c.persona}\n\n记忆：${coreMems||'无'}\n\n与用户的对话：\n${chats||'无'}\n\n请生成这个角色手机里的内容，用JSON格式：\n{\n  "chats": [{"name":"联系人名","msg":"最新消息"}],\n  "memo": "备忘录内容",\n  "health": {"height":"身高数字","weight":"体重数字","bust":"胸围","waist":"腰围","hip":"臀围","heartRate":"心率","steps":"步数","exercise":"运动内容"}\n}\n根据角色人设合理生成，只返回JSON，禁止输出思考过程。`}]})});
     const data=await res.json();
     const text=data.content?.[0]?.text||'{}';
     try{const jsonMatch=text.match(/\{[\s\S]*\}/);if(jsonMatch){c.kkData=JSON.parse(jsonMatch[0]);renderKKDesktop();showAlert('生成成功！点击应用查看内容');autoSave();}}catch(e){showAlert('解析失败');}
@@ -3006,7 +3507,7 @@ async function genForumComments(idx){
   const wv=state.forumWorldview;
   showAlert('生成评论中…');
   try{
-    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:600,messages:[{role:'user',content:`世界观背景：${wv||'现代都市'}\n\n角色信息：\n${charsPersonas||'无'}\n\n论坛帖子标题：${p.title||'无标题'}\n帖子内容：${p.content}\n\n请生成约10条评论，由以下角色和路人评论：\n- 角色：${charNames.join('、')||'无'}\n- 路人：各种各样的路人（给他们起名字）\n\n要求：评论风格各异，有支持有反对有中立，贴合世界观，格式每行"名字：评论内容"，不要编号。`}]})});
+    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:600,messages:[{role:'user',content:`世界观背景：${wv||'现代都市'}\n\n角色信息：\n${charsPersonas||'无'}\n\n论坛帖子标题：${p.title||'无标题'}\n帖子内容：${p.content}\n\n请生成约10条评论，由以下角色和路人评论：\n- 角色：${charNames.join('、')||'无'}\n- 路人：各种各样的路人（给他们起名字）\n\n要求：评论风格各异，有支持有反对有中立，贴合世界观，格式每行"名字：评论内容"，不要编号。直接输出评论，禁止输出思考过程。`}]})});
     const data=await res.json();
     const text=data.content?.[0]?.text||'';
     const comments=text.split('\n').filter(l=>l.includes('：')||l.includes(':')).map(line=>{
@@ -3054,6 +3555,79 @@ function selectStyle(el,style){
   el.classList.add('selected');
 }
 
+function openFanficLibrary(){
+  screenStack.push('screen-fanfic-library');
+  showScreen('screen-fanfic-library');
+  renderFanficLibrary();
+}
+
+function renderFanficLibrary(){
+  const list=document.getElementById('fanfic-library-list');
+  const empty=document.getElementById('fanfic-library-empty');
+  if(!state.fanfics.length){
+    list.innerHTML='';
+    if(empty)empty.style.display='flex';
+    return;
+  }
+  if(empty)empty.style.display='none';
+  list.innerHTML=state.fanfics.map((f,i)=>{
+    const char=f.charId?state.contacts.find(c=>c.id===f.charId):null;
+    const mask=f.maskId?state.masks.find(m=>m.id===f.maskId):null;
+    const date=new Date(f.time);
+    const dateStr=`${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2,'0')}`;
+    return `<div class="fanfic-list-item" onclick="viewFanfic(${i})" ontouchstart="startFanficLongPress(event,${i})" ontouchend="endFanficLongPress()">
+      <div class="fanfic-list-item-header">
+        <span class="fanfic-list-item-title">${f.style} · ${char?.name||'未知'} × ${mask?.name||'用户'}</span>
+        <span class="fanfic-list-item-time">${dateStr}</span>
+      </div>
+      <div class="fanfic-list-item-preview">${f.content.substring(0,150)}...</div>
+    </div>`;
+  }).join('');
+}
+
+let fanficLongPressTimer=null;
+let fanficLongPressIdx=null;
+
+function startFanficLongPress(e,idx){
+  fanficLongPressIdx=idx;
+  fanficLongPressTimer=setTimeout(()=>showFanficDeleteMenu(e,idx),500);
+}
+
+function endFanficLongPress(){
+  clearTimeout(fanficLongPressTimer);
+}
+
+function showFanficDeleteMenu(e,idx){
+  e.preventDefault();
+  if(confirm('确认删除这篇同人文？')){
+    state.fanfics.splice(idx,1);
+    renderFanficLibrary();
+    autoSave();
+    showAlert('已删除');
+  }
+}
+
+function viewFanfic(idx){
+  const f=state.fanfics[idx];
+  if(!f)return;
+  const char=f.charId?state.contacts.find(c=>c.id===f.charId):null;
+  const mask=f.maskId?state.masks.find(m=>m.id===f.maskId):null;
+  screenStack.push('screen-fanfic');
+  showScreen('screen-fanfic');
+  document.getElementById('fanfic-result-area').innerHTML=`
+    <div class="fanfic-result">
+      <div class="fanfic-title"><i class="fa-solid fa-feather-pointed"></i> ${f.style} · ${char?.name||'未知角色'} × ${mask?.name||'用户'}</div>
+      <div class="fanfic-content">${f.content}</div>
+      <div class="fanfic-actions">
+        <button class="secondary-btn" style="flex:1" onclick="genFanficComments(${state.fanfics.indexOf(f)})"><i class="fa-regular fa-comment" style="margin-right:6px"></i>生成评论</button>
+      </div>
+      <div id="fanfic-comments-${state.fanfics.indexOf(f)}">
+        ${f.comments&&f.comments.length?`<div class="fanfic-comment-section">${f.comments.map(c=>`<div class="fanfic-comment-item"><span class="fanfic-comment-author">${c.author}</span>：${c.text}</div>`).join('')}</div>`:''}
+      </div>
+    </div>
+  `;
+}
+
 async function generateFanfic(){
   if(!state.api.key){showAlert('请配置API');return;}
   const char=state.fanficSelectedCharId?state.contacts.find(c=>c.id===state.fanficSelectedCharId):null;
@@ -3067,7 +3641,7 @@ async function generateFanfic(){
   screenStack.push('screen-fanfic');showScreen('screen-fanfic');
   document.getElementById('fanfic-result-area').innerHTML='<div class="empty-state"><div class="empty-state-icon"><i class="fa-solid fa-spinner fa-spin"></i></div><div class="empty-state-text">生成中，请稍候…</div></div>';
   try{
-    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:2000,messages:[{role:'user',content:`请创作一篇同人短文。\n\n${charDesc}\n${userDesc}\n${coreMems?`核心记忆：${coreMems}`:''}\n\n风格：${style}\n${extra?`补充设定：${extra}`:''}\n\n要求：\n- 约800-1200字\n- 贴合角色人设\n- 故事完整，有开头、发展、结尾\n- 文笔流畅，有代入感\n- 请直接输出同人文，不需要前置说明`}]})});
+    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:2000,messages:[{role:'user',content:`请创作一篇同人短文。\n\n${charDesc}\n${userDesc}\n${coreMems?`核心记忆：${coreMems}`:''}\n\n风格：${style}\n${extra?`补充设定：${extra}`:''}\n\n要求：\n- 约800-1200字\n- 贴合角色人设\n- 故事完整，有开头、发展、结尾\n- 文笔流畅，有代入感\n- 直接输出同人文内容，禁止输出思考过程或前置说明`}]})});
     const data=await res.json();
     const text=data.content?.[0]?.text||'生成失败';
     const fanficId=Date.now();
@@ -3093,7 +3667,7 @@ async function genFanficComments(idx){
   const char=f.charId?state.contacts.find(c=>c.id===f.charId):null;
   showAlert('生成评论中…');
   try{
-    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:600,messages:[{role:'user',content:`下面是一篇${f.style}风格的同人文，主角是${char?.name||'未知角色'}。\n\n节选前200字：${f.content.substring(0,200)}…\n\n请生成10条路人读者对这篇同人文的评论，各种各样的反应（喜欢、嫌弃、共鸣、建议、搞笑等），给每个评论者起一个有趣的网名。\n格式每行：网名：评论内容`}]})});
+    const res=await fetch(`${state.api.base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':state.api.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:state.api.model,max_tokens:600,messages:[{role:'user',content:`下面是一篇${f.style}风格的同人文，主角是${char?.name||'未知角色'}。\n\n节选前200字：${f.content.substring(0,200)}…\n\n请生成10条路人读者对这篇同人文的评论，各种各样的反应（喜欢、嫌弃、共鸣、建议、搞笑等），给每个评论者起一个有趣的网名。\n格式每行：网名：评论内容\n直接输出评论，禁止输出思考过程。`}]})});
     const data=await res.json();
     const text=data.content?.[0]?.text||'';
     const comments=text.split('\n').filter(l=>l.includes('：')||l.includes(':')).map(line=>{
@@ -3103,7 +3677,7 @@ async function genFanficComments(idx){
     f.comments=[...f.comments,...comments];
     const container=document.getElementById(`fanfic-comments-${idx}`);
     if(container){
-      container.innerHTML=`<div class="fanfic-comment-section">${comments.map(c=>`<div class="fanfic-comment-item"><span class="fanfic-comment-author">${c.author}</span>：${c.text}</div>`).join('')}</div>`;
+      container.innerHTML=`<div class="fanfic-comment-section">${f.comments.map(c=>`<div class="fanfic-comment-item"><span class="fanfic-comment-author">${c.author}</span>：${c.text}</div>`).join('')}</div>`;
     }
     autoSave();
   }catch(e){showAlert('生成失败');}
@@ -3140,7 +3714,6 @@ function requestFullscreenNow() {
 }
 
 function reEnterFullscreen() {
-  // Re-enter fullscreen after file picker or other events that break it
   if (!document.fullscreenElement && !document.webkitFullscreenElement) {
     requestFullscreenNow();
   }
@@ -3148,13 +3721,11 @@ function reEnterFullscreen() {
 }
 
 function autoRequestFullscreen() {
-  // Trigger on first user interaction (browsers require gesture)
   const tryFullscreen = () => {
     requestFullscreenNow();
   };
   document.addEventListener('click', tryFullscreen, { once: true });
   document.addEventListener('touchstart', tryFullscreen, { once: true });
-  // Also retry whenever window regains focus (e.g. after file picker closes)
   window.addEventListener('focus', reEnterFullscreen);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
@@ -3169,16 +3740,14 @@ function init() {
   applyInterfaceSettings();
   renderWallpaperPreview();
   
-  // Always hide address bar / go fullscreen by default
   document.body.classList.add('hide-address-bar');
   setTimeout(() => { window.scrollTo(0, 1); }, 0);
   setTimeout(() => { window.scrollTo(0, 1); }, 300);
   
-  // Mark fullscreen toggle as ON by default
   const toggle = document.getElementById('fullscreen-toggle');
   if (toggle) toggle.classList.add('on');
   
-  autoRequestFullscreen();
+  autoRequestFullscre
   
   console.log('AI 角色扮演手机 已加载');
   console.log('数据自动保存:', state.storageSettings.autoSave ? '已启用' : '已关闭');
