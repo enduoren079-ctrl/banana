@@ -3,11 +3,12 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#f5f5f5">
+<meta name="format-detection" content="telephone=no">
 <title>AI 角色扮演手机</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -24,6 +25,8 @@
   --wallpaper:linear-gradient(180deg,#f8f8f8 0%,#f0f0f0 100%);
   --home-wallpaper:var(--wallpaper);
   --phone-scale:1;
+  --page-zoom:1;
+  --device-mode:desktop;
 }
 .theme-cream{--m-bg:#faf8f5;--m-bg2:#f5f2ed;--m-bg3:#ebe7e0;--m-surface:#fffdfb;--m-card:#ffffff;--m-primary:#c4b5a0;--m-primary-light:#e0d5c5;--m-primary-dark:#8a7d6d;--m-text:#4a4540;--m-text2:#7a7570;--m-text3:#a09a95;--m-border:rgba(80,70,60,0.1);--m-border2:rgba(80,70,60,0.15);--m-bubble-self:#e8e2d8;--m-bubble-other:#ffffff;--wallpaper:linear-gradient(180deg,#faf8f5 0%,#f0ebe5 100%);}
 .theme-ocean{--m-bg:#f0f5f8;--m-bg2:#e5eef3;--m-bg3:#d8e5ed;--m-surface:#f8fbfc;--m-card:#ffffff;--m-primary:#7da5b8;--m-primary-light:#a8c5d3;--m-primary-dark:#4a7a8f;--m-text:#2d4550;--m-text2:#5a7580;--m-text3:#8aa5b0;--m-border:rgba(40,80,100,0.1);--m-border2:rgba(40,80,100,0.15);--m-bubble-self:#d5e5ed;--m-bubble-other:#ffffff;--wallpaper:linear-gradient(180deg,#f0f5f8 0%,#e0ebf2 100%);}
@@ -32,9 +35,111 @@
 .theme-mint{--m-bg:#f3f8f5;--m-bg2:#e8f2eb;--m-bg3:#dbe8e0;--m-surface:#f9fcfa;--m-card:#ffffff;--m-primary:#8bb8a0;--m-primary-light:#b0d5c0;--m-primary-dark:#5a8a70;--m-text:#354540;--m-text2:#607570;--m-text3:#90a5a0;--m-border:rgba(40,80,60,0.1);--m-border2:rgba(40,80,60,0.15);--m-bubble-self:#d8ebe0;--m-bubble-other:#ffffff;--wallpaper:linear-gradient(180deg,#f3f8f5 0%,#e5f2eb 100%);}
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;width:100%;overflow:hidden;font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif;font-size:var(--font-size);background:#1a1a1a;-webkit-user-select:none;user-select:none;display:flex;align-items:center;justify-content:center;}
-#phone-container{display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
-#phone{position:relative;width:100%;height:100%;max-width:100vw;max-height:100vh;background:var(--wallpaper);display:flex;flex-direction:column;overflow:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);transform-origin:center center;transition:transform 0.3s ease;}
+
+/* 关键修复：确保 html 和 body 完全填充 */
+html{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif;
+  font-size:var(--font-size);
+  background:#1a1a1a;
+  -webkit-user-select:none;
+  user-select:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0;
+  padding:0;
+  transform-origin:center center;
+  transform:scale(var(--page-zoom));
+}
+
+/* 全屏模式样式 */
+body.fullscreen-mode {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:9999;
+}
+
+/* 隐藏地址栏辅助 */
+body.hide-address-bar {
+  min-height:100.1vh;
+}
+
+#phone-container{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  padding:0;
+  margin:0;
+}
+
+/* 设备模式适配 */
+#phone{
+  position:relative;
+  background:var(--wallpaper);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transform-origin:center center;
+  transition:all 0.3s ease;
+}
+
+/* 桌面模式 - 模拟手机外观 */
+body[data-device="desktop"] #phone {
+  width:390px;
+  height:844px;
+  max-width:90vw;
+  max-height:90vh;
+  border-radius:40px;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,0.5),inset 0 0 0 10px #1a1a1a;
+}
+
+/* 平板模式 */
+body[data-device="tablet"] #phone {
+  width:768px;
+  height:1024px;
+  max-width:95vw;
+  max-height:95vh;
+  border-radius:20px;
+  box-shadow:0 20px 40px -10px rgba(0,0,0,0.4);
+}
+
+/* 手机模式 - 完全填充屏幕 */
+body[data-device="mobile"] #phone {
+  width:100vw;
+  height:100vh;
+  max-width:100vw;
+  max-height:100vh;
+  border-radius:0;
+  box-shadow:none;
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+
+/* 全屏模式下强制手机样式 */
+body.fullscreen-mode #phone {
+  width:100vw !important;
+  height:100vh !important;
+  max-width:100vw !important;
+  max-height:100vh !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
 #statusbar{height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:transparent;}
 .sb-time{font-size:calc(var(--font-size)*1);font-weight:600;color:var(--m-text);}
 .sb-icons{display:flex;align-items:center;gap:6px;font-size:calc(var(--font-size)*0.8);color:var(--m-text2);}
@@ -330,6 +435,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .model-item:hover{background:rgba(0,0,0,0.02);}
 .model-item.selected{background:rgba(0,0,0,0.05);font-weight:500;}
 
+/* 设备模式选择器样式 */
+.device-mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.device-mode-opt{padding:12px 8px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--m-bg2);}
+.device-mode-opt.selected{border-color:var(--m-text);background:var(--m-card);}
+.device-mode-opt i{font-size:24px;color:var(--m-text2);}
+.device-mode-opt span{font-size:12px;color:var(--m-text2);}
+
+/* 数据存储状态指示 */
+.storage-status{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(122,171,122,0.1);border-radius:8px;margin-bottom:12px;font-size:13px;color:var(--m-green);}
+.storage-status.warning{background:rgba(201,112,112,0.1);color:var(--m-red);}
+.storage-status i{font-size:16px;}
+
 @media(max-width:390px){
   .home-time{font-size:60px;}
   .home-apps{gap:16px 18px;padding:0 20px;}
@@ -340,9 +457,34 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   .home-datetime{padding:16px 20px 24px;}
   #statusbar{height:36px;}
 }
+
+/* 响应式：自动检测设备 */
+@media(max-width:480px){
+  body:not([data-device]) {
+    --device-mode:mobile;
+  }
+  body:not([data-device]) #phone {
+    width:100vw;
+    height:100vh;
+    max-width:100vw;
+    max-height:100vh;
+    border-radius:0;
+    box-shadow:none;
+  }
+}
+@media(min-width:481px) and (max-width:1024px){
+  body:not([data-device]) {
+    --device-mode:tablet;
+  }
+}
+@media(min-width:1025px){
+  body:not([data-device]) {
+    --device-mode:desktop;
+  }
+}
 </style>
 </head>
-<body>
+<body data-device="desktop">
 <div id="phone-container">
 <div id="phone">
   <div id="statusbar">
@@ -591,6 +733,152 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
           <div class="list-item" onclick="openScreen('screen-api')"><div class="list-item-icon"><i class="fa-solid fa-plug"></i></div><div class="list-item-content"><div class="list-item-title">API 配置</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
           <div class="list-item" onclick="openScreen('screen-memory')"><div class="list-item-icon"><i class="fa-solid fa-brain"></i></div><div class="list-item-content"><div class="list-item-title">记忆</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
           <div class="list-item" onclick="openScreen('screen-appearance')"><div class="list-item-icon"><i class="fa-solid fa-palette"></i></div><div class="list-item-content"><div class="list-item-title">外观</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
+          <div class="list-item" onclick="openScreen('screen-interface')"><div class="list-item-icon"><i class="fa-solid fa-display"></i></div><div class="list-item-content"><div class="list-item-title">界面设置</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
+          <div class="list-item" onclick="openScreen('screen-storage')"><div class="list-item-icon"><i class="fa-solid fa-database"></i></div><div class="list-item-content"><div class="list-item-title">数据储存</div></div><div class="list-chevron"><i class="fa-solid fa-chevron-right"></i></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERFACE SETTINGS (NEW) -->
+    <div class="screen" id="screen-interface">
+      <div class="topbar">
+        <button class="topbar-back" onclick="goBack('screen-settings')"><i class="fa-solid fa-chevron-left"></i> 设置</button>
+        <span class="topbar-title">界面设置</span>
+        <button class="sheet-btn" onclick="saveInterfaceSettings()">保存</button>
+      </div>
+      <div class="scroll-area" style="padding:16px">
+        <!-- 全屏模式 -->
+        <div class="form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="form-label" style="margin:0">全屏模式</div>
+              <div style="font-size:11px;color:var(--m-text3);margin-top:2px">隐藏浏览器界面，沉浸体验</div>
+            </div>
+            <div class="toggle" id="fullscreen-toggle" onclick="toggleFullscreen()"></div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 屏幕尺寸适配 -->
+        <div class="form-group">
+          <div class="form-label">屏幕尺寸适配</div>
+          <div class="device-mode-grid">
+            <div class="device-mode-opt" data-mode="mobile" onclick="selectDeviceMode('mobile')">
+              <i class="fa-solid fa-mobile-screen"></i>
+              <span>手机</span>
+            </div>
+            <div class="device-mode-opt" data-mode="tablet" onclick="selectDeviceMode('tablet')">
+              <i class="fa-solid fa-tablet-screen-button"></i>
+              <span>平板</span>
+            </div>
+            <div class="device-mode-opt selected" data-mode="desktop" onclick="selectDeviceMode('desktop')">
+              <i class="fa-solid fa-desktop"></i>
+              <span>桌面</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 网页缩放 -->
+        <div class="form-group">
+          <div class="form-label">网页缩放</div>
+          <div class="range-wrap">
+            <span style="font-size:12px;color:var(--m-text3)">80%</span>
+            <input type="range" min="80" max="120" step="5" value="100" id="zoom-slider" oninput="previewZoom(this.value)">
+            <span style="font-size:12px;color:var(--m-text3)">120%</span>
+            <span class="range-val" id="zoom-val">100%</span>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 隐藏地址栏 -->
+        <div class="form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="form-label" style="margin:0">隐藏浏览器地址栏</div>
+              <div style="font-size:11px;color:var(--m-text3);margin-top:2px">滚动时自动隐藏（移动端）</div>
+            </div>
+            <div class="toggle" id="hide-addressbar-toggle" onclick="toggleHideAddressBar()"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;padding:12px;background:rgba(0,0,0,0.03);border-radius:10px;font-size:12px;color:var(--m-text3)">
+          <i class="fa-solid fa-info-circle" style="margin-right:6px"></i>
+          提示：全屏模式需要浏览器支持 Fullscreen API。按 ESC 或点击退出全屏可恢复。
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA STORAGE SETTINGS (NEW) -->
+    <div class="screen" id="screen-storage">
+      <div class="topbar">
+        <button class="topbar-back" onclick="goBack('screen-settings')"><i class="fa-solid fa-chevron-left"></i> 设置</button>
+        <span class="topbar-title">数据储存</span>
+      </div>
+      <div class="scroll-area" style="padding:16px">
+        <!-- 存储状态 -->
+        <div class="storage-status" id="storage-status">
+          <i class="fa-solid fa-check-circle"></i>
+          <span>自动存储已启用</span>
+        </div>
+
+        <!-- 自动保存开关 -->
+        <div class="form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="form-label" style="margin:0">自动保存</div>
+              <div style="font-size:11px;color:var(--m-text3);margin-top:2px">每次修改自动保存到浏览器</div>
+            </div>
+            <div class="toggle on" id="autosave-toggle" onclick="toggleAutoSave()"></div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 存储信息 -->
+        <div class="form-group">
+          <div class="form-label">存储信息</div>
+          <div style="background:var(--m-card);border-radius:10px;padding:12px;border:0.5px solid var(--m-border)">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-size:13px;color:var(--m-text2)">已用空间</span>
+              <span style="font-size:13px;color:var(--m-text);font-weight:500" id="storage-used">计算中...</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-size:13px;color:var(--m-text2)">角色数量</span>
+              <span style="font-size:13px;color:var(--m-text);font-weight:500" id="storage-contacts">0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-size:13px;color:var(--m-text2)">消息总数</span>
+              <span style="font-size:13px;color:var(--m-text);font-weight:500" id="storage-messages">0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:13px;color:var(--m-text2)">上次保存</span>
+              <span style="font-size:13px;color:var(--m-text);font-weight:500" id="storage-lastSave">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 数据操作 -->
+        <div class="form-group">
+          <div class="form-label">数据操作</div>
+          <button class="secondary-btn" onclick="exportData()" style="margin-bottom:8px">
+            <i class="fa-solid fa-download" style="margin-right:8px"></i>导出数据
+          </button>
+          <button class="secondary-btn" onclick="document.getElementById('import-data-input').click()" style="margin-bottom:8px">
+            <i class="fa-solid fa-upload" style="margin-right:8px"></i>导入数据
+          </button>
+          <input type="file" id="import-data-input" accept=".json" style="display:none" onchange="importData(this)">
+          <button class="danger-btn" onclick="clearAllData()">
+            <i class="fa-solid fa-trash" style="margin-right:8px"></i>清除所有数据
+          </button>
+        </div>
+
+        <div style="margin-top:16px;padding:12px;background:rgba(122,171,122,0.1);border-radius:10px;font-size:12px;color:var(--m-green)">
+          <i class="fa-solid fa-shield-check" style="margin-right:6px"></i>
+          数据仅保存在您的浏览器本地，不会上传到任何服务器。清除浏览器数据可能会导致数据丢失，建议定期导出备份。
         </div>
       </div>
     </div>
@@ -1122,6 +1410,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 
 <script>
 const STORAGE_KEY = 'ai_roleplay_phone_data';
+const SETTINGS_KEY = 'ai_roleplay_phone_settings';
 
 const defaultState = {
   contacts:[],
@@ -1154,7 +1443,18 @@ const defaultState = {
   fanficSelectedStyle:'现代都市',
   widgetImage:null,
   pendingRoleAvatar:null,
-  pendingMaskAvatar:null
+  pendingMaskAvatar:null,
+  // 新增界面设置
+  interfaceSettings:{
+    deviceMode:'desktop',
+    pageZoom:100,
+    hideAddressBar:false
+  },
+  // 新增存储设置
+  storageSettings:{
+    autoSave:true,
+    lastSaveTime:null
+  }
 };
 
 let state = loadState();
@@ -1164,7 +1464,11 @@ function loadState() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      return {...defaultState, ...parsed};
+      // 合并默认值，确保新字段存在
+      const merged = {...defaultState, ...parsed};
+      merged.interfaceSettings = {...defaultState.interfaceSettings, ...parsed.interfaceSettings};
+      merged.storageSettings = {...defaultState.storageSettings, ...parsed.storageSettings};
+      return merged;
     }
   } catch (e) {
     console.error('Failed to load state:', e);
@@ -1173,16 +1477,262 @@ function loadState() {
 }
 
 function saveState() {
+  if (!state.storageSettings.autoSave) return;
   try {
+    state.storageSettings.lastSaveTime = Date.now();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateStorageInfo();
   } catch (e) {
     console.error('Failed to save state:', e);
+    showAlert('保存失败：存储空间可能已满');
   }
 }
 
 function autoSave() {
   saveState();
 }
+
+// ==================== 界面设置功能 ====================
+
+function detectDeviceMode() {
+  const width = window.innerWidth;
+  if (width <= 480) return 'mobile';
+  if (width <= 1024) return 'tablet';
+  return 'desktop';
+}
+
+function applyDeviceMode(mode) {
+  document.body.setAttribute('data-device', mode);
+  state.interfaceSettings.deviceMode = mode;
+  
+  // 更新UI选择状态
+  document.querySelectorAll('.device-mode-opt').forEach(opt => {
+    opt.classList.toggle('selected', opt.dataset.mode === mode);
+  });
+}
+
+function selectDeviceMode(mode) {
+  applyDeviceMode(mode);
+  autoSave();
+}
+
+function applyPageZoom(zoom) {
+  document.documentElement.style.setProperty('--page-zoom', zoom / 100);
+  document.body.style.transform = `scale(${zoom / 100})`;
+  document.body.style.transformOrigin = 'center center';
+  
+  // 调整容器尺寸以适应缩放
+  if (zoom !== 100) {
+    document.body.style.width = `${100 / (zoom / 100)}%`;
+    document.body.style.height = `${100 / (zoom / 100)}%`;
+  } else {
+    document.body.style.width = '100%';
+    document.body.style.height = '100%';
+  }
+}
+
+function previewZoom(val) {
+  document.getElementById('zoom-val').textContent = val + '%';
+  state.interfaceSettings.pageZoom = parseInt(val);
+  applyPageZoom(parseInt(val));
+}
+
+function toggleFullscreen() {
+  const toggle = document.getElementById('fullscreen-toggle');
+  const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+  
+  if (isFullscreen) {
+    // 退出全屏
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+    toggle.classList.remove('on');
+    document.body.classList.remove('fullscreen-mode');
+  } else {
+    // 进入全屏
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    }
+    toggle.classList.add('on');
+    document.body.classList.add('fullscreen-mode');
+  }
+}
+
+// 监听全屏状态变化
+document.addEventListener('fullscreenchange', () => {
+  const toggle = document.getElementById('fullscreen-toggle');
+  if (toggle) {
+    if (document.fullscreenElement) {
+      toggle.classList.add('on');
+      document.body.classList.add('fullscreen-mode');
+    } else {
+      toggle.classList.remove('on');
+      document.body.classList.remove('fullscreen-mode');
+    }
+  }
+});
+
+function toggleHideAddressBar() {
+  const toggle = document.getElementById('hide-addressbar-toggle');
+  state.interfaceSettings.hideAddressBar = !state.interfaceSettings.hideAddressBar;
+  toggle.classList.toggle('on', state.interfaceSettings.hideAddressBar);
+  
+  if (state.interfaceSettings.hideAddressBar) {
+    document.body.classList.add('hide-address-bar');
+    // 尝试滚动隐藏地址栏（仅移动端有效）
+    window.scrollTo(0, 1);
+  } else {
+    document.body.classList.remove('hide-address-bar');
+  }
+  autoSave();
+}
+
+function saveInterfaceSettings() {
+  autoSave();
+  showAlert('界面设置已保存');
+}
+
+function applyInterfaceSettings() {
+  // 应用设备模式
+  if (state.interfaceSettings.deviceMode) {
+    applyDeviceMode(state.interfaceSettings.deviceMode);
+  } else {
+    // 自动检测
+    applyDeviceMode(detectDeviceMode());
+  }
+  
+  // 应用缩放
+  if (state.interfaceSettings.pageZoom) {
+    applyPageZoom(state.interfaceSettings.pageZoom);
+    const slider = document.getElementById('zoom-slider');
+    const val = document.getElementById('zoom-val');
+    if (slider) slider.value = state.interfaceSettings.pageZoom;
+    if (val) val.textContent = state.interfaceSettings.pageZoom + '%';
+  }
+  
+  // 应用隐藏地址栏
+  if (state.interfaceSettings.hideAddressBar) {
+    document.body.classList.add('hide-address-bar');
+    const toggle = document.getElementById('hide-addressbar-toggle');
+    if (toggle) toggle.classList.add('on');
+  }
+}
+
+// ==================== 数据存储功能 ====================
+
+function toggleAutoSave() {
+  const toggle = document.getElementById('autosave-toggle');
+  state.storageSettings.autoSave = !state.storageSettings.autoSave;
+  toggle.classList.toggle('on', state.storageSettings.autoSave);
+  
+  const status = document.getElementById('storage-status');
+  if (state.storageSettings.autoSave) {
+    status.className = 'storage-status';
+    status.innerHTML = '<i class="fa-solid fa-check-circle"></i><span>自动存储已启用</span>';
+    saveState(); // 立即保存
+  } else {
+    status.className = 'storage-status warning';
+    status.innerHTML = '<i class="fa-solid fa-exclamation-circle"></i><span>自动存储已关闭</span>';
+  }
+}
+
+function updateStorageInfo() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY) || '';
+    const sizeBytes = new Blob([data]).size;
+    const sizeKB = (sizeBytes / 1024).toFixed(2);
+    
+    document.getElementById('storage-used').textContent = sizeKB + ' KB';
+    document.getElementById('storage-contacts').textContent = state.contacts.length;
+    
+    let totalMessages = 0;
+    state.contacts.forEach(c => {
+      totalMessages += (c.messages || []).length;
+    });
+    document.getElementById('storage-messages').textContent = totalMessages;
+    
+    if (state.storageSettings.lastSaveTime) {
+      const date = new Date(state.storageSettings.lastSaveTime);
+      document.getElementById('storage-lastSave').textContent = 
+        date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    }
+  } catch (e) {
+    console.error('Failed to update storage info:', e);
+  }
+}
+
+function exportData() {
+  try {
+    const dataStr = JSON.stringify(state, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai_roleplay_backup_${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showAlert('数据导出成功');
+  } catch (e) {
+    showAlert('导出失败：' + e.message);
+  }
+}
+
+function importData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      
+      // 验证数据结构
+      if (!imported.contacts && !imported.masks && !imported.worldbook) {
+        showAlert('无效的数据文件');
+        return;
+      }
+      
+      if (confirm('导入将覆盖当前所有数据，确定继续？')) {
+        state = {...defaultState, ...imported};
+        state.interfaceSettings = {...defaultState.interfaceSettings, ...imported.interfaceSettings};
+        state.storageSettings = {...defaultState.storageSettings, ...imported.storageSettings};
+        
+        saveState();
+        applySettings();
+        applyInterfaceSettings();
+        renderContacts();
+        renderRolesList();
+        
+        showAlert('数据导入成功');
+      }
+    } catch (err) {
+      showAlert('导入失败：文件格式错误');
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function clearAllData() {
+  if (confirm('确定要清除所有数据吗？此操作不可恢复！')) {
+    if (confirm('再次确认：这将删除所有角色、聊天记录、设置等数据！')) {
+      localStorage.removeItem(STORAGE_KEY);
+      state = {...defaultState};
+      location.reload();
+    }
+  }
+}
+
+// ==================== 原有功能 ====================
 
 const iconMap = {
   'robot': 'fa-solid fa-robot',
@@ -1240,6 +1790,12 @@ function applySettings() {
       mineAvatar.innerHTML = `<i class="${getIconClass(state.profileData.icon)}"></i>`;
     }
   }
+  
+  // 应用存储设置UI
+  const autosaveToggle = document.getElementById('autosave-toggle');
+  if (autosaveToggle) {
+    autosaveToggle.classList.toggle('on', state.storageSettings.autoSave);
+  }
 }
 
 let screenStack=['screen-home'];
@@ -1253,7 +1809,15 @@ function openApp(app){
   else if(app==='forum'){screenStack=['screen-home','screen-forum-setup'];showScreen('screen-forum-setup');initForumSetup();}
   else if(app==='fanfic'){screenStack=['screen-home','screen-fanfic-setup'];showScreen('screen-fanfic-setup');initFanficSetup();}
 }
-function openScreen(id){screenStack.push(id);showScreen(id);if(id==='screen-core-mem')renderMemList('core');if(id==='screen-general-mem')renderMemList('general');if(id==='screen-my-masks')renderMasksList();if(id==='screen-api')renderApiPresets();}
+function openScreen(id){
+  screenStack.push(id);
+  showScreen(id);
+  if(id==='screen-core-mem')renderMemList('core');
+  if(id==='screen-general-mem')renderMemList('general');
+  if(id==='screen-my-masks')renderMasksList();
+  if(id==='screen-api')renderApiPresets();
+  if(id==='screen-storage')updateStorageInfo();
+}
 function goBack(to){if(to){showScreen(to);screenStack=screenStack.slice(0,screenStack.lastIndexOf(to)+1);}else{screenStack.pop();showScreen(screenStack[screenStack.length-1]||'screen-home');}}
 function goHome(){screenStack=['screen-home'];showScreen('screen-home');}
 function switchTab(tab){
@@ -1731,7 +2295,6 @@ async function fetchModels() {
       const data = await res.json();
       models = (data.data || []).map(m => m.id).sort();
     } else if (provider === 'Anthropic (Claude)') {
-      // Anthropic doesn't have a models endpoint, use predefined list
       models = [
         'claude-opus-4-20250514',
         'claude-sonnet-4-20250514',
@@ -2063,6 +2626,7 @@ function initFanficSetup(){
   const cci=document.getElementById(state.fanficSelectedCharId?`ff-char-${state.fanficSelectedCharId}`:'ff-char-none');
   if(cci){cci.className='mask-check checked';cci.textContent='✓';}
   const mci=document.getElementById(state.fanficSelectedMaskId?`ff-mask-${state.fanficSelectedMaskId}`:'ff-mask-none');
+  ```javascript
   if(mci){mci.className='mask-check checked';mci.textContent='✓';}
 }
 function selectFanficChar(id){
@@ -2088,7 +2652,7 @@ async function generateFanfic(){
   const mask=state.fanficSelectedMaskId?state.masks.find(m=>m.id===state.fanficSelectedMaskId):null;
   const style=state.fanficSelectedStyle||'现代都市';
   const extra=document.getElementById('fanfic-extra')?.value?.trim()||'';
-  const charDesc=char?`角色（Char）：${char.name}\n人设：${char.persona||'未设定'}`:' 角色：未指定';
+  const charDesc=char?`角色（Char）：${char.name}\n人设：${char.persona||'未设定'}`:'角色：未指定';
   const userDesc=mask?`用户面具：${mask.name}\n人设：${mask.persona||'未设定'}`:'用户：普通读者代入视角';
   const coreMems=char?state.coreMemories.filter(m=>m.charId===char.id||m.charId==='global').map(m=>m.content).join('\n'):'';
   showAlert('同人文生成中…');
@@ -2136,10 +2700,45 @@ async function genFanficComments(idx){
   }catch(e){showAlert('生成失败');}
 }
 
-// Initialize
-renderContacts();
-applySettings();
-renderWallpaperPreview();
+// ==================== 初始化 ====================
+
+// 监听窗口大小变化，自动调整设备模式（如果未手动设置）
+window.addEventListener('resize', () => {
+  // 仅在未手动设置时自动适配
+  if (!state.interfaceSettings.deviceMode) {
+    applyDeviceMode(detectDeviceMode());
+  }
+});
+
+// 页面可见性变化时保存
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveState();
+  }
+});
+
+// 页面关闭前保存
+window.addEventListener('beforeunload', () => {
+  saveState();
+});
+
+// 初始化
+function init() {
+  renderContacts();
+  applySettings();
+  applyInterfaceSettings();
+  renderWallpaperPreview();
+  
+  // 如果是移动设备且开启了隐藏地址栏，尝试隐藏
+  if (state.interfaceSettings.hideAddressBar) {
+    setTimeout(() => window.scrollTo(0, 1), 100);
+  }
+  
+  console.log('AI 角色扮演手机 已加载');
+  console.log('数据自动保存:', state.storageSettings.autoSave ? '已启用' : '已关闭');
+}
+
+init();
 </script>
 </body>
 </html>
