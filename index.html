@@ -271,6 +271,33 @@ body.fullscreen-mode #phone {
 .msg-image{max-width:200px;border-radius:12px;overflow:hidden;margin-top:4px;}
 .msg-image img{width:100%;display:block;}
 .chat-input-bar{display:flex;align-items:flex-end;gap:8px;padding:10px 12px 14px;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-top:0.5px solid var(--m-border);flex-shrink:0;}
+  /* 键盘弹出时输入框自动适配 */
+@supports (height: 100dvh) {
+  body[data-device="mobile"] #phone {
+    height: 100dvh;
+  }
+}
+
+body[data-device="mobile"] .chat-input-bar,
+body[data-device="mobile"] #screen-offline .chat-input-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+body[data-device="mobile"] #screen-chat-window,
+body[data-device="mobile"] #screen-offline {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+body[data-device="mobile"] .chat-messages,
+body[data-device="mobile"] #offline-messages {
+  flex: 1;
+  overflow-y: auto;
+}
+
 .chat-plus-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;background:transparent;color:var(--m-text2);font-size:calc(var(--font-size)*1.47);}
 .chat-plus-btn i{font-size:20px;}
 .chat-input{flex:1;background:var(--m-bg);border:0.5px solid var(--m-border);border-radius:20px;padding:9px 14px;font-size:var(--font-size);color:var(--m-text);resize:none;outline:none;max-height:120px;min-height:38px;font-family:inherit;line-height:1.4;}
@@ -3719,7 +3746,34 @@ function reEnterFullscreen() {
   }
   window.scrollTo(0, 1);
 }
+function init() {
+  // 键盘弹出时自动调整视口
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', function() {
+      const viewport = window.visualViewport;
+      const chatInputBars = document.querySelectorAll('.chat-input-bar');
+      chatInputBars.forEach(bar => {
+        if (viewport.height < window.innerHeight * 0.8) {
+          // 键盘弹出了
+          bar.style.transform = `translateY(-${window.innerHeight - viewport.height - viewport.offsetTop}px)`;
+        } else {
+          // 键盘收起了
+          bar.style.transform = '';
+        }
+      });
+    });
+  }
 
+  // 输入框获得焦点时滚动到可见位置
+  document.addEventListener('focusin', function(e) {
+    if (e.target.matches('.chat-input, #offline-input')) {
+      setTimeout(() => {
+        e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
+    }
+  });
+
+  renderContacts();
 function autoRequestFullscreen() {
   const tryFullscreen = () => {
     requestFullscreenNow();
@@ -3734,8 +3788,7 @@ function autoRequestFullscreen() {
   });
 }
 
-function init() {
-  renderContacts();
+
   applySettings();
   applyInterfaceSettings();
   renderWallpaperPreview();
